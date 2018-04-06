@@ -11,13 +11,17 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -33,49 +37,38 @@ public class AdministrateurDAO {
 	}
 	
 	public static void email(String destinataire) {
-		// Sender's email ID needs to be mentioned
-	     String expediteur = "cheiksiramakankeita@gmail.com";
-	      
-		// Recipient's email ID needs to be mentioned.
-
-	    // Assuming you are sending email from localhost
-	    String host = "localhost";
-
-	     // Get system properties
-	     Properties properties = System.getProperties();
-
-	     // Setup mail server
-	     properties.setProperty("mail.smtp.host", host);
-
-	     // Get the default Session object.
-	     Session session = Session.getDefaultInstance(properties);
-	     
-	     DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		 Date date = new Date();
-		 System.out.println(format.format(date));
-
-	     try {
-	    	 // Create a default MimeMessage object.
-	    	 MimeMessage message = new MimeMessage(session);
-
-	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(expediteur));
-
-	         // Set To: header field of the header.
-	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinataire));
-
-	         // Set Subject: header field
-	         message.setSubject("Connexion à l'application PPE1: Gestion utilisateurs");
-
-	         // Now set the actual message
-	         message.setText("Vous vous êtes connecté à l'application. n\"" + format.format(date));
-
-	         // Send message
-	         Transport.send(message);
-	         System.out.println("Email envoyé avec succès....");
-	      } catch (MessagingException mex) {
-	         mex.printStackTrace();
-	      } 
+		try {
+			DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			 
+            Properties props = new Properties();
+            props.put("mail.transport.protocol", "smtp" );
+            props.put("mail.smtp.starttls.enable","true" );
+            props.put("mail.smtp.host","smtp.gmail.com");
+            props.put("mail.smtp.auth", "true" );
+            props.put("mail.smtp.port", "587" );
+            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+            Session session = Session.getDefaultInstance(props, null);
+            
+            
+            Transport transport = session.getTransport("smtp");
+            MimeMessage msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress("cheiksiramakankeita@gmail.com"));
+            msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinataire));
+            msg.setSubject("Connexion a l'application PPE1: Gestion utilisateurs");
+            
+            msg.setText("Vous vous etes connecte a l'application. \n" + format.format(date));
+            transport.connect("smtp.gmail.com", "cheiksiramakankeita@gmail.com","crownclown91");
+            transport.sendMessage(msg, msg.getAllRecipients());
+            transport.close();
+            System.out.println(" Message envoyÃ©");
+        } catch (NoSuchProviderException ex) {
+            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AddressException ex) {
+            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
 	} 
 		
 	public static boolean connexion(String email, String mot_de_passe) throws ClassNotFoundException, SQLException {
