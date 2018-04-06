@@ -171,7 +171,6 @@ public class JeuneDAO {
    		 	jeune.setJeune_id(id);
    		 	jeune.setJeune_nom(nom);
    		 	jeune.setJeune_prenom(prenom);
-	   		jeune.setJeune_identifiant(identifiant);
 	   		jeune.setJeune_email(email);
 	   		jeune.setJeune_telephone(telephone);
 	   		jeune.setJeune_adresse(adresse);
@@ -231,7 +230,6 @@ public class JeuneDAO {
     		 jeune.setJeune_id(id);
     		 jeune.setJeune_nom(nom);
     		 jeune.setJeune_prenom(prenom);
-    		 jeune.setJeune_identifiant(identifiant);
     		 jeune.setJeune_email(email);
     		 jeune.setJeune_telephone(telephone);
     		 jeune.setJeune_adresse(adresse);

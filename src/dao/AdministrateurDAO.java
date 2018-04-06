@@ -139,14 +139,13 @@ public class AdministrateurDAO {
 	
 	public static ObservableList<Administrateur> recherche() throws ClassNotFoundException, SQLException {
 		Connection connexion = Connect.getInstance().getConnection();
-		String requete = "SELECT administrateur_nom, administrateur_prenom FROM administrateur WHERE administrateur_identifiant = ? AND administrateur_mot_de_passe = ?";
+		String requete = "SELECT administrateur_nom, administrateur_prenom FROM administrateur";
 		
 		ObservableList<Administrateur> retour = FXCollections.observableArrayList();
 		
 		int 	id;
 		String 	nom;
 		String 	prenom;
-		String 	identifiant;
 		String 	email;
 		String	telephone;
 		String  derniere_connexion;
@@ -159,7 +158,6 @@ public class AdministrateurDAO {
 			id 		 			= resultat.getInt("administrateur_id");
 			nom 		 		= resultat.getString("administrateur_nom");
 			prenom 	 			= resultat.getString("administrateur_prenom");
-			identifiant 		= resultat.getString("administrateur_identifiant");
 			email		 		= resultat.getString("administrateur_email");
 			telephone 		 	= resultat.getString("administrateur_telephone");
 			derniere_connexion	= resultat.getString("administrateur_derniere_connexion");
@@ -170,7 +168,6 @@ public class AdministrateurDAO {
 			instance.setAdministrateur_id(id);
 			instance.setAdministrateur_nom(nom);
 			instance.setAdministrateur_prenom(prenom);
-			instance.setAdministrateur_identifiant(identifiant);
 			instance.setAdministrateur_email(email);
 			instance.setAdministrateur_telephone(telephone);
 			instance.setAdministrateur_derniere_connexion(derniere_connexion);
@@ -201,12 +198,6 @@ public class AdministrateurDAO {
 		
 		ObservableList<Administrateur> retour  = FXCollections.observableArrayList();
 		
-		filtre = filtre 
-				.replace("!", "!!")
-				.replace("%", "!%")
-				.replace("_", "!_")
-				.replace("[", "![");
-		
 		PreparedStatement prepared_statement = connexion.prepareStatement(requete);
 		prepared_statement.setString(1, "%" + filtre +  "%");
 		prepared_statement.setString(2, "%" + filtre +  "%");
@@ -220,7 +211,6 @@ public class AdministrateurDAO {
 		int 	id;
 		String 	nom;
 		String 	prenom;
-		String 	identifiant;
 		String 	email;
 		String	telephone;
 		String	derniere_connexion;
@@ -231,8 +221,7 @@ public class AdministrateurDAO {
 		while(resultat.next()) {
 			id 		 			 = resultat.getInt("administrateur_id");
 			nom 		 		 = resultat.getString("administrateur_nom");
-			prenom 	 			 = resultat.getString("administrateur_prenom"); 
-			identifiant 		 = resultat.getString("administrateur_identifiant");
+			prenom 	 			 = resultat.getString("administrateur_prenom");
 			telephone 		  	 = resultat.getString("administrateur_telephone");
 			email		 		 = resultat.getString("administrateur_email");
 			derniere_connexion	 = resultat.getString("administrateur_derniere_connexion");
@@ -243,7 +232,6 @@ public class AdministrateurDAO {
 			instance.setAdministrateur_id(id);
 			instance.setAdministrateur_nom(nom);
 			instance.setAdministrateur_prenom(prenom);
-			instance.setAdministrateur_identifiant(identifiant);
 			instance.setAdministrateur_email(email);
 			instance.setAdministrateur_telephone(telephone);
 			instance.setAdministrateur_derniere_connexion(derniere_connexion);

@@ -28,6 +28,7 @@ USE ppe;
 ###################################################
 CREATE TABLE IF NOT EXISTS administrateur(
   administrateur_id                 INT(11) NOT NULL AUTO_INCREMENT,
+  super_administrateur              TINYINT(1) NOT NULL,
   administrateur_nom                VARCHAR(50) NOT NULL,
   administrateur_prenom             VARCHAR(50) NOT NULL,
   administrateur_mot_de_passe_hash  CHAR(64) NOT NULL,
@@ -111,6 +112,7 @@ CREATE TABLE IF NOT EXISTS offre(
   UNIQUE (offre_id)
 );
 
+
 ###################################################
 -- Insertion de tuples dans les tables --
 ###################################################
@@ -118,16 +120,18 @@ CREATE TABLE IF NOT EXISTS offre(
 ###################################################
 -- Insertion des administrateurs --
 ###################################################
-INSERT INTO administrateur(administrateur_nom, administrateur_prenom, administrateur_mot_de_passe_hash, 
-  administrateur_email, administrateur_telephone, administrateur_adresse, administrateur_ville, 
-  administrateur_code_postal, administrateur_derniere_connexion, administrateur_date_ajout)
-  VALUES('Guerfi', 'Souhila', 'password', 'sguerfi12@yahoo.fr', '0605557801', '1 Rue Deleau','Paris', '75116', NOW(), NOW());
+INSERT INTO administrateur(super_administrateur, administrateur_nom, administrateur_prenom,
+  administrateur_mot_de_passe_hash, administrateur_email, administrateur_telephone, 
+  administrateur_adresse, administrateur_ville, administrateur_code_postal, 
+  administrateur_derniere_connexion, administrateur_date_ajout)
+  VALUES(0, 'Guerfi', 'Souhila', 'password', 'chesirkei@hotmail.fr', '0605557801', '1 Rue Deleau','Paris', '75116', NOW(), NOW());
 
-INSERT INTO administrateur(administrateur_nom, administrateur_prenom, administrateur_mot_de_passe_hash, 
-  administrateur_email, administrateur_telephone, administrateur_adresse,  administrateur_ville, 
-    administrateur_code_postal, administrateur_derniere_connexion, administrateur_date_ajout)
-  VALUES('Keita', 'Cheik', 'password', 'chesirkei@hotmail.fr', '0605557802', '57 Boulevard de l Yerres','Evry', '91000', NOW(), NOW());
-
+  INSERT INTO administrateur(super_administrateur, administrateur_nom, administrateur_prenom,
+  administrateur_mot_de_passe_hash, administrateur_email, administrateur_telephone, 
+  administrateur_adresse, administrateur_ville, administrateur_code_postal, 
+  administrateur_derniere_connexion, administrateur_date_ajout)
+  VALUES(0, 'Keita', 'Cheik', 'password', 'chesirkei@hotmail.fr', '0605557802', '57 Boulevard de l Yerres','Evry', '91000', NOW(), NOW());
+/*
 ###################################################
 -- Insertion de partenaires -- 
 ###################################################
@@ -149,14 +153,14 @@ jeune_code_postal, jeune_derniere_connexion, jeune_date_ajout)
 INSERT INTO jeune(jeune_nom, jeune_prenom, jeune_mot_de_passe_hash, jeune_email, jeune_telephone, jeune_adresse, jeune_ville,
 jeune_code_postal, jeune_derniere_connexion, jeune_date_ajout)
   VALUES('Badri', 'Brahim', 'password', 'badbra@gmail.com', '0605557806', '9 Avenue Romain Rolland','Nice', '06100', NOW(), NOW());
-
+*/
 ###################################################
 -- Insetion de formations --
 ###################################################
 INSERT INTO formation(formation_nom) VALUES('Réseau');
 INSERT INTO formation(formation_nom) VALUES('Développement');
 INSERT INTO formation(formation_nom) VALUES('Dépannage informatique');
-
+/*
 ###################################################
 -- Insetion d'offres --
 ###################################################
@@ -173,3 +177,4 @@ INSERT INTO offre(partenaire_id, formation_id, offre_nom, offre_description, off
   VALUES(2, 3, 'Immo offre immobilière', 'Je cherche a vendre ma maison!', '19 Rue des Juifs', 'Strasbourg', '67000', '2018-04-13', '2018-05-13', NOW());
 ############################################################################################################################################################
                                                                   -- Fin du script --
+*/

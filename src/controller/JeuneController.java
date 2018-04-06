@@ -137,13 +137,11 @@ public class JeuneController {
 	        int id 				= jeune.getJeune_id();
 	        String nom 			= jeune.getJeune_nom();
 	        String prenom 		= jeune.getJeune_prenom();
-	        String identifiant 	= jeune.getJeune_identifiant();
 	        String email 		= jeune.getJeune_email();
 	        String telephone 	= jeune.getJeune_telephone();
 	        String adresse	 	= jeune.getJeune_adresse();
 	        String ville		= jeune.getJeune_ville();
 	        String code_postal 	= jeune.getJeune_code_postal();
-	        System.out.println(id + nom +  prenom + identifiant + email + telephone + adresse + ville + code_postal);
 	        
 	        try {
 				mainPane.getChildren().clear();
@@ -155,7 +153,7 @@ public class JeuneController {
 				System.out.println();
 				
 				JeuneModificationController jeune_modification_controller = loader.<JeuneModificationController>getController();
-				jeune_modification_controller.jeune(id, nom, prenom, identifiant, email, telephone, adresse, ville, code_postal);
+				jeune_modification_controller.jeune(id, nom, prenom, email, telephone, adresse, ville, code_postal);
 				jeune_modification_controller.nom(this.nom);
 			}catch(IOException e) {
 				e.printStackTrace();
@@ -180,7 +178,6 @@ public class JeuneController {
         table.setItems(empData);
         nom_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_nom_Prop());
         prenom_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_prenom_Prop());
-        identifiant_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_identifiant_Prop());
         email_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_email_Prop());
         telephone_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_telephone_Prop());
         derniere_connexion_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_derniere_connexion_Prop());

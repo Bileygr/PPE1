@@ -48,12 +48,11 @@ public class JeuneModificationController {
 		System.out.println("Jeune Modification: " + this.nom);
 	}
 	
-	public void jeune(int id, String nom, String prenom, String identifiant, String email,
+	public void jeune(int id, String nom, String prenom, String email,
 			String telephone, String adresse, String ville, String code_postal) {
 		id_label.setText(Integer.toString(id));
 		nom_champ_de_texte.setText(nom);
 		prenom_champ_de_texte.setText(prenom);
-		identifiant_champ_de_texte.setText(identifiant);
 		email_champ_de_texte.setText(email);
 		telephone_champ_de_texte.setText(telephone);
 		adresse_champ_de_texte.setText(adresse);
