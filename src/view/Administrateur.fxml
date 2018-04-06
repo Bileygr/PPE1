@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdministrateurController">
+   <children>
+      <Button fx:id ="AdministrateurBtn" layoutX="7.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Administrateur" />
+      <Button fx:id="PartenaireBtn" layoutX="110.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" onAction="#partenaire" text="Partenaire" />
+      <Button fx:id="JeuneBtn" layoutX="212.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" onAction="#jeune" text="Jeune" />
+      <Button fx:id="Offrebtn" layoutX="314.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" onAction="#offre" text="Offre" />
+      <Button fx:id="DeconnexionBtn" layoutX="506.0" layoutY="14.0" mnemonicParsing="false" onAction="#deconnexion" text="Déconnexion" />
+      <Button fx:id="StatistiqueBtn" layoutX="415.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" onAction="#stats" text="Statistique" />
+      <Separator layoutX="500.0" layoutY="-7.0" orientation="VERTICAL" prefHeight="53.0" prefWidth="0.0" />
+      <Separator layoutX="-1.0" layoutY="47.0" prefHeight="2.0" prefWidth="600.0" />
+      <TableView fx:id="AdminTable" layoutX="10.0" layoutY="100.0" prefHeight="290.0" prefWidth="581.0">
+        <columns>
+          	<TableColumn fx:id="AdminIdColumn" prefWidth="75.0" text="ID" />
+          	<TableColumn fx:id="AdminIdentifiantColumn" prefWidth="89.0" text="Identifiant" />
+            <TableColumn fx:id="AdminNomColumn" prefWidth="76.0" text="Nom" />
+            <TableColumn fx:id="AdminPrenomColumn" prefWidth="85.0" text="Prénom" />
+            <TableColumn fx:id="AdminTelColumn" prefWidth="85.0" text="N°Tel" />
+            <TableColumn fx:id="AdminEmailColumn" prefWidth="68.0" text="Email" />
+            <TableColumn fx:id="AdminCreationColumn" prefWidth="107.0" text="Création" />
+        </columns>
+      </TableView>
+      <Label layoutX="14.0" layoutY="64.0" text="Rechercher" />
+      <TextField fx:id="AdminRechercheField" layoutX="83.0" layoutY="60.0" promptText="Filtre..." />
+      <Button fx:id="AdminRechercheBtn" layoutX="240.0" layoutY="60.0" mnemonicParsing="false" onAction="#administrateurRechercheSpecifique" text="Rechercher" />
+      <Button fx:id="AdminToutRechcherBtn" layoutX="327.0" layoutY="60.0" mnemonicParsing="false" onAction="#administrateurRecherche" text="Tour rechercher" />
+   </children>
+</AnchorPane>
