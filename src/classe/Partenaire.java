@@ -10,7 +10,7 @@ public class Partenaire
 	private IntegerProperty partenaire_id;
 	private IntegerProperty partenaire_siret;
 	private StringProperty	partenaire_nom;
-	private StringProperty	partenaire_mot_de_passe;
+	private StringProperty	partenaire_mot_de_passe_hash;
 	private StringProperty	partenaire_email;
 	private StringProperty	partenaire_telephone;
 	private StringProperty	partenaire_adresse;
@@ -24,7 +24,7 @@ public class Partenaire
 		this.partenaire_id 						= new SimpleIntegerProperty();
 		this.partenaire_siret 					= new SimpleIntegerProperty();
 		this.partenaire_nom 					= new SimpleStringProperty();
-		this.partenaire_mot_de_passe 			= new SimpleStringProperty();
+		this.partenaire_mot_de_passe_hash 			= new SimpleStringProperty();
 		this.partenaire_email 					= new SimpleStringProperty();
 		this.partenaire_telephone 				= new SimpleStringProperty();
 		this.partenaire_adresse 				= new SimpleStringProperty();
@@ -37,7 +37,7 @@ public class Partenaire
 	public void setPartenaire_id(IntegerProperty partenaire_id){this.partenaire_id = partenaire_id;}
 	public void setPartenaire_siret(IntegerProperty partenaire_siret){this.partenaire_siret = partenaire_siret;}
 	public void setPartenaire_nom(StringProperty partenaire_nom){this.partenaire_nom = partenaire_nom;}
-	public void setPartenaire_mot_de_passe(StringProperty partenaire_mot_de_passe){this.partenaire_mot_de_passe = partenaire_mot_de_passe;}
+	public void setPartenaire_mot_de_passe_hash(StringProperty partenaire_mot_de_passe_hash){this.partenaire_mot_de_passe_hash = partenaire_mot_de_passe_hash;}
 	public void setPartenaire_email(StringProperty partenaire_email){this.partenaire_email = partenaire_email;}
 	public void setPartenaire_telephone(StringProperty partenaire_telephone){this.partenaire_telephone = partenaire_telephone;}
 	public void setPartenaire_adresse(StringProperty partenaire_adresse){this.partenaire_adresse = partenaire_adresse;}
@@ -49,7 +49,7 @@ public class Partenaire
 	public IntegerProperty getPartenaire_ide_Prop(){return partenaire_id;}
 	public IntegerProperty getPartenaire_siret_Prop(){return partenaire_siret;}
 	public StringProperty getPartenaire_nom_Prop(){return partenaire_nom;}
-	public StringProperty getPartenaire_mot_de_passe_Prop(){return partenaire_mot_de_passe;}
+	public StringProperty getPartenaire_mot_de_passe_hash_Prop(){return partenaire_mot_de_passe_hash;}
 	public StringProperty getPartenaire_email_Prop(){return partenaire_email;}
 	public StringProperty getPartenaire_telephone_Prop(){return partenaire_telephone;}	
 	public StringProperty getPartenaire_adresse_Prop(){return partenaire_adresse;}
@@ -65,8 +65,8 @@ public class Partenaire
 		public void setPartenaire_siret(int partenaire_siret){this.partenaire_siret.set(partenaire_siret);}
 	public String getPartenaire_nom(){return partenaire_nom.get();}
 		public void setPartenaire_nom(String partenaire_nom){this.partenaire_nom.set(partenaire_nom);}
-	public String getPartenaire_mot_de_passe(){return partenaire_mot_de_passe.get();}
-		public void setPartenaire_mot_de_passe(String partenaire_mot_de_passe){this.partenaire_mot_de_passe.set(partenaire_mot_de_passe);}
+	public String getPartenaire_mot_de_passe_hash(){return partenaire_mot_de_passe_hash.get();}
+		public void setPartenaire_mot_de_passe_hash(String partenaire_mot_de_passe_hash){this.partenaire_mot_de_passe_hash.set(partenaire_mot_de_passe_hash);}
 	public String getPartenaire_email(){return partenaire_email.get();}
 		public void setPartenaire_email(String partenaire_email){this.partenaire_email.set(partenaire_email);}
 	public String getPartenaire_telephone(){return partenaire_telephone.get();}
@@ -85,7 +85,7 @@ public class Partenaire
 	@Override
 	public String toString() {
 		return "Partenaire [partenaire_id=" + partenaire_id + ", partenaire_siret=" + partenaire_siret
-				+ ", partenaire_nom=" + partenaire_nom + ", partenaire_mot_de_passe=" + partenaire_mot_de_passe
+				+ ", partenaire_nom=" + partenaire_nom + ", partenaire_mot_de_passe_hash=" + partenaire_mot_de_passe_hash
 				+ ", partenaire_email=" + partenaire_email + ", partenaire_telephone=" + partenaire_telephone
 				+ ", partenaire_adresse=" + partenaire_adresse + ", partenaire_ville=" + partenaire_ville
 				+ ", partenaire_code_postal=" + partenaire_code_postal + ", partenaire_derniere_connexion="

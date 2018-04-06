@@ -10,8 +10,7 @@ public class Jeune
 	private IntegerProperty jeune_id;
 	private StringProperty 	jeune_nom;
 	private StringProperty 	jeune_prenom;
-	private StringProperty 	jeune_identifiant;
-	private StringProperty 	jeune_mot_de_passe;
+	private StringProperty 	jeune_mot_de_passe_hash;
 	private StringProperty 	jeune_email;
 	private StringProperty 	jeune_telephone;
 	private StringProperty	jeune_adresse;
@@ -25,8 +24,7 @@ public class Jeune
 		this.jeune_id 					= new SimpleIntegerProperty();
 		this.jeune_nom 					= new SimpleStringProperty();
 		this.jeune_prenom 				= new SimpleStringProperty();
-		this.jeune_identifiant			= new SimpleStringProperty();
-		this.jeune_mot_de_passe 		= new SimpleStringProperty();
+		this.jeune_mot_de_passe_hash 	= new SimpleStringProperty();
 		this.jeune_email 				= new SimpleStringProperty();
 		this.jeune_telephone 			= new SimpleStringProperty();
 		this.jeune_adresse  			= new SimpleStringProperty();
@@ -39,8 +37,7 @@ public class Jeune
 	public void setJeune_id(IntegerProperty jeune_id){this.jeune_id = jeune_id;}
 	public void setJeune_nom(StringProperty jeune_nom){this.jeune_nom = jeune_nom;}
 	public void setJeune_prenom(StringProperty jeune_prenom){this.jeune_prenom = jeune_prenom;}
-	public void setJeune_identifiant(StringProperty jeune_identifiant) {this.jeune_identifiant = jeune_identifiant;}
-	public void setJeune_mot_de_passe (StringProperty jeune_mot_de_passe){this.jeune_mot_de_passe = jeune_mot_de_passe;}
+	public void setJeune_mot_de_passe_hash (StringProperty jeune_mot_de_passe_hash){this.jeune_mot_de_passe_hash = jeune_mot_de_passe_hash;}
 	public void setJeune_email(StringProperty jeune_email){this.jeune_email = jeune_email;}
 	public void setJeune_telephone(StringProperty jeune_telephone){this.jeune_telephone = jeune_telephone;}
 	public void setJeune_adresse(StringProperty jeune_adresse){this.jeune_adresse = jeune_adresse;}
@@ -52,8 +49,7 @@ public class Jeune
 	public IntegerProperty getJeune_id_Prop(){return jeune_id;}
 	public StringProperty getJeune_nom_Prop(){return jeune_nom;}
 	public StringProperty getJeune_prenom_Prop(){return jeune_prenom;}
-	public StringProperty getJeune_identifiant_Prop(){return jeune_identifiant;}
-	public StringProperty getJeune_mot_de_passe_Prop(){return jeune_mot_de_passe;}
+	public StringProperty getJeune_mot_de_passe_hash_Prop(){return jeune_mot_de_passe_hash;}
 	public StringProperty getJeune_email_Prop(){return jeune_email;}
 	public StringProperty getJeune_telephone_Prop(){return jeune_telephone;}
 	public StringProperty getJeune_adresse_Prop(){return jeune_adresse;}
@@ -68,10 +64,8 @@ public class Jeune
 		public void setJeune_nom(String jeune_nom){this.jeune_nom.set(jeune_nom);}
 	public String getJeune_prenom(){return jeune_prenom.get();}
 		public void setJeune_prenom(String jeune_prenom){this.jeune_prenom.set(jeune_prenom);}
-	public String getJeune_identifiant(){return jeune_identifiant.get();}
-		public void setJeune_identifiant(String jeune_identifiant){this.jeune_identifiant.set(jeune_identifiant);}
-	public String getJeune_mot_de_passe(){return jeune_mot_de_passe.get();}
-		public void setJeune_mot_de_passe(String jeune_mot_de_passe){this.jeune_mot_de_passe.set(jeune_mot_de_passe);}
+	public String getJeune_mot_de_passe_hash(){return jeune_mot_de_passe_hash.get();}
+		public void setJeune_mot_de_passe_hash(String jeune_mot_de_passe_hash){this.jeune_mot_de_passe_hash.set(jeune_mot_de_passe_hash);}
 	public String getJeune_email(){return jeune_email.get();}
 		public void setJeune_email(String jeune_email){this.jeune_email.set(jeune_email);}
 	public String getJeune_telephone(){return jeune_telephone.get();}
@@ -90,10 +84,9 @@ public class Jeune
 	@Override
 	public String toString() {
 		return "Jeune [jeune_id=" + jeune_id + ", jeune_nom=" + jeune_nom + ", jeune_prenom=" + jeune_prenom
-				+ ", jeune_identifiant=" + jeune_identifiant + ", jeune_mot_de_passe=" + jeune_mot_de_passe
-				+ ", jeune_email=" + jeune_email + ", jeune_adresse=" + jeune_adresse + ", jeune_ville="
-				+ jeune_ville + ", jeune_code_postal=" + jeune_code_postal + ", jeune_telephone=" + jeune_telephone
-				+ ", jeune_derniere_connexion=" + jeune_derniere_connexion + ", jeune_date_ajout="
-				+ jeune_date_ajout + "]";
+				+ ", jeune_mot_de_passe_hash=" + jeune_mot_de_passe_hash + ", jeune_email=" + jeune_email 
+				+ ", jeune_adresse=" + jeune_adresse + ", jeune_ville=" + jeune_ville + ", jeune_code_postal=" 
+				+ jeune_code_postal + ", jeune_telephone=" + jeune_telephone + ", jeune_derniere_connexion=" 
+				+ jeune_derniere_connexion + ", jeune_date_ajout=" + jeune_date_ajout + "]";
 	}
 }
