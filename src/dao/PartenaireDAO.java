@@ -10,9 +10,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class PartenaireDAO {
-	public static boolean inscrire(int siret, String nom, String mot_de_passe, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException {
+	public static boolean inscrire(int siret, String nom, String hash, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException {
 		Connection connexion = Connect.getInstance().getConnection();
-		String requete = "INSERT INTO partenaire(partenaire_siret, partenaire_nom, partenaire_mot_de_passe, partenaire_email, "
+		String requete = "INSERT INTO partenaire(partenaire_siret, partenaire_nom, partenaire_mot_de_passe_hash, partenaire_email, "
 							+ "partenaire_telephone, partenaire_adresse, partenaire_ville, partenaire_code_postal, "
 							+ "partenaire_derniere_connexion, partenaire_date_ajout) VALUES(?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
 		
@@ -22,7 +22,7 @@ public class PartenaireDAO {
 		prepared_statement = connexion.prepareStatement(requete);
 		prepared_statement.setInt(1, siret);
 		prepared_statement.setString(2, nom);
-		prepared_statement.setString(3, mot_de_passe);
+		prepared_statement.setString(3, hash);
 		prepared_statement.setString(4, email);
 		prepared_statement.setString(5, telephone);
 		prepared_statement.setString(6, adresse);

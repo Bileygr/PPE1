@@ -42,7 +42,7 @@ public class ConnexionController {
 					String nom = AdministrateurDAO.nom(email_champ_de_texte.getText(), hash);
 					
 					System.out.println("Mot de passe clair : " + mot_de_passe_champ_de_texte.getText());
-					System.out.println("Mot de passe hashé :" + hash + " Nombre de caractere: " + hash.length());
+					System.out.println("Mot de passe hashé : " + hash + "\nNombre de caractère: " + hash.length());
 			
 					if(BCrypt.checkpw(mot_de_passe, hash)) {
 						AdministrateurDAO.email(email_champ_de_texte.getText());

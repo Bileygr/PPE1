@@ -4,6 +4,8 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import encryption.BCrypt;
+
 import application.Main;
 import dao.JeuneDAO;
 import javafx.event.ActionEvent;
@@ -84,13 +86,20 @@ public class JeuneInscriptionController {
 	
 	@FXML
 	private void inscrire(ActionEvent actionEvent) throws SQLException {
-		if(!nom_champ_de_texte.getText().isEmpty() && !prenom_champ_de_texte.getText().isEmpty() && !identifiant_champ_de_texte.getText().isEmpty() 
-				&& !mot_de_passe_champ_de_texte.getText().isEmpty() && !email_champ_de_texte.getText().isEmpty() && !telephone_champ_de_texte.getText().isEmpty() 
-				&& !adresse_champ_de_texte.getText().isEmpty() && !ville_champ_de_texte.getText().isEmpty() && !code_postal_champ_de_texte.getText().isEmpty()) {
+		if(!nom_champ_de_texte.getText().isEmpty() && !prenom_champ_de_texte.getText().isEmpty() && !mot_de_passe_champ_de_texte.getText().isEmpty() 
+				&& !email_champ_de_texte.getText().isEmpty() && !telephone_champ_de_texte.getText().isEmpty() && !adresse_champ_de_texte.getText().isEmpty() 
+				&& !ville_champ_de_texte.getText().isEmpty() && !code_postal_champ_de_texte.getText().isEmpty()) {
+			
+			String mot_de_passe = mot_de_passe_champ_de_texte.getText();
+			String hash = BCrypt.hashpw(mot_de_passe_champ_de_texte.getText(), BCrypt.gensalt());
+			
+			System.out.println("Nom: Benoit Prénom: Florian");
+			System.out.println("Mot de passe clair : " + mot_de_passe);
+			System.out.println("Mot de passe hashe :" + hash + " Nombre de caractères: " + hash.length());
 			
 			boolean empdata = JeuneDAO.inscrire(nom_champ_de_texte.getText(), prenom_champ_de_texte.getText(), 
-				identifiant_champ_de_texte.getText(), mot_de_passe_champ_de_texte.getText(), email_champ_de_texte.getText(), 
-				telephone_champ_de_texte.getText(), adresse_champ_de_texte.getText(), ville_champ_de_texte.getText(), code_postal_champ_de_texte.getText());
+				hash, email_champ_de_texte.getText(), telephone_champ_de_texte.getText(), 
+				adresse_champ_de_texte.getText(), ville_champ_de_texte.getText(), code_postal_champ_de_texte.getText());
 		
 			if(empdata == true) {
 				try {

@@ -55,13 +55,13 @@ public class AdministrateurDAO {
             MimeMessage msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress("cheiksiramakankeita@gmail.com"));
             msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinataire));
-            msg.setSubject("Connexion a l'application PPE1: Gestion utilisateurs");
+            msg.setSubject("Connexion à l'application PPE1: Gestion utilisateurs");
             
-            msg.setText("Vous vous etes connecte a l'application. \n" + format.format(date));
+            msg.setText("Vous vous êtes connecté à l'application. \n" + format.format(date));
             transport.connect("smtp.gmail.com", "cheiksiramakankeita@gmail.com","crownclown91");
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
-            System.out.println(" Message envoyÃ©");
+            System.out.println("Email envoyé.");
         } catch (NoSuchProviderException ex) {
             Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (AddressException ex) {

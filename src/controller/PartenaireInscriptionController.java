@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import application.Main;
 import dao.PartenaireDAO;
+import encryption.BCrypt;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -85,7 +86,14 @@ public class PartenaireInscriptionController {
 				&& !email_champ_de_texte.getText().isEmpty() && !telephone_champ_de_texte.getText().isEmpty() && !adresse_champ_de_texte.getText().isEmpty() 
 				&& !ville_champ_de_texte.getText().isEmpty() && !code_postal_champ_de_texte.getText().isEmpty()) {
 			
-			boolean empdata = PartenaireDAO.inscrire(Integer.parseInt(siret_champ_de_texte.getText()), nom_champ_de_texte.getText(), mot_de_passe_champ_de_texte.getText(), 
+			String mot_de_passe = mot_de_passe_champ_de_texte.getText();
+			String hash = BCrypt.hashpw(mot_de_passe_champ_de_texte.getText(), BCrypt.gensalt());
+			
+			System.out.println("Nom: Benoit Prénom: Florian");
+			System.out.println("Mot de passe clair : " + mot_de_passe);
+			System.out.println("Mot de passe hashe :" + hash + " Nombre de caractères: " + hash.length());
+			
+			boolean empdata = PartenaireDAO.inscrire(Integer.parseInt(siret_champ_de_texte.getText()), nom_champ_de_texte.getText(), hash, 
 					email_champ_de_texte.getText(), telephone_champ_de_texte.getText(), adresse_champ_de_texte.getText(), ville_champ_de_texte.getText(), code_postal_champ_de_texte.getText());
 		
 			if(empdata == true) {

@@ -9,10 +9,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class JeuneDAO {
-	public static boolean inscrire(String nom, String prenom, String identifiant, String mot_de_passe, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException {
+	public static boolean inscrire(String nom, String prenom, String hash, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException {
 		Connection connexion = Connect.getInstance().getConnection();
-		String requete = "INSERT INTO jeune(jeune_nom, jeune_prenom, jeune_identifiant, jeune_mot_de_passe, jeune_email, jeune_telephone, jeune_adresse, jeune_ville, jeune_code_postal, "
-							+ "jeune_derniere_connexion, jeune_date_ajout) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+		String requete = "INSERT INTO jeune(jeune_nom, jeune_prenom, jeune_mot_de_passe_hash, jeune_email, jeune_telephone, jeune_adresse, jeune_ville, jeune_code_postal, "
+							+ "jeune_derniere_connexion, jeune_date_ajout) VALUES(?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
 		
 		boolean retour = false;
 		
@@ -20,13 +20,12 @@ public class JeuneDAO {
 		prepared_statement = connexion.prepareStatement(requete);
 		prepared_statement.setString(1, nom);
 		prepared_statement.setString(2, prenom);
-		prepared_statement.setString(3, identifiant);
-		prepared_statement.setString(4, mot_de_passe);
-		prepared_statement.setString(5, email);
-		prepared_statement.setString(6, telephone);
-		prepared_statement.setString(7, adresse);
-		prepared_statement.setString(8, ville);
-		prepared_statement.setString(9, code_postal);
+		prepared_statement.setString(3, hash);
+		prepared_statement.setString(4, email);
+		prepared_statement.setString(5, telephone);
+		prepared_statement.setString(6, adresse);
+		prepared_statement.setString(7, ville);
+		prepared_statement.setString(8, code_postal);
 		
 		int nblignes = 0;
         
@@ -47,9 +46,9 @@ public class JeuneDAO {
 		return retour;
 	}
 	
-	public static boolean modifier(int id, String nom, String prenom, String identifiant, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException, ClassNotFoundException {
+	public static boolean modifier(int id, String nom, String prenom, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException, ClassNotFoundException {
         Connection connexion =  Connect.getInstance().getConnection();
-        String requete = "UPDATE jeune SET jeune_nom = ?, jeune_prenom = ?, jeune_identifiant = ?, jeune_email = ?, jeune_telephone = ?, jeune_adresse = ?, jeune_ville = ?, jeune_code_postal = ? WHERE jeune_id = ?";
+        String requete = "UPDATE jeune SET jeune_nom = ?, jeune_prenom = ?, jeune_email = ?, jeune_telephone = ?, jeune_adresse = ?, jeune_ville = ?, jeune_code_postal = ? WHERE jeune_id = ?";
         
         boolean retour = false;
         
@@ -57,13 +56,12 @@ public class JeuneDAO {
         prepared_statement = connexion.prepareStatement(requete);
         prepared_statement.setString(1, nom);
         prepared_statement.setString(2, prenom);
-        prepared_statement.setString(3, identifiant);
-        prepared_statement.setString(4, email);
-        prepared_statement.setString(5, telephone);
-        prepared_statement.setString(6, adresse);
-        prepared_statement.setString(7, ville);
-        prepared_statement.setString(8, code_postal);
-        prepared_statement.setInt(9, id);
+        prepared_statement.setString(3, email);
+        prepared_statement.setString(4, telephone);
+        prepared_statement.setString(5, adresse);
+        prepared_statement.setString(6, ville);
+        prepared_statement.setString(7, code_postal);
+        prepared_statement.setInt(8, id);
         
         int nblignes = 0;
         
@@ -116,19 +114,12 @@ public class JeuneDAO {
  
      public static ObservableList<Jeune> recherche_filtre(String filtre) throws ClassNotFoundException, SQLException {     
     	Connection connexion = Connect.getInstance().getConnection();
-    	String requete = "SELECT jeune_id, jeune_nom, jeune_prenom, jeune_identifiant, jeune_email, jeune_telephone, jeune_adresse,"
+    	String requete = "SELECT jeune_id, jeune_nom, jeune_prenom, jeune_email, jeune_telephone, jeune_adresse,"
     			+ "jeune_ville, jeune_code_postal, jeune_derniere_connexion, jeune_date_ajout FROM jeune "
-	 					+ "WHERE jeune_nom LIKE ? ESCAPE '!' "
-	 					+ "OR jeune_prenom LIKE ? ESCAPE '!' "
-	 					+ "OR jeune_identifiant LIKE ? ESCAPE '!' "
-	 					+ "OR jeune_email LIKE ? ESCAPE '!'"
-	 					+ "OR jeune_telephone LIKE ? ESCAPE '!'";
-    	
-    	filtre = filtre
-	 			.replace("!", "!!")
-	 			.replace("%", "!%")
-	 			.replace("_", "!_")
-	 			.replace("[", "![");
+	 					+ "WHERE jeune_nom LIKE ?"
+	 					+ "OR jeune_prenom LIKE ?"
+	 					+ "OR jeune_email LIKE ?"
+	 					+ "OR jeune_telephone LIKE ?";
     	
     	ObservableList<Jeune> retour = FXCollections.observableArrayList();
     	
@@ -137,12 +128,10 @@ public class JeuneDAO {
 	 	prepared_statement.setString(2, "%" + filtre +  "%");
 	 	prepared_statement.setString(3, "%" + filtre +  "%");
 	 	prepared_statement.setString(4, "%" + filtre +  "%");
-	 	prepared_statement.setString(5, "%" + filtre +  "%");
 	 	
 	 	int 	id;
 	 	String 	nom;
 	 	String 	prenom;
-	 	String 	identifiant;
 	 	String 	email;
 	 	String 	telephone;
 	 	String	adresse;
@@ -157,7 +146,6 @@ public class JeuneDAO {
 	    	id					= resultat.getInt("jeune_id");
    		 	nom 		 		= resultat.getString("jeune_nom");
    		 	prenom 	 			= resultat.getString("jeune_prenom");
-   		 	identifiant 		= resultat.getString("jeune_identifiant");
    		 	email 		 		= resultat.getString("jeune_email");
    		 	telephone 		 	= resultat.getString("jeune_telephone");
    		 	adresse				= resultat.getString("jeune_adresse");
@@ -191,7 +179,7 @@ public class JeuneDAO {
  
      public static ObservableList<Jeune> recherche() throws ClassNotFoundException, SQLException {
     	 Connection connexion = Connect.getInstance().getConnection();
-    	 String requete = "SELECT jeune_id, jeune_nom, jeune_prenom, jeune_identifiant, jeune_email, jeune_telephone, jeune_adresse,"
+    	 String requete = "SELECT jeune_id, jeune_nom, jeune_prenom, jeune_email, jeune_telephone, jeune_adresse,"
     	 		+ "jeune_ville, jeune_code_postal, jeune_derniere_connexion, jeune_date_ajout FROM jeune";
     	 
     	 ObservableList<Jeune> retour = FXCollections.observableArrayList();
@@ -199,7 +187,6 @@ public class JeuneDAO {
     	 int 	id;
     	 String nom;
     	 String prenom;
-    	 String identifiant;
     	 String email;
     	 String telephone;
     	 String	adresse;
@@ -216,7 +203,6 @@ public class JeuneDAO {
     		 id					= resultat.getInt("jeune_id");
     		 nom 					= resultat.getString("jeune_nom");
     		 prenom 				= resultat.getString("jeune_prenom");
-    		 identifiant 			= resultat.getString("jeune_identifiant");
     		 email 					= resultat.getString("jeune_email");
     		 telephone 				= resultat.getString("jeune_telephone");
     		 adresse				= resultat.getString("jeune_adresse");

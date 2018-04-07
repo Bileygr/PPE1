@@ -25,13 +25,12 @@
       <Separator layoutX="14.0" layoutY="50.0" prefHeight="2.0" prefWidth="853.0" />
       <TableView fx:id="table" layoutX="15.0" layoutY="110.0" prefHeight="428.0" prefWidth="853.0">
         <columns>
-          <TableColumn fx:id="nom_colonne" prefWidth="95.0" text="Nom" />
-          <TableColumn fx:id="prenom_colonne" prefWidth="111.0" text="Prénom" />
-          <TableColumn fx:id="identifiant_colonne" prefWidth="112.0" text="Identifiant" />
-          <TableColumn fx:id="email_colonne" prefWidth="102.0" text="Email" />
-          <TableColumn fx:id="telephone_colonne" prefWidth="128.0" text="Téléphone" />
+          <TableColumn fx:id="nom_colonne" prefWidth="140.0" text="Nom" />
+          <TableColumn fx:id="prenom_colonne" prefWidth="140.0" text="Prénom" />
+          <TableColumn fx:id="email_colonne" prefWidth="140.0" text="Email" />
+          <TableColumn fx:id="telephone_colonne" prefWidth="140.0" text="Téléphone" />
           <TableColumn fx:id="derniere_connexion_colonne" prefWidth="150.0" text="Dernière connexion" />
-          <TableColumn fx:id="creation_colonne" prefWidth="154.0" text="Création" />
+          <TableColumn fx:id="creation_colonne" prefWidth="141.0" text="Création" />
         </columns>
          <effect>
             <Blend />

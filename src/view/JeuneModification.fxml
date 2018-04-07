@@ -22,15 +22,14 @@
       <Separator layoutX="14.0" layoutY="50.0" prefHeight="2.0" prefWidth="853.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="373.0" layoutY="14.0" prefHeight="26.0" prefWidth="136.0" text="JEUNE MODIFICATION" textFill="WHITE" />
       <Button fx:id="modifier_bouton" layoutX="381.0" layoutY="464.0" mnemonicParsing="false" onAction="#modifier" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Modification" />
-      <TextField fx:id="nom_champ_de_texte" alignment="CENTER" layoutX="366.0" layoutY="153.0" promptText="Nom" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
-      <TextField fx:id="prenom_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="187.0" promptText="Prénom" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
-      <TextField fx:id="identifiant_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="221.0" promptText="Identifiant" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
+      <TextField fx:id="nom_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="187.0" promptText="Nom" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
+      <TextField fx:id="prenom_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="220.0" promptText="Prénom" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
       <TextField fx:id="email_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="255.0" promptText="Email" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
       <TextField fx:id="telephone_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="293.0" promptText="Téléphone" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
       <TextField fx:id="adresse_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="330.0" promptText="Adresse" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
       <TextField fx:id="ville_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="367.0" promptText="Ville" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
       <TextField fx:id="code_postal_champ_de_texte" alignment="CENTER" layoutX="366.0" layoutY="405.0" promptText="Code postal" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
-      <ImageView fitHeight="57.0" fitWidth="50.0" layoutX="417.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="57.0" fitWidth="50.0" layoutX="416.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/contact.png" />
          </image>
@@ -44,11 +43,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="id_label" alignment="CENTER" layoutX="492.0" layoutY="86.0" prefHeight="50.0" prefWidth="20.0" textFill="WHITE" />
-      <Label alignment="CENTER" layoutX="467.0" layoutY="86.0" prefHeight="50.0" prefWidth="20.0" text="ID :" textFill="WHITE" />
-      <Label layoutX="279.0" layoutY="158.0" prefHeight="17.0" prefWidth="78.0" text="Nom" textFill="WHITE" />
-      <Label layoutX="279.0" layoutY="192.0" prefHeight="17.0" prefWidth="78.0" text="Prénom" textFill="WHITE" />
-      <Label layoutX="279.0" layoutY="226.0" prefHeight="17.0" prefWidth="78.0" text="Identifiant" textFill="WHITE" />
+      <Label fx:id="id_label" layoutX="466.0" layoutY="111.0" prefHeight="50.0" prefWidth="48.0" textFill="WHITE" />
+      <Label layoutX="279.0" layoutY="192.0" prefHeight="17.0" prefWidth="78.0" text="Nom" textFill="WHITE" />
+      <Label layoutX="279.0" layoutY="225.0" prefHeight="17.0" prefWidth="78.0" text="Prénom" textFill="WHITE" />
       <Label layoutX="279.0" layoutY="260.0" prefHeight="17.0" prefWidth="78.0" text="Email" textFill="WHITE" />
       <Label layoutX="279.0" layoutY="298.0" prefHeight="17.0" prefWidth="78.0" text="Téléphone" textFill="WHITE" />
       <Label layoutX="279.0" layoutY="335.0" prefHeight="17.0" prefWidth="78.0" text="Adresse" textFill="WHITE" />

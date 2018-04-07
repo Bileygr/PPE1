@@ -50,7 +50,7 @@ public class JeuneModificationController {
 	
 	public void jeune(int id, String nom, String prenom, String email,
 			String telephone, String adresse, String ville, String code_postal) {
-		id_label.setText(Integer.toString(id));
+		id_label.setText("ID: " + Integer.toString(id));
 		nom_champ_de_texte.setText(nom);
 		prenom_champ_de_texte.setText(prenom);
 		email_champ_de_texte.setText(email);
@@ -96,7 +96,7 @@ public class JeuneModificationController {
 	@FXML
 	private void modifier(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException {
 		boolean empdata = JeuneDAO.modifier(Integer.parseInt(id_label.getText()), nom_champ_de_texte.getText(), 
-				prenom_champ_de_texte.getText(), identifiant_champ_de_texte.getText(), email_champ_de_texte.getText(), 
+				prenom_champ_de_texte.getText(), email_champ_de_texte.getText(), 
 				telephone_champ_de_texte.getText(), adresse_champ_de_texte.getText(), ville_champ_de_texte.getText(), 
 				code_postal_champ_de_texte.getText());
 		

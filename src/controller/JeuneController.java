@@ -49,8 +49,6 @@ public class JeuneController {
 	@FXML
 	private TableColumn<Jeune, String> 	prenom_colonne;
 	@FXML
-	private TableColumn<Jeune, String> 	identifiant_colonne;
-	@FXML
 	private TableColumn<Jeune, String> 	email_colonne;
 	@FXML
 	private TableColumn<Jeune, String> 	telephone_colonne;
