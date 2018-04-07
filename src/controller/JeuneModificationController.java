@@ -98,7 +98,7 @@ public class JeuneModificationController {
 	
 	@FXML
 	private void modifier(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException {
-		boolean email_validation = JeuneDAO.validate(email_champ_de_texte.getText());
+		boolean email_validation = JeuneDAO.validate_email(email_champ_de_texte.getText());
 		
 		if(email_validation == true) {
 			
@@ -115,6 +115,8 @@ public class JeuneModificationController {
 									code_postal_champ_de_texte.getText());
 							
 							if(empdata == true) {
+								JeuneDAO.email_modification(email_champ_de_texte.getText());
+								
 								try {
 									mainPane.getChildren().clear();
 									FXMLLoader loader = new FXMLLoader();

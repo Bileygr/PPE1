@@ -4,8 +4,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import classe.Partenaire;
 import javafx.collections.FXCollections;
@@ -18,6 +33,76 @@ public class PartenaireDAO {
 		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
 		return matcher.find();
 	}
+	
+	public static void email_inscription(String destinataire) {
+		try {
+			DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			 
+            Properties props = new Properties();
+            props.put("mail.transport.protocol", "smtp" );
+            props.put("mail.smtp.starttls.enable","true" );
+            props.put("mail.smtp.host","smtp.gmail.com");
+            props.put("mail.smtp.auth", "true" );
+            props.put("mail.smtp.port", "587" );
+            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+            Session session = Session.getDefaultInstance(props, null);
+            
+            
+            Transport transport = session.getTransport("smtp");
+            MimeMessage msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress("cheiksiramakankeita@gmail.com"));
+            msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinataire));
+            msg.setSubject("Offres (site web)");
+            
+            msg.setText("Vous êtes maintenant inscrit. \n" + format.format(date));
+            transport.connect("smtp.gmail.com", "cheiksiramakankeita@gmail.com","crownclown91");
+            transport.sendMessage(msg, msg.getAllRecipients());
+            transport.close();
+            System.out.println("Email envoyé.");
+        } catch (NoSuchProviderException ex) {
+            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AddressException ex) {
+            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+	} 
+	
+	public static void email_modification(String destinataire) {
+		try {
+			DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			 
+            Properties props = new Properties();
+            props.put("mail.transport.protocol", "smtp" );
+            props.put("mail.smtp.starttls.enable","true" );
+            props.put("mail.smtp.host","smtp.gmail.com");
+            props.put("mail.smtp.auth", "true" );
+            props.put("mail.smtp.port", "587" );
+            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+            Session session = Session.getDefaultInstance(props, null);
+            
+            
+            Transport transport = session.getTransport("smtp");
+            MimeMessage msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress("cheiksiramakankeita@gmail.com"));
+            msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinataire));
+            msg.setSubject("Offres (site web)");
+            
+            msg.setText("Vos informations ont été modifié. \n" + format.format(date));
+            transport.connect("smtp.gmail.com", "cheiksiramakankeita@gmail.com","crownclown91");
+            transport.sendMessage(msg, msg.getAllRecipients());
+            transport.close();
+            System.out.println("Email envoyé.");
+        } catch (NoSuchProviderException ex) {
+            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AddressException ex) {
+            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MessagingException ex) {
+            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+	} 
 	
 	public static boolean inscrire(int siret, String nom, String hash, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException {
 		Connection connexion = Connect.getInstance().getConnection();

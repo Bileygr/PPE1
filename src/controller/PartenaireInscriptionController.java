@@ -111,6 +111,8 @@ public class PartenaireInscriptionController {
 												email_champ_de_texte.getText(), telephone_champ_de_texte.getText(), adresse_champ_de_texte.getText(), ville_champ_de_texte.getText(), code_postal_champ_de_texte.getText());
 		
 										if(empdata == true) {
+											PartenaireDAO.email_inscription(email_champ_de_texte.getText());
+											
 											try {
 												mainPane.getChildren().clear();
 												FXMLLoader loader = new FXMLLoader();

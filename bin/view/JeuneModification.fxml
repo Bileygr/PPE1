@@ -43,7 +43,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="id_label" layoutX="466.0" layoutY="111.0" prefHeight="50.0" prefWidth="48.0" textFill="WHITE" />
+      <Label fx:id="id_label" alignment="CENTER" layoutX="493.0" layoutY="111.0" prefHeight="50.0" prefWidth="21.0" textFill="WHITE" />
       <Label layoutX="279.0" layoutY="192.0" prefHeight="17.0" prefWidth="78.0" text="Nom" textFill="WHITE" />
       <Label layoutX="279.0" layoutY="225.0" prefHeight="17.0" prefWidth="78.0" text="Prénom" textFill="WHITE" />
       <Label layoutX="279.0" layoutY="260.0" prefHeight="17.0" prefWidth="78.0" text="Email" textFill="WHITE" />
@@ -51,5 +51,6 @@
       <Label layoutX="279.0" layoutY="335.0" prefHeight="17.0" prefWidth="78.0" text="Adresse" textFill="WHITE" />
       <Label layoutX="279.0" layoutY="372.0" prefHeight="17.0" prefWidth="78.0" text="Ville" textFill="WHITE" />
       <Label layoutX="279.0" layoutY="410.0" prefHeight="17.0" prefWidth="78.0" text="Code postal" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="466.0" layoutY="111.0" prefHeight="50.0" prefWidth="21.0" text="ID:" textFill="WHITE" />
    </children>
 </AnchorPane>

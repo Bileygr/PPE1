@@ -92,7 +92,7 @@ public class JeuneInscriptionController {
 			
 			
 			if(mot_de_passe_champ_de_texte.getText().length() >= 12) {
-				boolean email_validation = JeuneDAO.validate(email_champ_de_texte.getText());
+				boolean email_validation = JeuneDAO.validate_email(email_champ_de_texte.getText());
 				
 				String mot_de_passe = mot_de_passe_champ_de_texte.getText();
 				String hash = BCrypt.hashpw(mot_de_passe_champ_de_texte.getText(), BCrypt.gensalt());
@@ -115,6 +115,8 @@ public class JeuneInscriptionController {
 											ville_champ_de_texte.getText(), code_postal_champ_de_texte.getText());
 		
 									if(empdata == true) {
+										JeuneDAO.email_inscription(email_champ_de_texte.getText());
+										
 										try {
 											mainPane.getChildren().clear();
 											FXMLLoader loader = new FXMLLoader();

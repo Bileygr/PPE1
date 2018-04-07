@@ -111,6 +111,8 @@ public class PartenaireModificationController {
 										code_postal_champ_de_texte.getText());
 							
 								if(empdata == true) {
+									PartenaireDAO.email_modification(email_champ_de_texte.getText());
+									
 									try {
 										mainPane.getChildren().clear();
 										FXMLLoader loader = new FXMLLoader();
