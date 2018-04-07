@@ -47,11 +47,11 @@ public class OffreDescriptionController {
 	public void offre(int id, String nom, String formation, String partenaire, String description, String debut, String fin) {
 		id_label.setText("ID: " + Integer.toString(id));
 		nom_label.setText(nom);
-		partenaire_label.setText("Offert par: " + formation);
-		formation_label.setText("Type de formation: " + partenaire);
+		partenaire_label.setText("Offert par : " + formation);
+		formation_label.setText("Type de formation : " + partenaire);
 		description_text_area.setText(description);
-		debut_label.setText("Début: " + debut);
-		fin_label.setText("Fin: " + fin);
+		debut_label.setText("Début : " + debut);
+		fin_label.setText("Fin : " + fin);
 	}
 	
 	@FXML

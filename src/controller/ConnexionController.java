@@ -45,7 +45,7 @@ public class ConnexionController {
 					System.out.println("Mot de passe hashé : " + hash + "\nNombre de caractère: " + hash.length());
 			
 					if(BCrypt.checkpw(mot_de_passe, hash)) {
-						AdministrateurDAO.email(email_champ_de_texte.getText());
+						//AdministrateurDAO.email(email_champ_de_texte.getText());
 						try {
 								mainPane.getChildren().clear();
 								FXMLLoader loader = new FXMLLoader();
