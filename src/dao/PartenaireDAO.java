@@ -4,12 +4,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import classe.Partenaire;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class PartenaireDAO {
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+	public static boolean validate(String email) {
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
+		return matcher.find();
+	}
+	
 	public static boolean inscrire(int siret, String nom, String hash, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException {
 		Connection connexion = Connect.getInstance().getConnection();
 		String requete = "INSERT INTO partenaire(partenaire_siret, partenaire_nom, partenaire_mot_de_passe_hash, partenaire_email, "

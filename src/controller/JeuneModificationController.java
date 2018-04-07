@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -42,6 +43,7 @@ public class JeuneModificationController {
 	@FXML
 	private AnchorPane  	mainPane;
 	String nom;
+	int id;
 	
 	public void nom(String nom) {
 		this.nom = nom;
@@ -50,6 +52,7 @@ public class JeuneModificationController {
 	
 	public void jeune(int id, String nom, String prenom, String email,
 			String telephone, String adresse, String ville, String code_postal) {
+		this.id = id;
 		id_label.setText("ID: " + Integer.toString(id));
 		nom_champ_de_texte.setText(nom);
 		prenom_champ_de_texte.setText(prenom);
@@ -95,26 +98,78 @@ public class JeuneModificationController {
 	
 	@FXML
 	private void modifier(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException {
-		boolean empdata = JeuneDAO.modifier(Integer.parseInt(id_label.getText()), nom_champ_de_texte.getText(), 
-				prenom_champ_de_texte.getText(), email_champ_de_texte.getText(), 
-				telephone_champ_de_texte.getText(), adresse_champ_de_texte.getText(), ville_champ_de_texte.getText(), 
-				code_postal_champ_de_texte.getText());
+		boolean email_validation = JeuneDAO.validate(email_champ_de_texte.getText());
 		
-		if(empdata == true) {
-			try {
-				mainPane.getChildren().clear();
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(Main.class.getClassLoader().getResource("view/Jeune.fxml"));
-				AnchorPane userFrame = (AnchorPane) loader.load();
-				Scene sc = mainPane.getScene();
-				sc.setRoot(userFrame);
-				System.out.println();
+		if(email_validation == true) {
+			
+			if(telephone_champ_de_texte.getText().length() == 10) {
+			
+				if(adresse_champ_de_texte.getText().length() <= 38) {
 				
-				JeuneController jeune_controller = loader.<JeuneController>getController();
-				jeune_controller.nom(this.nom);
-			}catch (IOException e) {
-			   e.printStackTrace();
-			  }
+					if(ville_champ_de_texte.getText().length() <= 32) {
+					
+						if(code_postal_champ_de_texte.getText().length() == 5) {
+							boolean empdata = JeuneDAO.modifier(id, nom_champ_de_texte.getText(), 
+									prenom_champ_de_texte.getText(), email_champ_de_texte.getText(), 
+									telephone_champ_de_texte.getText(), adresse_champ_de_texte.getText(), ville_champ_de_texte.getText(), 
+									code_postal_champ_de_texte.getText());
+							
+							if(empdata == true) {
+								try {
+									mainPane.getChildren().clear();
+									FXMLLoader loader = new FXMLLoader();
+									loader.setLocation(Main.class.getClassLoader().getResource("view/Jeune.fxml"));
+									AnchorPane userFrame = (AnchorPane) loader.load();
+									Scene sc = mainPane.getScene();
+									sc.setRoot(userFrame);
+									System.out.println();
+				
+									JeuneController jeune_controller = loader.<JeuneController>getController();
+									jeune_controller.nom(this.nom);
+								}catch (IOException e) {
+									e.printStackTrace();
+								}
+							}else {
+								Alert a1 = new Alert(Alert.AlertType.ERROR);
+								a1.setTitle("Erreur: n°n°6");
+								a1.setContentText("Erreur lors de l'ajout d'un partenaire.");
+								a1.setHeaderText(null);
+								a1.showAndWait();
+							}
+						}else {
+							Alert a1 = new Alert(Alert.AlertType.ERROR);
+							a1.setTitle("Erreur: n°5");
+							a1.setContentText("Le code postal devrait avoir un maximum de 5 caractères.");
+							a1.setHeaderText(null);
+							a1.showAndWait();
+						}
+					}else {
+						Alert a1 = new Alert(Alert.AlertType.ERROR);
+						a1.setTitle("Erreur: n°4");
+						a1.setContentText("La ville devrait avoir un maximum de 32 caractères.");
+						a1.setHeaderText(null);
+						a1.showAndWait();
+					}
+				}else {
+					Alert a1 = new Alert(Alert.AlertType.ERROR);
+					a1.setTitle("Erreur: n°3");
+					a1.setContentText("L'addresse devrait avoir un maximum de 38 caractères.");
+					a1.setHeaderText(null);
+					a1.showAndWait();
+				}
+			}else {
+				Alert a1 = new Alert(Alert.AlertType.ERROR);
+				a1.setTitle("Erreur: n°2");
+				a1.setContentText("Le n° de téléphone devrait avoir 10 chiffre.");
+				a1.setHeaderText(null);
+				a1.showAndWait();
+			}
+		}else {
+			Alert a1 = new Alert(Alert.AlertType.ERROR);
+			a1.setTitle("Erreur: n°1");
+			a1.setContentText("Le format de l'email est incorrect.");
+			a1.setHeaderText(null);
+			a1.showAndWait();
 		}
 	}
 }
