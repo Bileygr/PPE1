@@ -37,16 +37,14 @@ public class ConnexionController {
 			if(email_validation == true) {
 				
 				if(mot_de_passe_champ_de_texte.getText().length() >= 12) {
-					boolean connexion_validation = AdministrateurDAO.connexion(email_champ_de_texte.getText(), mot_de_passe_champ_de_texte.getText());
-					String nom = AdministrateurDAO.nom(email_champ_de_texte.getText(), mot_de_passe_champ_de_texte.getText());
-					
 					String mot_de_passe = mot_de_passe_champ_de_texte.getText();
-					String hashed = BCrypt.hashpw(mot_de_passe, BCrypt.gensalt());
+					String hash = AdministrateurDAO.hash(email_champ_de_texte.getText());
+					String nom = AdministrateurDAO.nom(email_champ_de_texte.getText(), hash);
 					
 					System.out.println("Mot de passe clair : " + mot_de_passe_champ_de_texte.getText());
-					System.out.println("Mot de passe hashe :" + hashed + " Nombre de caractere: " + hashed.length());
+					System.out.println("Mot de passe hashé :" + hash + " Nombre de caractere: " + hash.length());
 			
-					if(connexion_validation == true) {
+					if(BCrypt.checkpw(mot_de_passe, hash)) {
 						AdministrateurDAO.email(email_champ_de_texte.getText());
 						try {
 								mainPane.getChildren().clear();

@@ -71,20 +71,19 @@ public class AdministrateurDAO {
         }
 	} 
 		
-	public static boolean connexion(String email, String mot_de_passe) throws ClassNotFoundException, SQLException {
+	public static String hash(String email) throws ClassNotFoundException, SQLException {
 		Connection connexion = Connect.getInstance().getConnection();
-		String requete = "SELECT * FROM administrateur WHERE administrateur_email = ? AND administrateur_mot_de_passe = ?";
+		String requete = "SELECT administrateur_mot_de_passe_hash FROM administrateur WHERE administrateur_email = ?";
 		
-		boolean retour = false;
+		String retour = "";
 		
 		PreparedStatement prepared_statement = connexion.prepareStatement(requete);
 		prepared_statement.setString(1, email);
-		prepared_statement.setString(2, mot_de_passe);
 		
 		ResultSet resultat = prepared_statement.executeQuery();
 		
 		if(resultat.next()) {
-			retour = true;
+			retour = resultat.getString("administrateur_mot_de_passe_hash");
 		}
 		
 		resultat.close();
@@ -95,7 +94,7 @@ public class AdministrateurDAO {
 	
 	public static boolean connexion_super_administrateur(String email, String mot_de_passe) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		Connection connexion = Connect.getInstance().getConnection();
-		String requete = "SELECT * FROM administrateur WHERE administrateur_email = ? AND administrateur_mot_de_passe = ? AND administrateur_principale = TRUE";
+		String requete = "SELECT * FROM administrateur WHERE administrateur_email = ? AND administrateur_mot_de_passe = ? AND super_administrateur = 1";
 		
 		boolean retour = false;
 		
@@ -115,15 +114,15 @@ public class AdministrateurDAO {
 		return retour;
 	}
 	
-	public static String nom(String identifiant, String mot_de_passe) throws ClassNotFoundException, SQLException {
+	public static String nom(String identifiant, String hash) throws ClassNotFoundException, SQLException {
 		Connection connexion = Connect.getInstance().getConnection();
-		String requete = "SELECT administrateur_nom, administrateur_prenom FROM administrateur WHERE administrateur_email = ? AND administrateur_mot_de_passe = ?";
+		String requete = "SELECT administrateur_nom, administrateur_prenom FROM administrateur WHERE administrateur_email = ? AND administrateur_mot_de_passe_hash = ?";
 		
 		String retour = "";
 		
 		PreparedStatement prepared_statement = connexion.prepareStatement(requete);
 		prepared_statement.setString(1, identifiant);
-		prepared_statement.setString(2, mot_de_passe);
+		prepared_statement.setString(2, hash);
 		
 		ResultSet resultat = prepared_statement.executeQuery();
 		
