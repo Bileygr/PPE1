@@ -50,6 +50,7 @@ public class PartenaireInscriptionController {
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
+		System.out.println("Partenaire inscription (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML

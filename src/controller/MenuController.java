@@ -38,6 +38,7 @@ public class MenuController{
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
+		System.out.println("Menu (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML

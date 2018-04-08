@@ -59,6 +59,7 @@ public class PartenaireController
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
+		System.out.println("Partenaire (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML
@@ -78,7 +79,7 @@ public class PartenaireController
 	
 	@FXML
 	private void retour(ActionEvent actionEvent) {
-		if(super_administrateur = true) {
+		if(super_administrateur == true) {
 			try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();

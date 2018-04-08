@@ -68,6 +68,7 @@ public class AdministrateurController {
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
+		System.out.println("Administrateur (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML

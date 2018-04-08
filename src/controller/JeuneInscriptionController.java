@@ -54,6 +54,7 @@ public class JeuneInscriptionController {
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
+		System.out.println("Jeune inscription (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML

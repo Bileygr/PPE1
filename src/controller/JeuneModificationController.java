@@ -53,6 +53,7 @@ public class JeuneModificationController {
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
+		System.out.println("Jeune modification (super administrateur): " + super_administrateur);
 	}
 	
 	public void jeune(int id, String nom, String prenom, String email,

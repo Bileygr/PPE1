@@ -56,6 +56,7 @@ public class OffreController
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur=super_administrateur;
+		System.out.println("Offre (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML
@@ -75,7 +76,7 @@ public class OffreController
 	
 	@FXML
 	private void retour(ActionEvent actionEvent) {
-		if(this.super_administrateur = true) {
+		if(this.super_administrateur == true) {
 			try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();

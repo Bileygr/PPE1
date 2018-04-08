@@ -68,6 +68,7 @@ public class JeuneController {
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
+		System.out.println("Jeune (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML
@@ -136,22 +137,20 @@ public class JeuneController {
 		
 	@FXML
 	private void inscrire(ActionEvent actionEvent) {
-		if(super_administrateur == true) {
-			try {
-				mainPane.getChildren().clear();
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(Main.class.getClassLoader().getResource("view/JeuneInscription.fxml"));
-				AnchorPane userFrame = (AnchorPane) loader.load();
-				Scene sc = mainPane.getScene();
-				sc.setRoot(userFrame);
-				System.out.println();
+		try {
+			mainPane.getChildren().clear();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getClassLoader().getResource("view/JeuneInscription.fxml"));
+			AnchorPane userFrame = (AnchorPane) loader.load();
+			Scene sc = mainPane.getScene();
+			sc.setRoot(userFrame);
+			System.out.println();
 			
-				JeuneInscriptionController jeune_inscription_controller = loader.<JeuneInscriptionController>getController();
-				jeune_inscription_controller.nom(this.nom);
-				jeune_inscription_controller.super_administrateur(this.super_administrateur);
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
+			JeuneInscriptionController jeune_inscription_controller = loader.<JeuneInscriptionController>getController();
+			jeune_inscription_controller.nom(this.nom);
+			jeune_inscription_controller.super_administrateur(this.super_administrateur);
+		}catch(IOException e) {
+			e.printStackTrace();
 		}
 	}
 	

@@ -47,6 +47,7 @@ public class OffreDescriptionController {
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
+		System.out.println("Offre description (super administrateur): " + super_administrateur);
 	}
 	
 	public void offre(int id, String nom, String formation, String partenaire, String description, String debut, String fin) {

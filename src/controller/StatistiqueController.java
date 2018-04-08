@@ -37,6 +37,7 @@ public class StatistiqueController {
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
+		System.out.println("Statistique (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML
@@ -56,7 +57,7 @@ public class StatistiqueController {
 	
 	@FXML
 	private void retour(ActionEvent actionEvent) {
-		if(super_administrateur = true) {
+		if(super_administrateur == true) {
 			try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();

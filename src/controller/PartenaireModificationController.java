@@ -50,6 +50,7 @@ public class PartenaireModificationController {
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
+		System.out.println("Partenaire modification (super administrateur): " + super_administrateur);
 	}
 	
 	public void partenaire(int id, int siret, String nom, String email, String telephone, String adresse, String ville, String code_postal) {
