@@ -46,7 +46,7 @@ public class ConnexionController {
 			
 					if(BCrypt.checkpw(mot_de_passe, hash)) {
 						boolean super_administrateur = AdministrateurDAO.connexion_super_administrateur(email_champ_de_texte.getText(), hash);
-						System.out.println("Connexion (super administrateur): " + super_administrateur);
+						AdministrateurDAO.connexion_update(email_champ_de_texte.getText(), hash);
 						AdministrateurDAO.email(email_champ_de_texte.getText());
 						
 						if(super_administrateur == true) {

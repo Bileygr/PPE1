@@ -63,12 +63,10 @@ public class AdministrateurController {
 	
 	public void nom(String nom) {
 		this.nom = nom;
-		System.out.println("Jeune: " + this.nom);
 	}
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
-		System.out.println("Administrateur (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML

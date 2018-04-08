@@ -4,7 +4,7 @@
 #  Auteur: Cheik-Siramakan Keita                  # 
 #  Description: Base de donnée utilisé par une    # 
 #               application Java et un site web.  #
-#  Date de création: 05/04/2018                   #
+#  date de création: 05/04/2018          #
 #                                                 #     
 ###################################################
 
@@ -27,18 +27,18 @@ USE ppe;
 -- Création de la table Administrateur --
 ###################################################
 CREATE TABLE IF NOT EXISTS administrateur(
-  administrateur_id                 INT(11) NOT NULL AUTO_INCREMENT,
-  super_administrateur              TINYINT(1) NOT NULL,
-  administrateur_nom                VARCHAR(50) NOT NULL,
-  administrateur_prenom             VARCHAR(50) NOT NULL,
-  administrateur_mot_de_passe_hash  CHAR(64) NOT NULL,
-  administrateur_email              VARCHAR(50) NOT NULL,
-  administrateur_telephone          VARCHAR(10) NOT NULL,
-  administrateur_adresse            VARCHAR(38) NOT NULL,
-  administrateur_ville              VARCHAR(32) NOT NULL,
-  administrateur_code_postal        VARCHAR(5) NOT NULL,
-  administrateur_derniere_connexion DATE NOT NULL,
-  administrateur_date_ajout         DATE NOT NULL,
+  administrateur_id                   INT(11) NOT NULL AUTO_INCREMENT,
+  super_administrateur                TINYINT(1) NOT NULL,
+  administrateur_nom                  VARCHAR(50) NOT NULL,
+  administrateur_prenom               VARCHAR(50) NOT NULL,
+  administrateur_mot_de_passe_hash    CHAR(64) NOT NULL,
+  administrateur_email                VARCHAR(50) NOT NULL,
+  administrateur_telephone            VARCHAR(10) NOT NULL,
+  administrateur_adresse              VARCHAR(38) NOT NULL,
+  administrateur_ville                VARCHAR(32) NOT NULL,
+  administrateur_code_postal          VARCHAR(5) NOT NULL,
+  administrateur_derniere_connexion   DATETIME NOT NULL,
+  administrateur_date_ajout           DATETIME NOT NULL,
   PRIMARY KEY (administrateur_id),
   UNIQUE (administrateur_id, administrateur_email, administrateur_telephone)
 );
@@ -47,17 +47,17 @@ CREATE TABLE IF NOT EXISTS administrateur(
 -- Création de la table Partenaire --
 ###################################################
 CREATE TABLE IF NOT EXISTS partenaire(
-  partenaire_id                 INT(11) NOT NULL AUTO_INCREMENT,
-  partenaire_siret              INT(9) NOT NULL,
-  partenaire_nom                VARCHAR(50) NOT NULL,
-  partenaire_mot_de_passe_hash  CHAR(64) NOT NULL,
-  partenaire_email              VARCHAR(30) NOT NULL,
-  partenaire_telephone          VARCHAR(10) NOT NULL,
-  partenaire_adresse            VARCHAR(38) NOT NULL,
-  partenaire_ville              VARCHAR(32) NOT NULL,
-  partenaire_code_postal        VARCHAR(5) NOT NULL,
-  partenaire_derniere_connexion DATE NOT NULL,
-  partenaire_date_ajout         DATE NOT NULL,
+  partenaire_id                   INT(11) NOT NULL AUTO_INCREMENT,
+  partenaire_siret                INT(9) NOT NULL,
+  partenaire_nom                  VARCHAR(50) NOT NULL,
+  partenaire_mot_de_passe_hash    CHAR(64) NOT NULL,
+  partenaire_email                VARCHAR(30) NOT NULL,
+  partenaire_telephone            VARCHAR(10) NOT NULL,
+  partenaire_adresse              VARCHAR(38) NOT NULL,
+  partenaire_ville                VARCHAR(32) NOT NULL,
+  partenaire_code_postal          VARCHAR(5) NOT NULL,
+  partenaire_derniere_connexion   DATETIME NOT NULL,
+  partenaire_date_ajout           DATETIME NOT NULL,
   PRIMARY KEY (partenaire_id),
   UNIQUE (partenaire_id, partenaire_siret, partenaire_email, partenaire_telephone)
 );
@@ -75,8 +75,8 @@ CREATE TABLE IF NOT EXISTS jeune(
   jeune_adresse             VARCHAR(38) NOT NULL,
   jeune_ville               VARCHAR(32) NOT NULL,
   jeune_code_postal         VARCHAR(5) NOT NULL,
-  jeune_derniere_connexion  DATE NOT NULL,
-  jeune_date_ajout          DATE NOT NULL,
+  jeune_derniere_connexion  DATETIME NOT NULL,
+  jeune_date_ajout          DATETIME NOT NULL,
   PRIMARY KEY (jeune_id),
   UNIQUE (jeune_id, jeune_email, jeune_telephone)
 );
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS offre(
   offre_code_postal VARCHAR(5) NOT NULL,
   offre_debut       DATE NOT NULL,
   offre_fin         DATE NOT NULL,
-  offre_date_ajout  DATE NOT NULL,
+  offre_date_ajout  DATETIME NOT NULL,
   PRIMARY KEY (offre_id),
   CONSTRAINT FK_offre_partenaire_id FOREIGN KEY (partenaire_id) REFERENCES partenaire(partenaire_id),
   CONSTRAINT FK_offre_formation_id FOREIGN KEY (formation_id) REFERENCES formation(formation_id),

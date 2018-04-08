@@ -162,6 +162,37 @@ public class AdministrateurDAO {
 		return retour;
 	}
 	
+	public static boolean connexion_update(String email, String hash) throws SQLException {
+		Connection connexion = Connect.getInstance().getConnection();
+		String requete = "UPDATE administrateur SET administrateur_derniere_connexion =  NOW() "
+				+ "WHERE administrateur_email = ? AND administrateur_mot_de_passe_hash = ?";
+		
+		boolean retour = false;
+		
+		PreparedStatement prepared_statement = null;
+        prepared_statement = connexion.prepareStatement(requete);
+        prepared_statement.setString(1, email);
+        prepared_statement.setString(2, hash);
+        
+        int nblignes = 0;
+        
+        try {
+        	nblignes = prepared_statement.executeUpdate();
+        } catch (SQLException ex) {
+        	System.out.println(ex.getMessage());
+        	}
+        
+        if(nblignes == 1) {
+        	retour = true;
+        } else {
+        	retour = false;
+        	}
+        
+		prepared_statement.close();
+		connexion.close();
+		return retour;
+	}
+	
 	public static boolean connexion_super_administrateur(String email, String hash) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException {
 		Connection connexion = Connect.getInstance().getConnection();
 		String requete = "SELECT * FROM administrateur WHERE administrateur_email = ? AND administrateur_mot_de_passe_hash = ? AND super_administrateur = 1";
@@ -212,9 +243,11 @@ public class AdministrateurDAO {
 		String requete = "INSERT INTO administrateur(super_administrateur, administrateur_nom, administrateur_prenom, administrateur_mot_de_passe_hash, "
 				+ "administrateur_email, administrateur_telephone, administrateur_adresse, administrateur_ville, administrateur_code_postal,"
 				+ "administrateur_derniere_connexion, administrateur_date_ajout) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+		
 		boolean retour = false;
 		
-		PreparedStatement prepared_statement = connexion.prepareStatement(requete);
+		PreparedStatement prepared_statement = null;
+		prepared_statement = connexion.prepareStatement(requete);
 		prepared_statement.setInt(1, super_administrateur);
 		prepared_statement.setString(2, nom);
 		prepared_statement.setString(3, prenom);
@@ -225,13 +258,20 @@ public class AdministrateurDAO {
 		prepared_statement.setString(8, ville);
 		prepared_statement.setString(9, code_postal);
 		
-		ResultSet resultat = prepared_statement.executeQuery();
+		int nblignes = 0;
 		
-		if(resultat.next()) {
-			retour = true;
-		}
+		try {
+        	nblignes = prepared_statement.executeUpdate();
+        } catch(SQLException ex) {
+        	System.out.println(ex.getMessage());
+        	}
 		
-		resultat.close();
+        if(nblignes == 1) { 
+        	retour = true;
+        } else { 
+        	retour = false;
+        	}
+        
 		prepared_statement.close();
 		connexion.close();
 		return retour;
@@ -278,7 +318,7 @@ public class AdministrateurDAO {
 	
 	public static boolean supprimer(int  id) throws SQLException, ClassNotFoundException {
         Connection connexion = Connect.getInstance().getConnection();
-        String requeteSQL = "DELETE FROM administrateur WHERE jeune_id = ?";
+        String requeteSQL = "DELETE FROM administrateur WHERE administrateur_id = ?";
         
         boolean reponse  = false;
         
@@ -367,8 +407,9 @@ public class AdministrateurDAO {
 	
 	public static ObservableList<Administrateur> recherche_filtre(String filtre) throws ClassNotFoundException, SQLException {
 		Connection connexion = Connect.getInstance().getConnection();
-		String requete = "SELECT administrateur_id, super_administrateur, administrateur_identifiant, administrateur_nom, administrateur_prenom, "
-							+ "administrateur_email, administrateur_telephone, administrateur_derniere_connexion, administrateur_date_ajout "
+		String requete = "SELECT administrateur_id, super_administrateur, administrateur_nom, administrateur_prenom, "
+							+ "administrateur_email, administrateur_telephone, administrateur_adresse, administrateur_ville, "
+							+ "administrateur_code_postal, administrateur_derniere_connexion, administrateur_date_ajout "
 							+ "FROM administrateur WHERE administrateur_nom LIKE ?"
 							+ "OR administrateur_prenom LIKE ?"
 							+ "OR administrateur_telephone LIKE ?"
@@ -407,7 +448,7 @@ public class AdministrateurDAO {
 			prenom 	 				= resultat.getString("administrateur_prenom");
 			email		 			= resultat.getString("administrateur_email");
 			telephone 		 		= resultat.getString("administrateur_telephone");
-			adresse 		 		= resultat.getString("administrateur_adrese");
+			adresse 		 		= resultat.getString("administrateur_adresse");
 			ville 		 			= resultat.getString("administrateur_ville");
 			code_postal 		 	= resultat.getString("administrateur_code_postal");
 			derniere_connexion		= resultat.getString("administrateur_derniere_connexion");

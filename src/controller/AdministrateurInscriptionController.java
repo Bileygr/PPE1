@@ -101,7 +101,7 @@ public class AdministrateurInscriptionController {
 			
 			if(mot_de_passe_champ_de_texte.getText().length() >= 12) {
 				boolean email_validation = AdministrateurDAO.validate(email_champ_de_texte.getText());
-				int super_administrateur;
+				int super_administrateur = 0;
 				
 				String mot_de_passe = mot_de_passe_champ_de_texte.getText();
 				String hash = BCrypt.hashpw(mot_de_passe_champ_de_texte.getText(), BCrypt.gensalt());
@@ -111,10 +111,8 @@ public class AdministrateurInscriptionController {
 				System.out.println("Mot de passe hashe :" + hash + " Nombre de caractères: " + hash.length());
 				
 				if(super_administrateur_checkbox.isSelected()){
-					    super_administrateur = 1;
-					} else {
-					    super_administrateur = 0;
-					}
+					super_administrateur = 1;
+				}
 				
 				if(email_validation == true) {
 				
