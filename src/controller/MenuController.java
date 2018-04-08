@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Calendar;
+
 import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,14 +28,26 @@ public class MenuController{
 	@FXML
 	private Label 						nom_champ_de_texte; 
 	@FXML
+	private Label						salutation_label;
+	@FXML
 	private AnchorPane mainPane;
 	String nom;
 	boolean super_administrateur;
 	
 	public void nom(String nom) {
 		this.nom = nom;
+		Calendar calendar = Calendar.getInstance();
+		int hours = calendar.get(Calendar.HOUR_OF_DAY);
 		nom_champ_de_texte.setText(nom); 
+		
+		System.out.println("Heure: " + hours);
 		System.out.println("Menu: " + this.nom);
+		
+		if(hours >= 5 && hours < 18) {
+			salutation_label.setText("Bonjour");
+		}else{
+			salutation_label.setText("Bonsoir");
+		}
 	}
 	
 	public void super_administrateur(boolean super_administrateur) {
@@ -131,4 +145,5 @@ public class MenuController{
 			e.printStackTrace();
 			}
 	}
+	
 }

@@ -38,7 +38,7 @@ public class AdministrateurDAO {
 	
 	public static void email(String destinataire) {
 		try {
-			DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			Date date = new Date();
 			 
             Properties props = new Properties();
