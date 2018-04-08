@@ -28,11 +28,16 @@ public class MenuController{
 	@FXML
 	private AnchorPane mainPane;
 	String nom;
+	boolean super_administrateur;
 	
 	public void nom(String nom) {
 		this.nom = nom;
 		nom_champ_de_texte.setText(nom); 
 		System.out.println("Menu: " + this.nom);
+	}
+	
+	public void super_administrateur(boolean super_administrateur) {
+		this.super_administrateur = super_administrateur;
 	}
 	
 	@FXML
@@ -63,6 +68,7 @@ public class MenuController{
 			
 			JeuneController jeune_controller = loader.<JeuneController>getController();
 			jeune_controller.nom(this.nom);
+			jeune_controller.super_administrateur(this.super_administrateur);
 		 }catch(IOException e) {	
 			 e.printStackTrace();
 		   	}
@@ -81,6 +87,7 @@ public class MenuController{
 			
 			PartenaireController partenaire_controller = loader.<PartenaireController>getController();
 			partenaire_controller.nom(this.nom);
+			partenaire_controller.super_administrateur(this.super_administrateur);
 		 }catch(IOException e) {	
 			 e.printStackTrace();
 		   	}
@@ -99,6 +106,7 @@ public class MenuController{
 			
 			OffreController offre_controller = loader.<OffreController>getController();
 			offre_controller.nom(this.nom);
+			offre_controller.super_administrateur(this.super_administrateur);
 		}catch(IOException e) {
 			e.printStackTrace();
 			}
@@ -117,6 +125,7 @@ public class MenuController{
 			
 			StatistiqueController statistique_controller = loader.<StatistiqueController>getController();
 			statistique_controller.nom(this.nom);
+			statistique_controller.super_administrateur(this.super_administrateur);
 		}catch(IOException e){
 			e.printStackTrace();
 			}

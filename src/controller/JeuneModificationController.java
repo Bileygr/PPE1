@@ -44,10 +44,15 @@ public class JeuneModificationController {
 	private AnchorPane  	mainPane;
 	String nom;
 	int id;
+	boolean super_administrateur;
 	
 	public void nom(String nom) {
 		this.nom = nom;
 		System.out.println("Jeune Modification: " + this.nom);
+	}
+	
+	public void super_administrateur(boolean super_administrateur) {
+		this.super_administrateur = super_administrateur;
 	}
 	
 	public void jeune(int id, String nom, String prenom, String email,
@@ -91,6 +96,7 @@ public class JeuneModificationController {
 			
 			JeuneController jeune_controller = loader.<JeuneController>getController();
 			jeune_controller.nom(this.nom);
+			jeune_controller.super_administrateur(this.super_administrateur);
 		}catch (IOException e) {
 		   e.printStackTrace();
 		  }
@@ -128,6 +134,7 @@ public class JeuneModificationController {
 				
 									JeuneController jeune_controller = loader.<JeuneController>getController();
 									jeune_controller.nom(this.nom);
+									jeune_controller.super_administrateur(this.super_administrateur);
 								}catch (IOException e) {
 									e.printStackTrace();
 								}

@@ -74,7 +74,7 @@ public class Administrateur
 		public void setAdministrateur_mot_de_passe_hash(String administrateur_mot_de_passe_hash){this.administrateur_mot_de_passe_hash.set(administrateur_mot_de_passe_hash);}
 	public String getAdministrateur_email(){return administrateur_email.get();}
 		public void setAdministrateur_email(String administrateur_email){this.administrateur_email.set(administrateur_email);}	
-	public String getAdministarteur_telephone(){return administrateur_telephone.get();}
+	public String getAdministrateur_telephone(){return administrateur_telephone.get();}
 		public void setAdministrateur_telephone(String administrateur_telephone){this.administrateur_telephone.set(administrateur_telephone);}
 	public String getAdministrateur_adresse(){return administrateur_adresse.get();}
 		public void setAdministrateur_adresse(String administrateur_adresse){this.administrateur_adresse.set(administrateur_adresse);}

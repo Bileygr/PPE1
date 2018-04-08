@@ -45,10 +45,15 @@ public class JeuneInscriptionController {
 	@FXML
 	private AnchorPane mainPane;
 	String nom;
+	boolean super_administrateur;
 	
 	public void nom(String nom) {
 		this.nom = nom;
 		System.out.println("Jeune Inscription: " + this.nom);
+	}
+	
+	public void super_administrateur(boolean super_administrateur) {
+		this.super_administrateur = super_administrateur;
 	}
 	
 	@FXML
@@ -79,6 +84,7 @@ public class JeuneInscriptionController {
 			
 			JeuneController jeune_controller = loader.<JeuneController>getController();
 			jeune_controller.nom(this.nom);
+			jeune_controller.super_administrateur(this.super_administrateur);
 		}catch (IOException e) {
 		   e.printStackTrace();
 		  }
@@ -128,6 +134,7 @@ public class JeuneInscriptionController {
 				
 											JeuneController jeune_controller = loader.<JeuneController>getController();
 											jeune_controller.nom(this.nom);
+											jeune_controller.super_administrateur(this.super_administrateur);
 										}catch (IOException e) {
 											e.printStackTrace();
 										}

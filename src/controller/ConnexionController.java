@@ -45,8 +45,28 @@ public class ConnexionController {
 					System.out.println("Mot de passe hashé : " + hash + "\nNombre de caractère: " + hash.length());
 			
 					if(BCrypt.checkpw(mot_de_passe, hash)) {
-						//AdministrateurDAO.email(email_champ_de_texte.getText());
-						try {
+						boolean super_administrateur = AdministrateurDAO.connexion_super_administrateur(email_champ_de_texte.getText(), hash);
+						AdministrateurDAO.email(email_champ_de_texte.getText());
+						
+						if(super_administrateur == true) {
+							try {
+								mainPane.getChildren().clear();
+								FXMLLoader loader = new FXMLLoader();
+								loader.setLocation(Main.class.getClassLoader().getResource("view/SuperAdministrateurMenu.fxml"));
+								AnchorPane userFrame = (AnchorPane) loader.load();
+								Scene sc =  new Scene(userFrame);
+								Stage  stage = (Stage) mainPane.getScene().getWindow();
+								stage.setScene(sc);
+								System.out.println();
+					
+								SuperAdministrateurMenuController super_administrateur_menu_controller = loader.<SuperAdministrateurMenuController>getController();
+								super_administrateur_menu_controller.nom(nom);
+								super_administrateur_menu_controller.super_administrateur(super_administrateur);
+							}catch (IOException e){
+								e.printStackTrace();
+							}
+						}else {
+							try {
 								mainPane.getChildren().clear();
 								FXMLLoader loader = new FXMLLoader();
 								loader.setLocation(Main.class.getClassLoader().getResource("view/Menu.fxml"));
@@ -58,9 +78,11 @@ public class ConnexionController {
 					
 								MenuController menu_controller = loader.<MenuController>getController();
 								menu_controller.nom(nom);
+								menu_controller.super_administrateur(super_administrateur);
 							}catch (IOException e){
 								e.printStackTrace();
 							}
+						}
 					}else {
 						Alert a1 = new Alert(Alert.AlertType.ERROR);
 						a1.setTitle("Erreur: n°4");

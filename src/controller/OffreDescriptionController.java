@@ -38,10 +38,15 @@ public class OffreDescriptionController {
 	@FXML
 	private AnchorPane  	mainPane;
 	String nom;
+	boolean super_administrateur;
 	
 	public void nom(String nom) {
 		this.nom = nom;
 		System.out.println("Offre Description: " + this.nom);
+	}
+	
+	public void super_administrateur(boolean super_administrateur) {
+		this.super_administrateur = super_administrateur;
 	}
 	
 	public void offre(int id, String nom, String formation, String partenaire, String description, String debut, String fin) {
@@ -82,6 +87,7 @@ public class OffreDescriptionController {
 			
 			OffreController offre_controller = loader.<OffreController>getController();
 			offre_controller.nom(this.nom);
+			offre_controller.super_administrateur(this.super_administrateur);
 		}catch (IOException e) {
 		   e.printStackTrace();
 		  }

@@ -41,10 +41,15 @@ public class PartenaireModificationController {
 	@FXML
 	private AnchorPane  	mainPane;
 	String nom;
+	boolean super_administrateur;
 	
 	public void nom(String nom) {
 		this.nom = nom;
 		System.out.println("Partenaire Modification: " + this.nom);
+	}
+	
+	public void super_administrateur(boolean super_administrateur) {
+		this.super_administrateur = super_administrateur;
 	}
 	
 	public void partenaire(int id, int siret, String nom, String email, String telephone, String adresse, String ville, String code_postal) {
@@ -86,6 +91,7 @@ public class PartenaireModificationController {
 			
 			PartenaireController partenaire_controller = loader.<PartenaireController>getController();
 			partenaire_controller.nom(this.nom);
+			partenaire_controller.super_administrateur(this.super_administrateur);
 		}catch (IOException e) {
 		   e.printStackTrace();
 		  }
@@ -124,6 +130,7 @@ public class PartenaireModificationController {
 					
 										PartenaireController partenaire_controller = loader.<PartenaireController>getController();
 										partenaire_controller.nom(this.nom);
+										partenaire_controller.super_administrateur(this.super_administrateur);
 									}catch (IOException e) {
 										e.printStackTrace();
 									}

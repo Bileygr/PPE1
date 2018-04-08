@@ -6,32 +6,51 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdministrateurController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="882.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdministrateurController">
    <children>
-      <Button fx:id ="AdministrateurBtn" layoutX="7.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Administrateur" />
-      <Button fx:id="PartenaireBtn" layoutX="110.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" onAction="#partenaire" text="Partenaire" />
-      <Button fx:id="JeuneBtn" layoutX="212.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" onAction="#jeune" text="Jeune" />
-      <Button fx:id="Offrebtn" layoutX="314.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" onAction="#offre" text="Offre" />
-      <Button fx:id="DeconnexionBtn" layoutX="506.0" layoutY="14.0" mnemonicParsing="false" onAction="#deconnexion" text="Déconnexion" />
-      <Button fx:id="StatistiqueBtn" layoutX="415.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="79.0" onAction="#stats" text="Statistique" />
-      <Separator layoutX="500.0" layoutY="-7.0" orientation="VERTICAL" prefHeight="53.0" prefWidth="0.0" />
-      <Separator layoutX="-1.0" layoutY="47.0" prefHeight="2.0" prefWidth="600.0" />
-      <TableView fx:id="AdminTable" layoutX="10.0" layoutY="100.0" prefHeight="290.0" prefWidth="581.0">
-        <columns>
-          	<TableColumn fx:id="AdminIdColumn" prefWidth="75.0" text="ID" />
-          	<TableColumn fx:id="AdminIdentifiantColumn" prefWidth="89.0" text="Identifiant" />
-            <TableColumn fx:id="AdminNomColumn" prefWidth="76.0" text="Nom" />
-            <TableColumn fx:id="AdminPrenomColumn" prefWidth="85.0" text="Prénom" />
-            <TableColumn fx:id="AdminTelColumn" prefWidth="85.0" text="N°Tel" />
-            <TableColumn fx:id="AdminEmailColumn" prefWidth="68.0" text="Email" />
-            <TableColumn fx:id="AdminCreationColumn" prefWidth="107.0" text="Création" />
-        </columns>
+      <Button fx:id="deconnexion_bouton" layoutX="825.0" layoutY="6.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/croix_deconnexion.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Separator layoutX="14.0" layoutY="50.0" prefHeight="2.0" prefWidth="853.0" />
+      <TableView fx:id="table" layoutX="15.0" layoutY="110.0" prefHeight="428.0" prefWidth="853.0">
+         <columns>
+            <TableColumn fx:id="nom_colonne" prefWidth="114.0" text="Nom" />
+            <TableColumn fx:id="prenom_colonne" prefWidth="109.0" text="Prénom" />
+            <TableColumn fx:id="email_colonne" prefWidth="136.0" text="Email" />
+            <TableColumn fx:id="telephone_colonne" prefWidth="135.0" text="Téléphone" />
+            <TableColumn fx:id="derniere_connexion_colonne" prefWidth="216.0" text="Dernière connexion" />
+            <TableColumn fx:id="creation_colonne" prefWidth="141.0" text="Création" />
+         </columns>
+         <effect>
+            <Blend />
+         </effect>
       </TableView>
-      <Label layoutX="14.0" layoutY="64.0" text="Rechercher" />
-      <TextField fx:id="AdminRechercheField" layoutX="83.0" layoutY="60.0" promptText="Filtre..." />
-      <Button fx:id="AdminRechercheBtn" layoutX="240.0" layoutY="60.0" mnemonicParsing="false" onAction="#administrateurRechercheSpecifique" text="Rechercher" />
-      <Button fx:id="AdminToutRechcherBtn" layoutX="327.0" layoutY="60.0" mnemonicParsing="false" onAction="#administrateurRecherche" text="Tour rechercher" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="373.0" layoutY="14.0" prefHeight="26.0" prefWidth="136.0" text="ADMINISTRATEUR" textFill="WHITE" />
+      <Button fx:id="inscrire_bouton" layoutX="449.0" layoutY="70.0" mnemonicParsing="false" onAction="#inscrire" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Inscrire" />
+      <Button fx:id="recherche_bouton" layoutX="321.0" layoutY="70.0" mnemonicParsing="false" onAction="#recherche" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Tout Rechercher" />
+      <Button fx:id="recherche_filtre_bouton" layoutX="193.0" layoutY="70.0" mnemonicParsing="false" onAction="#recherche_filtre" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Rechercher" />
+      <TextField fx:id="recherche_champ_de_texte" layoutX="14.0" layoutY="70.0" prefHeight="25.0" prefWidth="173.0" promptText="Recherche..." />
+      <Button fx:id="supprimer_bouton" layoutX="704.0" layoutY="70.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Supprimer" />
+      <Button fx:id="retour_bouton" layoutY="7.0" mnemonicParsing="false" onAction="#retour" prefHeight="25.0" prefWidth="32.0" style="-fx-background-color: transparent">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+               <image>
+                  <Image url="@images/Expand%20Arrow_64px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="modifier_bouton" layoutX="576.0" layoutY="70.0" mnemonicParsing="false" onAction="#modifier" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Modifier" />
    </children>
 </AnchorPane>
