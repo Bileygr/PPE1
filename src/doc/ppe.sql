@@ -4,7 +4,7 @@
 #  Auteur: Cheik-Siramakan Keita                  # 
 #  Description: Base de donnée utilisé par une    # 
 #               application Java et un site web.  #
-#  date de création: 05/04/2018          #
+#  date de création: 05/04/2018                   #
 #                                                 #     
 ###################################################
 
