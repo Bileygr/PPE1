@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class JeuneInscriptionController {
 	@FXML
@@ -104,9 +105,9 @@ public class JeuneInscriptionController {
 				String mot_de_passe = mot_de_passe_champ_de_texte.getText();
 				String hash = BCrypt.hashpw(mot_de_passe_champ_de_texte.getText(), BCrypt.gensalt());
 				
-				System.out.println("Nom: Benoit Prénom: Florian");
+				System.out.println("Nom: Benoit Prï¿½nom: Florian");
 				System.out.println("Mot de passe clair : " + mot_de_passe);
-				System.out.println("Mot de passe hashe :" + hash + " Nombre de caractères: " + hash.length());
+				System.out.println("Mot de passe hashe :" + hash + " Nombre de caractï¿½res: " + hash.length());
 				
 				if(email_validation == true) {
 				
@@ -124,73 +125,60 @@ public class JeuneInscriptionController {
 									if(empdata == true) {
 										JeuneDAO.email_inscription(email_champ_de_texte.getText());
 										
-										try {
-											mainPane.getChildren().clear();
-											FXMLLoader loader = new FXMLLoader();
-											loader.setLocation(Main.class.getClassLoader().getResource("view/Jeune.fxml"));
-											AnchorPane userFrame = (AnchorPane) loader.load();
-											Scene sc = mainPane.getScene();
-											sc.setRoot(userFrame);
-											System.out.println();
-				
-											JeuneController jeune_controller = loader.<JeuneController>getController();
-											jeune_controller.nom(this.nom);
-											jeune_controller.super_administrateur(this.super_administrateur);
-										}catch (IOException e) {
-											e.printStackTrace();
-										}
+										Stage stage = (Stage) inscrire_bouton.getScene().getWindow();
+									    stage.close();
 									}else {
 										Alert a1 = new Alert(Alert.AlertType.ERROR);
-										a1.setTitle("Erreur: n°8");
-										a1.setContentText("L'inscription a échoué dû a une erreur de connexion.");
+										a1.setTitle("Erreur: nï¿½8");
+										a1.setContentText("L'inscription a ï¿½chouï¿½ dï¿½ a une erreur de connexion.");
 										a1.setHeaderText(null);
 										a1.showAndWait();
 									}
 								}else {
 									Alert a1 = new Alert(Alert.AlertType.ERROR);
-									a1.setTitle("Erreur: n°7");
-									a1.setContentText("Le code postal devrait avoir un maximum de 5 caractères.");
+									a1.setTitle("Erreur: nï¿½7");
+									a1.setContentText("Le code postal devrait avoir un maximum de 5 caractï¿½res.");
 									a1.setHeaderText(null);
 									a1.showAndWait();
 								}
 							}else {
 								Alert a1 = new Alert(Alert.AlertType.ERROR);
-								a1.setTitle("Erreur: n°6");
-								a1.setContentText("La ville devrait avoir un maximum de 32 caractères.");
+								a1.setTitle("Erreur: nï¿½6");
+								a1.setContentText("La ville devrait avoir un maximum de 32 caractï¿½res.");
 								a1.setHeaderText(null);
 								a1.showAndWait();
 							}
 						}else {
 							Alert a1 = new Alert(Alert.AlertType.ERROR);
-							a1.setTitle("Erreur: n°5");
-							a1.setContentText("L'addresse devrait avoir un maximum de 38 caractères.");
+							a1.setTitle("Erreur: nï¿½5");
+							a1.setContentText("L'addresse devrait avoir un maximum de 38 caractï¿½res.");
 							a1.setHeaderText(null);
 							a1.showAndWait();
 						}
 					}else {
 						Alert a1 = new Alert(Alert.AlertType.ERROR);
-						a1.setTitle("Erreur: n°4");
-						a1.setContentText("Le n° de téléphone devrait avoir 10 chiffre.");
+						a1.setTitle("Erreur: nï¿½4");
+						a1.setContentText("Le nï¿½ de tï¿½lï¿½phone devrait avoir 10 chiffre.");
 						a1.setHeaderText(null);
 						a1.showAndWait();
 					}
 				}else {
 					Alert a1 = new Alert(Alert.AlertType.ERROR);
-					a1.setTitle("Erreur: n°3");
+					a1.setTitle("Erreur: nï¿½3");
 					a1.setContentText("Le format de l'email est incorrect.");
 					a1.setHeaderText(null);
 					a1.showAndWait();
 				}
 			}else {
 				Alert a1 = new Alert(Alert.AlertType.ERROR);
-				a1.setTitle("Erreur: n°2");
-				a1.setContentText("Le mot de passe devrait avoir au moins 12 caractères.");
+				a1.setTitle("Erreur: nï¿½2");
+				a1.setContentText("Le mot de passe devrait avoir au moins 12 caractï¿½res.");
 				a1.setHeaderText(null);
 				a1.showAndWait();
 			}
 		}else {
 			Alert a1 = new Alert(Alert.AlertType.ERROR);
-			a1.setTitle("Erreur: n°1");
+			a1.setTitle("Erreur: nï¿½1");
 			a1.setContentText("L'un des champs est vide.");
 			a1.setHeaderText(null);
 			a1.showAndWait();

@@ -8,12 +8,14 @@ import dao.JeuneDAO;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 public class JeuneController {
 	@FXML
@@ -137,21 +139,17 @@ public class JeuneController {
 		
 	@FXML
 	private void inscrire(ActionEvent actionEvent) {
-		try {
-			mainPane.getChildren().clear();
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/JeuneInscription.fxml"));
-			AnchorPane userFrame = (AnchorPane) loader.load();
-			Scene sc = mainPane.getScene();
-			sc.setRoot(userFrame);
-			System.out.println();
-			
-			JeuneInscriptionController jeune_inscription_controller = loader.<JeuneInscriptionController>getController();
-			jeune_inscription_controller.nom(this.nom);
-			jeune_inscription_controller.super_administrateur(this.super_administrateur);
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
+		Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("view/JeuneInscription.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Jeune: Inscription");
+            stage.setScene(new Scene(root, 450, 450));
+            stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 	
 	@FXML
