@@ -42,7 +42,7 @@ public class ConnexionController {
 					String nom = AdministrateurDAO.nom(email_champ_de_texte.getText(), hash);
 					
 					System.out.println("Mot de passe clair : " + mot_de_passe_champ_de_texte.getText());
-					System.out.println("Mot de passe hashé : " + hash + "\nNombre de caractère: " + hash.length());
+					System.out.println("Mot de passe hashï¿½ : " + hash + "\nNombre de caractï¿½re: " + hash.length());
 			
 					if(BCrypt.checkpw(mot_de_passe, hash)) {
 						boolean super_administrateur = AdministrateurDAO.connexion_super_administrateur(email_champ_de_texte.getText(), hash);
@@ -86,28 +86,28 @@ public class ConnexionController {
 						}
 					}else {
 						Alert a1 = new Alert(Alert.AlertType.ERROR);
-						a1.setTitle("Erreur: n°4");
+						a1.setTitle("Erreur: nï¿½4");
 						a1.setContentText("Cet utilisateur n'existe pas verifiez votre mot de passe et votre identifiant.");
 						a1.setHeaderText(null);
 						a1.showAndWait();
 					}
 				}else {
 					Alert a1 = new Alert(Alert.AlertType.ERROR);
-					a1.setTitle("Erreur: n°3");
+					a1.setTitle("Erreur: nï¿½3");
 					a1.setContentText("Le mot de passe est trop court, veuillez vous adresser a votre superviseur.");
 					a1.setHeaderText(null);
 					a1.showAndWait();
 				}
 			}else {
 				Alert a1 = new Alert(Alert.AlertType.ERROR);
-				a1.setTitle("Erreur: n°2");
+				a1.setTitle("Erreur: nï¿½2");
 				a1.setContentText("Le format de l'email n'est pas correcte.");
 				a1.setHeaderText(null);
 				a1.showAndWait();
 			}
 		}else {
 			Alert a1 = new Alert(Alert.AlertType.ERROR);
-			a1.setTitle("Erreur: n°1");
+			a1.setTitle("Erreur: nï¿½1");
 			a1.setContentText("L'un ou les deux champs sont vide.");
 			a1.setHeaderText(null);
 			a1.showAndWait();
