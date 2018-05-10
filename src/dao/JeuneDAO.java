@@ -107,7 +107,7 @@ public class JeuneDAO {
 	public static boolean inscrire(String nom, String prenom, String hash, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException {
 		Connection connexion = Connect.getInstance().getConnection();
 		String requete = "INSERT INTO jeune(jeune_nom, jeune_prenom, jeune_mot_de_passe_hash, jeune_email, jeune_telephone, jeune_adresse, jeune_ville, jeune_code_postal, "
-							+ "jeune_derniere_connexion, jeune_date_ajout) VALUES(?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+							+ "jeune_derniere_connexion, jeune_creation) VALUES(?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
 		
 		boolean retour = false;
 		
@@ -210,7 +210,7 @@ public class JeuneDAO {
      public static ObservableList<Jeune> recherche_filtre(String filtre) throws ClassNotFoundException, SQLException {     
     	Connection connexion = Connect.getInstance().getConnection();
     	String requete = "SELECT jeune_id, jeune_nom, jeune_prenom, jeune_email, jeune_telephone, jeune_adresse,"
-    			+ "jeune_ville, jeune_code_postal, jeune_derniere_connexion, jeune_date_ajout FROM jeune "
+    			+ "jeune_ville, jeune_code_postal, jeune_derniere_connexion, jeune_creation FROM jeune "
 	 					+ "WHERE jeune_nom LIKE ?"
 	 					+ "OR jeune_prenom LIKE ?"
 	 					+ "OR jeune_email LIKE ?"
@@ -233,7 +233,7 @@ public class JeuneDAO {
 	 	String 	ville;
 	 	String 	code_postal;
 	 	String 	derniere_connexion;
-	 	String 	date_ajout;
+	 	String 	creation;
 	     
 	    ResultSet resultat = prepared_statement.executeQuery();
      
@@ -247,7 +247,7 @@ public class JeuneDAO {
    		 	ville				= resultat.getString("jeune_ville");
    		 	code_postal			= resultat.getString("jeune_code_postal");
    		 	derniere_connexion	= resultat.getString("jeune_derniere_connexion");
-   		 	date_ajout	 		= resultat.getString("jeune_date_ajout");
+   		 	creation	 		= resultat.getString("jeune_creation");
 		 
    		 	Jeune jeune = new Jeune();
    		 	
@@ -260,7 +260,7 @@ public class JeuneDAO {
 	   		jeune.setJeune_ville(ville);
 	   		jeune.setJeune_code_postal(code_postal);
 	   		jeune.setJeune_derniere_connexion(derniere_connexion);
-	   		jeune.setJeune_date_ajout(date_ajout);
+	   		jeune.setJeune_creation(creation);
 	   		
 	   		retour.add(jeune);
 	    	System.out.println(jeune);
@@ -275,7 +275,7 @@ public class JeuneDAO {
      public static ObservableList<Jeune> recherche() throws ClassNotFoundException, SQLException {
     	 Connection connexion = Connect.getInstance().getConnection();
     	 String requete = "SELECT jeune_id, jeune_nom, jeune_prenom, jeune_email, jeune_telephone, jeune_adresse,"
-    	 		+ "jeune_ville, jeune_code_postal, jeune_derniere_connexion, jeune_date_ajout FROM jeune";
+    	 		+ "jeune_ville, jeune_code_postal, jeune_derniere_connexion, jeune_creation FROM jeune";
     	 
     	 ObservableList<Jeune> retour = FXCollections.observableArrayList();
     	 
@@ -288,7 +288,7 @@ public class JeuneDAO {
     	 String ville;
     	 String code_postal;
     	 String derniere_connexion;
-    	 String date_ajout;
+    	 String creation;
 	 
     	 PreparedStatement prepared_statement = connexion.prepareStatement(requete);
 	 
@@ -304,7 +304,7 @@ public class JeuneDAO {
     		 ville					= resultat.getString("jeune_ville");
     		 code_postal			= resultat.getString("jeune_code_postal");
     		 derniere_connexion 	= resultat.getString("jeune_derniere_connexion");
-    		 date_ajout 			= resultat.getString("jeune_date_ajout");
+    		 creation 				= resultat.getString("jeune_creation");
 		 
     		 Jeune jeune = new Jeune();
     		 
@@ -317,7 +317,7 @@ public class JeuneDAO {
     		 jeune.setJeune_ville(ville);
     		 jeune.setJeune_code_postal(code_postal);
     		 jeune.setJeune_derniere_connexion(derniere_connexion);
-    		 jeune.setJeune_date_ajout(date_ajout);
+    		 jeune.setJeune_creation(creation);
 		 
     		 retour.add(jeune);
     		 System.out.println(jeune);

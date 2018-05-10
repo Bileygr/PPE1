@@ -17,7 +17,7 @@ public class Jeune
 	private StringProperty	jeune_ville;
 	private StringProperty	jeune_code_postal;
 	private StringProperty	jeune_derniere_connexion;
-	private StringProperty	jeune_date_ajout;
+	private StringProperty	jeune_creation;
 	
 	public Jeune()
 	{
@@ -31,7 +31,7 @@ public class Jeune
 		this.jeune_ville 				= new SimpleStringProperty();
 		this.jeune_code_postal			= new SimpleStringProperty();
 		this.jeune_derniere_connexion 	= new SimpleStringProperty();
-		this.jeune_date_ajout			= new SimpleStringProperty();
+		this.jeune_creation				= new SimpleStringProperty();
 	}
 	
 	public void setJeune_id(IntegerProperty jeune_id){this.jeune_id = jeune_id;}
@@ -44,7 +44,7 @@ public class Jeune
 	public void setJeune_ville(StringProperty jeune_ville){this.jeune_ville = jeune_ville;}
 	public void setJeune_code_postal(StringProperty jeune_code_postal){this.jeune_code_postal = jeune_code_postal;}
 	public void setJeune_derniere_connexion(StringProperty jeune_derniere_connexion){this.jeune_derniere_connexion = jeune_derniere_connexion;}
-	public void setJeune_date_ajout(StringProperty jeune_date_ajout){this.jeune_date_ajout = jeune_date_ajout;}
+	public void setJeune_creation(StringProperty jeune_creation){this.jeune_creation = jeune_creation;}
 	
 	public IntegerProperty getJeune_id_Prop(){return jeune_id;}
 	public StringProperty getJeune_nom_Prop(){return jeune_nom;}
@@ -56,7 +56,7 @@ public class Jeune
 	public StringProperty getJeune_ville_Prop(){return jeune_ville;}
 	public StringProperty getJeune_code_postal_Prop(){return jeune_code_postal;}
 	public StringProperty getJeune_derniere_connexion_Prop(){return jeune_derniere_connexion;}
-	public StringProperty getJeune_date_ajout_Prop(){return jeune_date_ajout;}
+	public StringProperty getJeune_creation_Prop(){return jeune_creation;}
 	
 	public int getJeune_id(){return jeune_id.get();}
 		public void setJeune_id(int jeune_id){this.jeune_id.set(jeune_id);}
@@ -78,8 +78,8 @@ public class Jeune
 		public void setJeune_code_postal(String jeune_code_postal){this.jeune_code_postal.set(jeune_code_postal);}
 	public String getJeune_derniere_connexion(){return jeune_derniere_connexion.get();}
 		public void setJeune_derniere_connexion(String jeune_derniere_connexion){this.jeune_derniere_connexion.set(jeune_derniere_connexion);}	
-	public String getJeune_date_ajout(){return jeune_date_ajout.get();}
-		public void setJeune_date_ajout(String jeune_date_ajout){this.jeune_date_ajout.set(jeune_date_ajout);}
+	public String getJeune_creation(){return jeune_creation.get();}
+		public void setJeune_creation(String jeune_creation){this.jeune_creation.set(jeune_creation);}
 
 	@Override
 	public String toString() {
@@ -87,6 +87,6 @@ public class Jeune
 				+ ", jeune_mot_de_passe_hash=" + jeune_mot_de_passe_hash + ", jeune_email=" + jeune_email 
 				+ ", jeune_adresse=" + jeune_adresse + ", jeune_ville=" + jeune_ville + ", jeune_code_postal=" 
 				+ jeune_code_postal + ", jeune_telephone=" + jeune_telephone + ", jeune_derniere_connexion=" 
-				+ jeune_derniere_connexion + ", jeune_date_ajout=" + jeune_date_ajout + "]";
+				+ jeune_derniere_connexion + ", jeune_date_ajout=" + jeune_creation + "]";
 	}
 }

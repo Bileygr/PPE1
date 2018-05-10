@@ -8,14 +8,12 @@ import dao.JeuneDAO;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 
 public class JeuneController {
 	@FXML
@@ -65,12 +63,10 @@ public class JeuneController {
 	
 	public void nom(String nom) {
 		this.nom = nom;
-		System.out.println("Jeune: " + this.nom);
 	}
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
-		System.out.println("Jeune (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML
@@ -82,7 +78,6 @@ public class JeuneController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -98,8 +93,6 @@ public class JeuneController {
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
-			
 				SuperAdministrateurMenuController super_administrateur_menu_controller = loader.<SuperAdministrateurMenuController>getController();
 				super_administrateur_menu_controller.nom(this.nom);
 				super_administrateur_menu_controller.super_administrateur(this.super_administrateur);
@@ -114,8 +107,6 @@ public class JeuneController {
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
-			
 				MenuController menu_controller = loader.<MenuController>getController();
 				menu_controller.nom(this.nom);
 				menu_controller.super_administrateur(this.super_administrateur);
@@ -139,13 +130,16 @@ public class JeuneController {
 		
 	@FXML
 	private void inscrire(ActionEvent actionEvent) {
-		Parent root;
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("view/JeuneInscription.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Jeune: Inscription");
-            stage.setScene(new Scene(root, 450, 450));
-            stage.show();
+        	mainPane.getChildren().clear();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getClassLoader().getResource("view/JeuneInscription.fxml"));
+			AnchorPane userFrame = (AnchorPane) loader.load();
+			Scene sc = mainPane.getScene();
+			sc.setRoot(userFrame);
+			JeuneInscriptionController jeune_inscription_controller = loader.<JeuneInscriptionController>getController();
+			jeune_inscription_controller.nom(this.nom);
+			jeune_inscription_controller.super_administrateur(this.super_administrateur);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -172,8 +166,6 @@ public class JeuneController {
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
-				
 				JeuneModificationController jeune_modification_controller = loader.<JeuneModificationController>getController();
 				jeune_modification_controller.jeune(id, nom, prenom, email, telephone, adresse, ville, code_postal);
 				jeune_modification_controller.nom(this.nom);
@@ -189,7 +181,6 @@ public class JeuneController {
 		if(table.getSelectionModel().getSelectedItem() != null) {
 	        Jeune jeune_selectionne = table.getSelectionModel().getSelectedItem();
 	        int id = jeune_selectionne.getJeune_id();
-	        System.out.println(id);
 	        JeuneDAO.supprimer(id);
 	    }
 	}
@@ -197,13 +188,12 @@ public class JeuneController {
 	@FXML
     private void initialize() throws ClassNotFoundException, SQLException {
 		ObservableList<Jeune> empData = JeuneDAO.recherche();
-		
         table.setItems(empData);
         nom_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_nom_Prop());
         prenom_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_prenom_Prop());
         email_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_email_Prop());
         telephone_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_telephone_Prop());
         derniere_connexion_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_derniere_connexion_Prop());
-        creation_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_derniere_connexion_Prop());
+        creation_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_creation_Prop());
     }
 }

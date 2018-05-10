@@ -42,12 +42,10 @@ public class OffreDescriptionController {
 	
 	public void nom(String nom) {
 		this.nom = nom;
-		System.out.println("Offre Description: " + this.nom);
 	}
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
-		System.out.println("Offre description (super administrateur): " + super_administrateur);
 	}
 	
 	public void offre(int id, String nom, String formation, String partenaire, String description, String debut, String fin) {
@@ -69,7 +67,6 @@ public class OffreDescriptionController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -84,8 +81,6 @@ public class OffreDescriptionController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			OffreController offre_controller = loader.<OffreController>getController();
 			offre_controller.nom(this.nom);
 			offre_controller.super_administrateur(this.super_administrateur);
@@ -106,7 +101,6 @@ public class OffreDescriptionController {
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
 			}catch (IOException e) {
 			   e.printStackTrace();
 			  }

@@ -54,12 +54,10 @@ public class PartenaireController
 	
 	public void nom(String nom) {
 		this.nom = nom;
-		System.out.println("Partenaire: " + this.nom);
 	}
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
-		System.out.println("Partenaire (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML
@@ -71,7 +69,6 @@ public class PartenaireController
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -87,8 +84,6 @@ public class PartenaireController
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
-				
 				SuperAdministrateurMenuController super_administrateur_menu_controller = loader.<SuperAdministrateurMenuController>getController();
 				super_administrateur_menu_controller.nom(this.nom);
 				super_administrateur_menu_controller.super_administrateur(this.super_administrateur);
@@ -103,8 +98,6 @@ public class PartenaireController
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
-				
 				MenuController menu_controller = loader.<MenuController>getController();
 				menu_controller.nom(this.nom);
 				menu_controller.super_administrateur(this.super_administrateur);
@@ -135,8 +128,6 @@ public class PartenaireController
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			PartenaireInscriptionController partenaire_inscription_controller = loader.<PartenaireInscriptionController>getController();
 			partenaire_inscription_controller.nom(this.nom);
 			partenaire_inscription_controller.super_administrateur(this.super_administrateur);
@@ -157,9 +148,6 @@ public class PartenaireController
 	        String adresse	 	= partenaire.getPartenaire_adresse();
 	        String ville		= partenaire.getPartenaire_ville();
 	        String code_postal 	= partenaire.getPartenaire_code_postal();
-	        System.out.println("ID: " + id + "siret: " + siret +  "Nom: " + nom + "Email: " + email + 
-	        					"Téléphone: " + telephone + "Adresse: " + adresse + "Ville: " + ville + 
-	        					"Code postal: " + code_postal);
 	        
 	        try {
 				mainPane.getChildren().clear();
@@ -168,8 +156,6 @@ public class PartenaireController
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
-				
 				PartenaireModificationController partenaire_modification_controller = loader.<PartenaireModificationController>getController();
 				partenaire_modification_controller.partenaire(id, siret, nom, email, telephone, adresse, ville, code_postal);
 				partenaire_modification_controller.nom(this.nom);
@@ -185,23 +171,19 @@ public class PartenaireController
 		if(table.getSelectionModel().getSelectedItem() != null) {
 	        Partenaire partenaire = table.getSelectionModel().getSelectedItem();
 	        int id = partenaire.getPartenaire_id();
-	        System.out.println(id);
 	        PartenaireDAO.supprimer(id);
 	    }
 	}
 		
-		@FXML
-	    private void initialize () throws ClassNotFoundException, SQLException  
-	    {
-			ObservableList<Partenaire> empData = PartenaireDAO.recherche();
-			
-			table.setItems(empData);
-	        siret_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_siret_Prop().asObject());
-	        nom_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_nom_Prop());
-	        email_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_email_Prop());
-	        telephone_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_telephone_Prop());
-	        derniere_connexion_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_derniere_connexion_Prop());
-	        creation_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_date_ajout_Prop());
-	    }
-
+	@FXML
+	private void initialize () throws ClassNotFoundException, SQLException  {
+		ObservableList<Partenaire> empData = PartenaireDAO.recherche();
+		table.setItems(empData);
+	    siret_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_siret_Prop().asObject());
+	    nom_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_nom_Prop());
+	    email_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_email_Prop());
+	    telephone_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_telephone_Prop());
+	    derniere_connexion_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_derniere_connexion_Prop());
+	    creation_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_creation_Prop());
+	}
 }

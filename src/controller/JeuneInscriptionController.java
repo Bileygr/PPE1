@@ -50,12 +50,10 @@ public class JeuneInscriptionController {
 	
 	public void nom(String nom) {
 		this.nom = nom;
-		System.out.println("Jeune Inscription: " + this.nom);
 	}
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
-		System.out.println("Jeune inscription (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML
@@ -67,7 +65,6 @@ public class JeuneInscriptionController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -82,8 +79,6 @@ public class JeuneInscriptionController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			JeuneController jeune_controller = loader.<JeuneController>getController();
 			jeune_controller.nom(this.nom);
 			jeune_controller.super_administrateur(this.super_administrateur);
@@ -98,16 +93,9 @@ public class JeuneInscriptionController {
 				&& !email_champ_de_texte.getText().isEmpty() && !telephone_champ_de_texte.getText().isEmpty() && !adresse_champ_de_texte.getText().isEmpty() 
 				&& !ville_champ_de_texte.getText().isEmpty() && !code_postal_champ_de_texte.getText().isEmpty()) {
 			
-			
 			if(mot_de_passe_champ_de_texte.getText().length() >= 12) {
 				boolean email_validation = JeuneDAO.validate_email(email_champ_de_texte.getText());
-				
-				String mot_de_passe = mot_de_passe_champ_de_texte.getText();
 				String hash = BCrypt.hashpw(mot_de_passe_champ_de_texte.getText(), BCrypt.gensalt());
-				
-				System.out.println("Nom: Benoit Pr�nom: Florian");
-				System.out.println("Mot de passe clair : " + mot_de_passe);
-				System.out.println("Mot de passe hashe :" + hash + " Nombre de caract�res: " + hash.length());
 				
 				if(email_validation == true) {
 				
@@ -124,7 +112,6 @@ public class JeuneInscriptionController {
 		
 									if(empdata == true) {
 										JeuneDAO.email_inscription(email_champ_de_texte.getText());
-										
 										Stage stage = (Stage) inscrire_bouton.getScene().getWindow();
 									    stage.close();
 									}else {

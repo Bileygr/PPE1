@@ -45,12 +45,10 @@ public class PartenaireModificationController {
 	
 	public void nom(String nom) {
 		this.nom = nom;
-		System.out.println("Partenaire Modification: " + this.nom);
 	}
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
-		System.out.println("Partenaire modification (super administrateur): " + super_administrateur);
 	}
 	
 	public void partenaire(int id, int siret, String nom, String email, String telephone, String adresse, String ville, String code_postal) {
@@ -73,7 +71,6 @@ public class PartenaireModificationController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -88,8 +85,6 @@ public class PartenaireModificationController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			PartenaireController partenaire_controller = loader.<PartenaireController>getController();
 			partenaire_controller.nom(this.nom);
 			partenaire_controller.super_administrateur(this.super_administrateur);
@@ -127,8 +122,6 @@ public class PartenaireModificationController {
 										AnchorPane userFrame = (AnchorPane) loader.load();
 										Scene sc = mainPane.getScene();
 										sc.setRoot(userFrame);
-										System.out.println();
-					
 										PartenaireController partenaire_controller = loader.<PartenaireController>getController();
 										partenaire_controller.nom(this.nom);
 										partenaire_controller.super_administrateur(this.super_administrateur);

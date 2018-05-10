@@ -32,12 +32,10 @@ public class StatistiqueController {
 	
 	public void nom(String nom) {
 		this.nom = nom;
-		System.out.println("Statistique: " + this.nom);
 	}
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
-		System.out.println("Statistique (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML
@@ -49,7 +47,6 @@ public class StatistiqueController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -65,8 +62,6 @@ public class StatistiqueController {
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
-				
 				SuperAdministrateurMenuController super_administrateur_menu_controller = loader.<SuperAdministrateurMenuController>getController();
 				super_administrateur_menu_controller.nom(this.nom);
 				super_administrateur_menu_controller.super_administrateur(this.super_administrateur);
@@ -81,8 +76,6 @@ public class StatistiqueController {
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
-				
 				MenuController menu_controller = loader.<MenuController>getController();
 				menu_controller.nom(this.nom);
 				menu_controller.super_administrateur(this.super_administrateur);
@@ -109,7 +102,6 @@ public class StatistiqueController {
     {        
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
 				OffreDAO.formation_statistique()); 
-	
-		    StatPieChart.setData(pieChartData) ;
+		StatPieChart.setData(pieChartData) ;
     }
 }

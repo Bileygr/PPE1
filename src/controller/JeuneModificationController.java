@@ -48,12 +48,10 @@ public class JeuneModificationController {
 	
 	public void nom(String nom) {
 		this.nom = nom;
-		System.out.println("Jeune Modification: " + this.nom);
 	}
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
-		System.out.println("Jeune modification (super administrateur): " + super_administrateur);
 	}
 	
 	public void jeune(int id, String nom, String prenom, String email,
@@ -78,7 +76,6 @@ public class JeuneModificationController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -93,8 +90,6 @@ public class JeuneModificationController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			JeuneController jeune_controller = loader.<JeuneController>getController();
 			jeune_controller.nom(this.nom);
 			jeune_controller.super_administrateur(this.super_administrateur);
@@ -131,8 +126,6 @@ public class JeuneModificationController {
 									AnchorPane userFrame = (AnchorPane) loader.load();
 									Scene sc = mainPane.getScene();
 									sc.setRoot(userFrame);
-									System.out.println();
-				
 									JeuneController jeune_controller = loader.<JeuneController>getController();
 									jeune_controller.nom(this.nom);
 									jeune_controller.super_administrateur(this.super_administrateur);

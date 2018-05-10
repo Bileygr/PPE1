@@ -8,7 +8,7 @@ import javafx.beans.property.StringProperty;
 public class Administrateur 
 {
 	private IntegerProperty administrateur_id;
-	private IntegerProperty super_administrateur;
+	private IntegerProperty administrateur_super;
 	private StringProperty 	administrateur_nom;
 	private StringProperty 	administrateur_prenom;
 	private StringProperty 	administrateur_mot_de_passe_hash;
@@ -18,12 +18,12 @@ public class Administrateur
 	private StringProperty	administrateur_ville;
 	private	StringProperty	administrateur_code_postal;
 	private StringProperty 	administrateur_derniere_connexion;
-	private StringProperty	administrateur_date_ajout;
+	private StringProperty	administrateur_creation;
 	
 	public Administrateur()
 	{
 		this.administrateur_id 		  			= new SimpleIntegerProperty();
-		this.super_administrateur 				= new SimpleIntegerProperty();
+		this.administrateur_super 				= new SimpleIntegerProperty();
 		this.administrateur_nom 		  		= new SimpleStringProperty();
 		this.administrateur_prenom 	  			= new SimpleStringProperty();
 		this.administrateur_mot_de_passe_hash	= new SimpleStringProperty();
@@ -33,11 +33,11 @@ public class Administrateur
 		this.administrateur_ville				= new SimpleStringProperty();
 		this.administrateur_code_postal			= new SimpleStringProperty();
 		this.administrateur_derniere_connexion	= new SimpleStringProperty();
-		this.administrateur_date_ajout	  		= new SimpleStringProperty();
+		this.administrateur_creation	  		= new SimpleStringProperty();
 	}
 	
 	public void setAdministrateur_id(IntegerProperty administrateur_id){this.administrateur_id = administrateur_id;}
-	public void setSuper_administrateur(IntegerProperty super_administrateur) {this.super_administrateur = super_administrateur;}
+	public void setAdministrateur_super(IntegerProperty administrateur_super) {this.administrateur_super = administrateur_super;}
 	public void setAdministrateur_nom(StringProperty administrateur_nom){this.administrateur_nom = administrateur_nom;}
 	public void setAdministrateur_prenom(StringProperty administrateur_prenom){this.administrateur_prenom = administrateur_prenom;}
 	public void setAdministrateur_mot_de_passe_hash(StringProperty administrateur_mot_de_passe_hash){this.administrateur_mot_de_passe_hash = administrateur_mot_de_passe_hash;}
@@ -47,10 +47,10 @@ public class Administrateur
 	public void setAdministrateur_ville(StringProperty administrateur_ville){this.administrateur_ville = administrateur_ville;}
 	public void setAdministrateur_code_postal(StringProperty administrateur_code_postal){this.administrateur_code_postal = administrateur_code_postal;}
 	public void setAdministrateur_derniere_connexion(StringProperty administrateur_derniere_connexion){this.administrateur_derniere_connexion = administrateur_derniere_connexion;}
-	public void setAdministrateur_date_ajout(StringProperty administrateur_date_ajout){this.administrateur_date_ajout = administrateur_date_ajout;}
+	public void setAdministrateur_creation(StringProperty administrateur_creation){this.administrateur_creation = administrateur_creation;}
 	
 	public IntegerProperty 	getAdministrateur_id_Prop(){return administrateur_id;}
-	public IntegerProperty 	getSuperAdministrateur_Prop(){return super_administrateur;}
+	public IntegerProperty 	getAdministrateur_super_Prop(){return administrateur_super;}
 	public StringProperty 	getAdministrateur_nom_Prop(){return administrateur_nom;}
 	public StringProperty 	getAdministrateur_prenom_Prop(){return administrateur_prenom;}
 	public StringProperty 	getAdministrateur_mot_de_passe_hash_Prop(){return administrateur_mot_de_passe_hash;}
@@ -60,12 +60,12 @@ public class Administrateur
 	public StringProperty 	getAdministrateur_ville_Prop(){return administrateur_ville;}
 	public StringProperty 	getAdministrateur_code_postal_Prop(){return administrateur_code_postal;}
 	public StringProperty 	getAdministrateur_derniere_connexion_Prop(){return administrateur_derniere_connexion;}
-	public StringProperty 	getAdministrateur_date_ajout_Prop(){return administrateur_date_ajout;}
+	public StringProperty 	getAdministrateur_creation_Prop(){return administrateur_creation;}
 	
 	public int getAdministrateur_id(){return administrateur_id.get();}
 		public void setAdministrateur_id(int administrateur_id){this.administrateur_id.set(administrateur_id);}
-	public int getSuper_administrateur(){return super_administrateur.get();}
-		public void setSuper_administrateur(int super_administrateur){this.super_administrateur.set(super_administrateur);}
+	public int getAdministrateur_super(){return administrateur_super.get();}
+		public void setAdministrateur_super(int administrateur_super){this.administrateur_super.set(administrateur_super);}
 	public String getAdministrateur_nom(){return administrateur_nom.get();}
 		public void setAdministrateur_nom(String administrateur_nom){this.administrateur_nom.set(administrateur_nom);}
 	public String getAdministrateur_prenom(){return administrateur_prenom.get();}
@@ -84,13 +84,13 @@ public class Administrateur
 		public void setAdministrateur_code_postal(String administrateur_code_postal){this.administrateur_code_postal.set(administrateur_code_postal);}
 	public String getAdministrateur_derniere_connexion(){return administrateur_derniere_connexion.get();}
 		public void setAdministrateur_derniere_connexion(String administrateur_derniere_connexion){this.administrateur_derniere_connexion.set(administrateur_derniere_connexion);}
-	public String getAdministrateur_date_ajout(){return administrateur_date_ajout.get();}
-		public void setAdministrateur_date_ajout(String administrateur_date_ajout){this.administrateur_date_ajout.set(administrateur_date_ajout);}
+	public String getAdministrateur_creation(){return administrateur_creation.get();}
+		public void setAdministrateur_creation(String administrateur_creation){this.administrateur_creation.set(administrateur_creation);}
 
 	@Override
 	public String toString() {
-		return "Administrateur [administrateur_id=" + administrateur_id + ", super_administrateur=" 
-				+ super_administrateur + ", administrateur_nom="
+		return "Administrateur [administrateur_id=" + administrateur_id + ", administrateur_super=" 
+				+ administrateur_super + ", administrateur_nom="
 				+ administrateur_nom + ", administrateur_prenom=" + administrateur_prenom
 				+ ", administrateur_identifiant=" + ", administrateur_mot_de_passe="
 				+ administrateur_mot_de_passe_hash + ", administrateur_email=" + administrateur_email
@@ -98,6 +98,6 @@ public class Administrateur
 				+ administrateur_adresse + ", administrateur_ville=" + administrateur_ville
 				+ ", administrateur_code_postal=" + administrateur_code_postal
 				+ ", administrateur_derniere_connexion=" + administrateur_derniere_connexion
-				+ ", administrateur_date_ajout=" + administrateur_date_ajout + "]";
+				+ ", administrateur_creation=" + administrateur_creation + "]";
 		}
 }

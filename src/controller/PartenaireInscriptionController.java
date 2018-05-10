@@ -45,12 +45,10 @@ public class PartenaireInscriptionController {
 	
 	public void nom(String nom) {
 		this.nom = nom;
-		System.out.println("Partenaire Inscription: " + this.nom);
 	}
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
-		System.out.println("Partenaire inscription (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML
@@ -62,7 +60,6 @@ public class PartenaireInscriptionController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -77,8 +74,6 @@ public class PartenaireInscriptionController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			PartenaireController partenaire_controller = loader.<PartenaireController>getController();
 			partenaire_controller.nom(this.nom);
 			partenaire_controller.super_administrateur(this.super_administrateur);
@@ -93,13 +88,7 @@ public class PartenaireInscriptionController {
 				&& !email_champ_de_texte.getText().isEmpty() && !telephone_champ_de_texte.getText().isEmpty() && !adresse_champ_de_texte.getText().isEmpty() 
 				&& !ville_champ_de_texte.getText().isEmpty() && !code_postal_champ_de_texte.getText().isEmpty()) {
 			boolean email_validation = PartenaireDAO.validate(email_champ_de_texte.getText());
-			
-			String mot_de_passe = mot_de_passe_champ_de_texte.getText();
 			String hash = BCrypt.hashpw(mot_de_passe_champ_de_texte.getText(), BCrypt.gensalt());
-			
-			System.out.println("Nom: " + nom_champ_de_texte.getText());
-			System.out.println("Mot de passe clair : " + mot_de_passe);
-			System.out.println("Mot de passe hashe :" + hash + " Nombre de caractères: " + hash.length());
 			
 			if(siret_champ_de_texte.getText().length() == 9) {
 				
@@ -127,8 +116,6 @@ public class PartenaireInscriptionController {
 												AnchorPane userFrame = (AnchorPane) loader.load();
 												Scene sc = mainPane.getScene();
 												sc.setRoot(userFrame);
-												System.out.println();
-				
 												PartenaireController partenaire_controller = loader.<PartenaireController>getController();
 												partenaire_controller.nom(this.nom);
 												partenaire_controller.super_administrateur(this.super_administrateur);

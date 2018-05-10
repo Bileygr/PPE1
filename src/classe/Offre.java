@@ -17,7 +17,7 @@ public class Offre
 	private StringProperty	offre_code_postal;
 	private StringProperty	offre_debut;
 	private StringProperty	offre_fin;
-	private StringProperty	offre_date_ajout;
+	private StringProperty	offre_creation;
 	
 	public Offre()
 	{
@@ -31,7 +31,7 @@ public class Offre
 		this.offre_code_postal		= new SimpleStringProperty();
 		this.offre_debut 			= new SimpleStringProperty();
 		this.offre_fin 				= new SimpleStringProperty();
-		this.offre_date_ajout		= new SimpleStringProperty();
+		this.offre_creation		= new SimpleStringProperty();
 	}
 	
 	public void setOffre_id(IntegerProperty offre_id){this.offre_id = offre_id;}
@@ -44,7 +44,7 @@ public class Offre
 	public void setOffre_code_postal(StringProperty offre_code_postal){this.offre_code_postal = offre_code_postal;}
 	public void setOffre_debut(StringProperty offre_debut){this.offre_debut = offre_debut;}
 	public void setOffre_fin(StringProperty offre_fin){this.offre_fin = offre_fin;}	
-	public void setOffre_date_ajout(StringProperty offre_date_ajout){this.offre_date_ajout = offre_date_ajout;}
+	public void setOffre_creation(StringProperty offre_creation){this.offre_creation = offre_creation;}
 	
 	public IntegerProperty getOffre_id_Prop(){return offre_id;}
 	public StringProperty getPartenaire_nom_Prop(){return partenaire_nom;}
@@ -56,7 +56,7 @@ public class Offre
 	public StringProperty getOffre_code_postal_Prop(){return offre_code_postal;}
 	public StringProperty getOffre_debut_Prop(){return offre_debut;}
 	public StringProperty getOffre_fin_Prop(){return offre_fin;}
-	public StringProperty getOffre_date_ajout_Prop(){return offre_date_ajout;}
+	public StringProperty getOffre_creation_Prop(){return offre_creation;}
 	
 	public int getOffre_id(){return offre_id.get();}
 		public void setOffre_id(int offre_id){this.offre_id.set(offre_id);}
@@ -78,8 +78,8 @@ public class Offre
 		public void setOffre_debut(String offre_debut){this.offre_debut.set(offre_debut);}
 	public String getOffre_fin(){return offre_fin.get();}
 		public void setOffre_fin(String offre_fin){this.offre_fin.set(offre_fin);}
-	public String getOffre_date_ajout(){return offre_date_ajout.get();}
-		public void setOffre_date_ajout(String offre_date_ajout){this.offre_date_ajout.set(offre_date_ajout);}
+	public String getOffre_creation(){return offre_creation.get();}
+		public void setOffre_creation(String offre_creation){this.offre_creation.set(offre_creation);}
 
 	@Override
 	public String toString() {
@@ -87,6 +87,6 @@ public class Offre
 				+ formation_nom + ", offre_nom=" + offre_nom + ", offre_description=" + offre_description
 				+ ", offre_adresse=" + offre_adresse + ", offre_ville=" + offre_ville + ", offre_code_postal="
 				+ offre_code_postal + ", offre_debut=" + offre_debut + ", offre_fin=" + offre_fin
-				+ ", offre_date_ajout=" + offre_date_ajout + "]";
+				+ ", offre_creation=" + offre_creation + "]";
 	}
 }

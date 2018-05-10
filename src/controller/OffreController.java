@@ -51,12 +51,10 @@ public class OffreController
 	
 	public void nom(String nom) {
 		this.nom = nom;
-		System.out.println("Offre: " + this.nom);
 	}
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur=super_administrateur;
-		System.out.println("Offre (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML
@@ -68,7 +66,6 @@ public class OffreController
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -84,8 +81,6 @@ public class OffreController
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
-			
 				SuperAdministrateurMenuController super_administrateur_menu_controller = loader.<SuperAdministrateurMenuController>getController();
 				super_administrateur_menu_controller.nom(this.nom);
 				super_administrateur_menu_controller.super_administrateur(this.super_administrateur);
@@ -100,8 +95,6 @@ public class OffreController
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
-				
 				MenuController menu_controller = loader.<MenuController>getController();
 				menu_controller.nom(this.nom);
 				menu_controller.super_administrateur(this.super_administrateur);
@@ -136,10 +129,6 @@ public class OffreController
 	        String description	= offre.getOffre_description();
 	        String debut		= offre.getOffre_debut();
 	        String fin			= offre.getOffre_fin();
-	        String adresse	 	= offre.getOffre_adresse();
-	        String ville		= offre.getOffre_ville();
-	        String code_postal 	= offre.getOffre_code_postal();
-	        System.out.println(id + nom +  nom + partenaire + formation + description + adresse + ville + code_postal);
 	        
 	        try {
 				mainPane.getChildren().clear();
@@ -148,8 +137,6 @@ public class OffreController
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
-				
 				OffreDescriptionController offre_description_controller = loader.<OffreDescriptionController>getController();
 				offre_description_controller.offre(id, nom, partenaire, formation, description, debut, fin);
 				offre_description_controller.nom(this.nom);
@@ -165,20 +152,18 @@ public class OffreController
 		if(table.getSelectionModel().getSelectedItem() != null) {
 	        Offre offre = table.getSelectionModel().getSelectedItem();
 	        int id = offre.getOffre_id();
-	        System.out.println(id);
 	        OffreDAO.supprimer(id);
 	    }
 	}
 		
-		@FXML
-	    private void initialize () throws ClassNotFoundException, SQLException  {
-			ObservableList<Offre> empData = OffreDAO.recherche();
-			
-	        table.setItems(empData);
-			formation_colonne.setCellValueFactory(cellData -> cellData.getValue().getFormation_nom_Prop());
-			partenaire_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_nom_Prop());
-			nom_colonne.setCellValueFactory(cellData -> cellData.getValue().getOffre_nom_Prop());
-			debut_colonne.setCellValueFactory(cellData -> cellData.getValue().getOffre_debut_Prop());
-			fin_colonne.setCellValueFactory(cellData -> cellData.getValue().getOffre_fin_Prop());
-	    }
+	@FXML
+	private void initialize () throws ClassNotFoundException, SQLException  {
+		ObservableList<Offre> empData = OffreDAO.recherche();
+	    table.setItems(empData);
+	    formation_colonne.setCellValueFactory(cellData -> cellData.getValue().getFormation_nom_Prop());
+		partenaire_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_nom_Prop());
+		nom_colonne.setCellValueFactory(cellData -> cellData.getValue().getOffre_nom_Prop());
+		debut_colonne.setCellValueFactory(cellData -> cellData.getValue().getOffre_debut_Prop());
+		fin_colonne.setCellValueFactory(cellData -> cellData.getValue().getOffre_fin_Prop());
+	}
 }

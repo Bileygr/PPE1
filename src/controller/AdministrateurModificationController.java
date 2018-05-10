@@ -53,7 +53,6 @@ public class AdministrateurModificationController {
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
-		System.out.println("Administrateur modification (super administrateur): " + super_administrateur);
 	}
 	
 	public void administrateur(int id, int super_administrateur, String nom, String prenom, String email,
@@ -84,7 +83,6 @@ public class AdministrateurModificationController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -99,8 +97,6 @@ public class AdministrateurModificationController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			AdministrateurController administrateur_controller = loader.<AdministrateurController>getController();
 			administrateur_controller.nom(this.nom);
 			administrateur_controller.super_administrateur(this.super_administrateur);
@@ -145,7 +141,6 @@ public class AdministrateurModificationController {
 									Scene sc = mainPane.getScene();
 									sc.setRoot(userFrame);
 									System.out.println();
-				
 									AdministrateurController administrateur_controller = loader.<AdministrateurController>getController();
 									administrateur_controller.nom(this.nom);
 									administrateur_controller.super_administrateur(this.super_administrateur);

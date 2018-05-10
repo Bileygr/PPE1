@@ -17,21 +17,21 @@ public class Partenaire
 	private StringProperty	partenaire_ville;
 	private StringProperty	partenaire_code_postal;
 	private StringProperty	partenaire_derniere_connexion;
-	private StringProperty	partenaire_date_ajout;
+	private StringProperty	partenaire_creation;
 	
 	public Partenaire()
 	{
 		this.partenaire_id 						= new SimpleIntegerProperty();
 		this.partenaire_siret 					= new SimpleIntegerProperty();
 		this.partenaire_nom 					= new SimpleStringProperty();
-		this.partenaire_mot_de_passe_hash 			= new SimpleStringProperty();
+		this.partenaire_mot_de_passe_hash 		= new SimpleStringProperty();
 		this.partenaire_email 					= new SimpleStringProperty();
 		this.partenaire_telephone 				= new SimpleStringProperty();
 		this.partenaire_adresse 				= new SimpleStringProperty();
 		this.partenaire_ville					= new SimpleStringProperty();
 		this.partenaire_code_postal				= new SimpleStringProperty();
 		this.partenaire_derniere_connexion		= new SimpleStringProperty();
-		this.partenaire_date_ajout				= new SimpleStringProperty();
+		this.partenaire_creation				= new SimpleStringProperty();
 	}
 	
 	public void setPartenaire_id(IntegerProperty partenaire_id){this.partenaire_id = partenaire_id;}
@@ -44,7 +44,7 @@ public class Partenaire
 	public void setPartenaire_ville(StringProperty partenaire_ville){this.partenaire_ville = partenaire_ville;}
 	public void setPartenaire_code_postal(StringProperty partenaire_code_postal){this.partenaire_code_postal = partenaire_code_postal;}
 	public void setPartenaire_derniere_connexion(StringProperty partenaire_derniere_connexion){this.partenaire_derniere_connexion = partenaire_derniere_connexion;}
-	public void setPartenaire_date_ajout(StringProperty partenaire_date_ajout){this.partenaire_date_ajout = partenaire_date_ajout;}
+	public void setPartenaire_creation(StringProperty partenaire_creation){this.partenaire_creation = partenaire_creation;}
 	
 	public IntegerProperty getPartenaire_ide_Prop(){return partenaire_id;}
 	public IntegerProperty getPartenaire_siret_Prop(){return partenaire_siret;}
@@ -56,7 +56,7 @@ public class Partenaire
 	public StringProperty getPartenaire_ville_Prop(){return partenaire_ville;}
 	public StringProperty getPartenaire_code_postal_Prop(){return partenaire_code_postal;}
 	public StringProperty getPartenaire_derniere_connexion_Prop(){return partenaire_derniere_connexion;}
-	public StringProperty getPartenaire_date_ajout_Prop(){return partenaire_date_ajout;}
+	public StringProperty getPartenaire_creation_Prop(){return partenaire_creation;}
 	
 	public int getPartenaire_id(){return partenaire_id.get();}
 		public void setPartenaire_id(int partenaire_id){this.partenaire_id.set(partenaire_id);
@@ -79,8 +79,8 @@ public class Partenaire
 		public void setPartenaire_code_postal(String partenaire_code_postal){this.partenaire_code_postal.set(partenaire_code_postal);}
 	public String getPartenaire_derniere_connexion(){return partenaire_derniere_connexion.get();}
 		public void setPartenaire_derniere_connexion(String partenaire_derniere_connexion){this.partenaire_derniere_connexion.set(partenaire_derniere_connexion);}	
-	public String getPartenaire_date_ajout(){return partenaire_date_ajout.get();}
-		public void setPartenaire_date_ajout(String partenaire_date_ajout){this.partenaire_date_ajout.set(partenaire_date_ajout);}
+	public String getPartenaire_creation(){return partenaire_creation.get();}
+		public void setPartenaire_creation(String partenaire_creation){this.partenaire_creation.set(partenaire_creation);}
 
 	@Override
 	public String toString() {
@@ -89,6 +89,6 @@ public class Partenaire
 				+ ", partenaire_email=" + partenaire_email + ", partenaire_telephone=" + partenaire_telephone
 				+ ", partenaire_adresse=" + partenaire_adresse + ", partenaire_ville=" + partenaire_ville
 				+ ", partenaire_code_postal=" + partenaire_code_postal + ", partenaire_derniere_connexion="
-				+ partenaire_derniere_connexion + ", partenaire_date_ajout=" + partenaire_date_ajout + "]";
+				+ partenaire_derniere_connexion + ", partenaire_creation=" + partenaire_creation + "]";
 	}	
 }

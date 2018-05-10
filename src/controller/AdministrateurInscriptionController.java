@@ -50,12 +50,10 @@ public class AdministrateurInscriptionController {
 	
 	public void nom(String nom) {
 		this.nom = nom;
-		System.out.println("Jeune Inscription: " + this.nom);
 	}
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
-		System.out.println("Administrateur inscription (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML
@@ -67,7 +65,6 @@ public class AdministrateurInscriptionController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -82,8 +79,6 @@ public class AdministrateurInscriptionController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			AdministrateurController administrateur_controller = loader.<AdministrateurController>getController();
 			administrateur_controller.nom(this.nom);
 			administrateur_controller.super_administrateur(this.super_administrateur);
@@ -103,12 +98,7 @@ public class AdministrateurInscriptionController {
 				boolean email_validation = AdministrateurDAO.validate(email_champ_de_texte.getText());
 				int super_administrateur = 0;
 				
-				String mot_de_passe = mot_de_passe_champ_de_texte.getText();
 				String hash = BCrypt.hashpw(mot_de_passe_champ_de_texte.getText(), BCrypt.gensalt());
-				
-				System.out.println("Nom: " + nom_champ_de_texte.getText() + "Prénom: " + prenom_champ_de_texte.getText());
-				System.out.println("Mot de passe clair : " + mot_de_passe);
-				System.out.println("Mot de passe hashe :" + hash + " Nombre de caractères: " + hash.length());
 				
 				if(super_administrateur_checkbox.isSelected()){
 					super_administrateur = 1;
@@ -137,8 +127,6 @@ public class AdministrateurInscriptionController {
 											AnchorPane userFrame = (AnchorPane) loader.load();
 											Scene sc = mainPane.getScene();
 											sc.setRoot(userFrame);
-											System.out.println();
-				
 											AdministrateurController administrateur_controller = loader.<AdministrateurController>getController();
 											administrateur_controller.nom(this.nom);
 											administrateur_controller.super_administrateur(this.super_administrateur);

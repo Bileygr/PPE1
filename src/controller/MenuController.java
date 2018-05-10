@@ -38,10 +38,7 @@ public class MenuController{
 		this.nom = nom;
 		Calendar calendar = Calendar.getInstance();
 		int hours = calendar.get(Calendar.HOUR_OF_DAY);
-		nom_champ_de_texte.setText(nom); 
-		
-		System.out.println("Heure: " + hours);
-		System.out.println("Menu: " + this.nom);
+		nom_champ_de_texte.setText(nom);
 		
 		if(hours >= 5 && hours < 18) {
 			salutation_label.setText("Bonjour");
@@ -52,7 +49,6 @@ public class MenuController{
 	
 	public void super_administrateur(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
-		System.out.println("Menu (super administrateur): " + super_administrateur);
 	}
 	
 	@FXML
@@ -64,7 +60,6 @@ public class MenuController{
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -79,8 +74,6 @@ public class MenuController{
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			JeuneController jeune_controller = loader.<JeuneController>getController();
 			jeune_controller.nom(this.nom);
 			jeune_controller.super_administrateur(this.super_administrateur);
@@ -98,8 +91,6 @@ public class MenuController{
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			PartenaireController partenaire_controller = loader.<PartenaireController>getController();
 			partenaire_controller.nom(this.nom);
 			partenaire_controller.super_administrateur(this.super_administrateur);
@@ -117,8 +108,6 @@ public class MenuController{
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			OffreController offre_controller = loader.<OffreController>getController();
 			offre_controller.nom(this.nom);
 			offre_controller.super_administrateur(this.super_administrateur);
@@ -136,8 +125,6 @@ public class MenuController{
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			StatistiqueController statistique_controller = loader.<StatistiqueController>getController();
 			statistique_controller.nom(this.nom);
 			statistique_controller.super_administrateur(this.super_administrateur);

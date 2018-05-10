@@ -78,7 +78,6 @@ public class AdministrateurController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
@@ -93,8 +92,6 @@ public class AdministrateurController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			SuperAdministrateurMenuController super_administrateur_menu_controller = loader.<SuperAdministrateurMenuController>getController();
 			super_administrateur_menu_controller.nom(this.nom);
 			super_administrateur_menu_controller.super_administrateur(this.super_administrateur);
@@ -124,8 +121,6 @@ public class AdministrateurController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			System.out.println();
-			
 			AdministrateurInscriptionController administrateur_inscription_controller = loader.<AdministrateurInscriptionController>getController();
 			administrateur_inscription_controller.nom(this.nom);
 			administrateur_inscription_controller.super_administrateur(this.super_administrateur);
@@ -139,7 +134,7 @@ public class AdministrateurController {
 		if(table.getSelectionModel().getSelectedItem() != null) {
 			Administrateur administrateur = table.getSelectionModel().getSelectedItem();
 	        int id 						= administrateur.getAdministrateur_id();
-	        int super_administrateur	= administrateur.getSuper_administrateur();
+	        int super_administrateur	= administrateur.getAdministrateur_super();
 	        String nom 					= administrateur.getAdministrateur_nom();
 	        String prenom 				= administrateur.getAdministrateur_prenom();
 	        String email 				= administrateur.getAdministrateur_email();
@@ -155,8 +150,6 @@ public class AdministrateurController {
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				System.out.println();
-				
 				AdministrateurModificationController administrateur_modification_controller = loader.<AdministrateurModificationController>getController();
 				administrateur_modification_controller.administrateur(id, super_administrateur, nom, prenom, email, telephone, adresse, ville, code_postal);
 				administrateur_modification_controller.nom(this.nom);
@@ -172,7 +165,6 @@ public class AdministrateurController {
 		if(table.getSelectionModel().getSelectedItem() != null) {
 	        Administrateur administrateur_selectionne = table.getSelectionModel().getSelectedItem();
 	        int id = administrateur_selectionne.getAdministrateur_id();
-	        System.out.println(id);
 	        AdministrateurDAO.supprimer(id);
 	    }
 	}
@@ -180,7 +172,6 @@ public class AdministrateurController {
 	@FXML
     private void initialize() throws ClassNotFoundException, SQLException {
 		ObservableList<Administrateur> empData = AdministrateurDAO.recherche();
-		
         table.setItems(empData);
         nom_colonne.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_nom_Prop());
         prenom_colonne.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_prenom_Prop());

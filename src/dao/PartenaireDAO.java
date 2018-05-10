@@ -108,7 +108,7 @@ public class PartenaireDAO {
 		Connection connexion = Connect.getInstance().getConnection();
 		String requete = "INSERT INTO partenaire(partenaire_siret, partenaire_nom, partenaire_mot_de_passe_hash, partenaire_email, "
 							+ "partenaire_telephone, partenaire_adresse, partenaire_ville, partenaire_code_postal, "
-							+ "partenaire_derniere_connexion, partenaire_date_ajout) VALUES(?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+							+ "partenaire_derniere_connexion, partenaire_creation) VALUES(?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
 		
 		boolean retour = false;
 		
@@ -212,7 +212,7 @@ public class PartenaireDAO {
 	public static ObservableList<Partenaire> recherche() throws ClassNotFoundException, SQLException {
 		Connection connexion = Connect.getInstance().getConnection();
 		String requete = "SELECT partenaire_id, partenaire_siret, partenaire_nom, partenaire_email, partenaire_telephone, "
-				+ "partenaire_adresse, partenaire_ville, partenaire_code_postal, partenaire_derniere_connexion, partenaire_date_ajout FROM partenaire";
+				+ "partenaire_adresse, partenaire_ville, partenaire_code_postal, partenaire_derniere_connexion, partenaire_creation FROM partenaire";
 		
 		ObservableList<Partenaire> retour = FXCollections.observableArrayList();
 		
@@ -241,7 +241,7 @@ public class PartenaireDAO {
 			ville 				= resultat.getString("partenaire_ville");
 			code_postal 		= resultat.getString("partenaire_code_postal");
 			derniere_connexion 	= resultat.getString("partenaire_derniere_connexion");
-			creation			= resultat.getString("partenaire_date_ajout");
+			creation			= resultat.getString("partenaire_creation");
 			
 			Partenaire partenaire = new Partenaire();
 			
@@ -254,7 +254,7 @@ public class PartenaireDAO {
 			partenaire.setPartenaire_ville(ville);
 			partenaire.setPartenaire_code_postal(code_postal);
 			partenaire.setPartenaire_derniere_connexion(derniere_connexion);
-			partenaire.setPartenaire_date_ajout(creation);
+			partenaire.setPartenaire_creation(creation);
 			
 			retour.add(partenaire);
 			System.out.println(partenaire);
@@ -270,18 +270,12 @@ public class PartenaireDAO {
 		Connection connexion = Connect.getInstance().getConnection();
 		String requete = "SELECT partenaire_id, partenaire_siret, partenaire_nom, partenaire_email, partenaire_telephone, "
 						+ "partenaire_adresse, partenaire_ville, partenaire_code_postal, "
-						+ "partenaire_derniere_connexion, partenaire_date_ajout FROM partenaire WHERE  partenaire_siret LIKE ? ESCAPE '!' "
+						+ "partenaire_derniere_connexion, partenaire_creation FROM partenaire WHERE  partenaire_siret LIKE ? ESCAPE '!' "
 																						   	     + "OR partenaire_nom   LIKE ? ESCAPE '!' "
-																						   	   + "OR partenaire_email   LIKE ? ESCAPE '!'"
-																						   	 + "OR partenaire_telephone LIKE ? ESCAPE '!'";
+																						   	     + "OR partenaire_email   LIKE ? ESCAPE '!'"
+																						   	     + "OR partenaire_telephone LIKE ? ESCAPE '!'";
 	 	
 		ObservableList<Partenaire> retour = FXCollections.observableArrayList();
-		
-		filtre = filtre
-	 			.replace("!", "!!")
-	 			.replace("%", "!%")
-	 			.replace("_", "!_")
-	 			.replace("[", "![");
 		
 		PreparedStatement prepared_statement = connexion.prepareStatement(requete);
 		prepared_statement.setString(1, "%" + filtre +  "%");
@@ -312,7 +306,7 @@ public class PartenaireDAO {
 			ville 				= resultat.getString("partenaire_ville");
 			code_postal 		= resultat.getString("partenaire_code_postal");
 			derniere_connexion 	= resultat.getString("partenaire_derniere_connexion");
-			creation 			= resultat.getString("partenaire_date_ajout");
+			creation 			= resultat.getString("partenaire_creation");
 			
 			Partenaire partenaire = new Partenaire();
 			
@@ -325,7 +319,7 @@ public class PartenaireDAO {
 			partenaire.setPartenaire_ville(ville);
 			partenaire.setPartenaire_code_postal(code_postal);
 			partenaire.setPartenaire_derniere_connexion(derniere_connexion);
-			partenaire.setPartenaire_date_ajout(creation);
+			partenaire.setPartenaire_creation(creation);
     	 
 	    	retour.add(partenaire);
 	    	System.out.println(partenaire);

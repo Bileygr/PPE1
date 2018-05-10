@@ -121,12 +121,6 @@ public class OffreDAO {
 		
 	 	ObservableList<Offre> retour = FXCollections.observableArrayList();
 	 	
-	 	filtre = filtre
-	 			.replace("!", "!!")
-	 			.replace("%", "!%")
-	 			.replace("_", "!_")
-	 			.replace("[", "![");
-	 	
 	 	PreparedStatement prepared_statement = connexion.prepareStatement(req);
 	 	prepared_statement.setString(1, "%" + filtre +  "%");
 	 	prepared_statement.setString(2, "%" + filtre +  "%");
