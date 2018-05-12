@@ -215,7 +215,7 @@ public class AdministrateurDAO {
 		Connection connexion = Connect.getInstance().getConnection();
 		String requete = "INSERT INTO administrateur(administrateur_super, administrateur_nom, administrateur_prenom, administrateur_mot_de_passe_hash, "
 				+ "administrateur_email, administrateur_telephone, administrateur_adresse, administrateur_ville, administrateur_code_postal,"
-				+ "administrateur_derniere_connexion, administrateur_date_ajout) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+				+ "administrateur_derniere_connexion, administrateur_creation) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
 		boolean retour = false;
 		PreparedStatement prepared_statement = null;
 		prepared_statement = connexion.prepareStatement(requete);
@@ -312,7 +312,7 @@ public class AdministrateurDAO {
 	
 	public static ObservableList<Administrateur> recherche() throws ClassNotFoundException, SQLException {
 		Connection connexion = Connect.getInstance().getConnection();
-		String requete = "SELECT administrateur_id, super_administrateur, administrateur_nom, administrateur_prenom, administrateur_email, administrateur_telephone,"
+		String requete = "SELECT administrateur_id, administrateur_super, administrateur_nom, administrateur_prenom, administrateur_email, administrateur_telephone,"
 				+ "administrateur_adresse, administrateur_ville, administrateur_code_postal, administrateur_derniere_connexion, administrateur_creation FROM administrateur";
 		ObservableList<Administrateur> retour = FXCollections.observableArrayList();
 		int 	id;
