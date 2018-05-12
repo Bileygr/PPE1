@@ -16,7 +16,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class JeuneInscriptionController {
 	@FXML
@@ -112,8 +111,20 @@ public class JeuneInscriptionController {
 		
 									if(empdata == true) {
 										JeuneDAO.email_inscription(email_champ_de_texte.getText());
-										Stage stage = (Stage) inscrire_bouton.getScene().getWindow();
-									    stage.close();
+
+										try {
+											mainPane.getChildren().clear();
+											FXMLLoader loader = new FXMLLoader();
+											loader.setLocation(Main.class.getClassLoader().getResource("view/Jeune.fxml"));
+											AnchorPane userFrame = (AnchorPane) loader.load();
+											Scene sc = mainPane.getScene();
+											sc.setRoot(userFrame);
+											JeuneController jeune_controller = loader.<JeuneController>getController();
+											jeune_controller.nom(this.nom);
+											jeune_controller.super_administrateur(this.super_administrateur);
+										}catch (IOException e) {
+											e.printStackTrace();
+										}
 									}else {
 										Alert a1 = new Alert(Alert.AlertType.ERROR);
 										a1.setTitle("Erreur: n�8");
