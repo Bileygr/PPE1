@@ -1,4 +1,4 @@
-package dao;
+﻿package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,10 +8,10 @@ import java.sql.Statement;
 
 public class Connect {
 	  private static final String DRIVER = "com.mysql.jdbc.Driver";
-	    private static final String DBNAME = "ppe";
-	    private static final String URL = "jdbc:mysql://localhost/"+DBNAME;
-	    private static final String USER = "root";
-	    private static final String PASSWORD = "";
+	    private static final String DBNAME = "cheik_ppe";
+	    private static final String URL = "jdbc:mysql://mysql.sio.itis-formation.com/"+DBNAME;
+	    private static final String USER = "admin";
+	    private static final String PASSWORD = "admin";
 	    private static Connect instance;
 
 	    private Connect() 
