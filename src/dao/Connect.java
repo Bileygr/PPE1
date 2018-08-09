@@ -8,10 +8,10 @@ import java.sql.Statement;
 
 public class Connect {
 	  private static final String DRIVER = "com.mysql.jdbc.Driver";
-	    private static final String DBNAME = "cheik_ppe";
-	    private static final String URL = "jdbc:mysql://mysql.sio.itis-formation.com/"+DBNAME;
-	    private static final String USER = "admin";
-	    private static final String PASSWORD = "admin";
+	    private static final String DBNAME = "ppe";
+	    private static final String URL = "jdbc:mysql://82.123.7.148/"+DBNAME;
+	    private static final String USER = "ppe";
+	    private static final String PASSWORD = "S7xvZEuCDq&2tWCa";
 	    private static Connect instance;
 
 	    private Connect() 

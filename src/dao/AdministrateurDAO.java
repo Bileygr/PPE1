@@ -50,11 +50,11 @@ public class AdministrateurDAO {
             Session session = Session.getDefaultInstance(props, null);
             Transport transport = session.getTransport("smtp");
             MimeMessage msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("cheiksiramakankeita@gmail.com"));
+            msg.setFrom(new InternetAddress("btssioppechesirkei@gmail.com"));
             msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinataire));
             msg.setSubject("Connexion à l'application PPE1: Gestion utilisateurs");
             msg.setText("Vous vous êtes connecté à l'application. \n" + format.format(date));
-            transport.connect("smtp.gmail.com", "cheiksiramakankeita@gmail.com","crownclown91");
+            transport.connect("smtp.gmail.com", "btssioppechesirkei@gmail.com","Jh6@hV^4AW5y34aZ");
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
         } catch (NoSuchProviderException ex) {
@@ -80,11 +80,11 @@ public class AdministrateurDAO {
             Session session = Session.getDefaultInstance(props, null);
             Transport transport = session.getTransport("smtp");
             MimeMessage msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("cheiksiramakankeita@gmail.com"));
+            msg.setFrom(new InternetAddress("btssioppechesirkei@gmail.com"));
             msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinataire));
             msg.setSubject("Offres (site web)");
             msg.setText("Vous êtes maintenant inscrit. \n" + format.format(date));
-            transport.connect("smtp.gmail.com", "cheiksiramakankeita@gmail.com","crownclown91");
+            transport.connect("smtp.gmail.com", "btssioppechesirkei@gmail.com","Jh6@hV^4AW5y34aZ");
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
         } catch (NoSuchProviderException ex) {
@@ -110,11 +110,11 @@ public class AdministrateurDAO {
             Session session = Session.getDefaultInstance(props, null);
             Transport transport = session.getTransport("smtp");
             MimeMessage msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("cheiksiramakankeita@gmail.com"));
+            msg.setFrom(new InternetAddress("btssioppechesirkei@gmail.com"));
             msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinataire));
             msg.setSubject("Offres (site web)");
             msg.setText("Vos informations ont été modifié. \n" + format.format(date));
-            transport.connect("smtp.gmail.com", "cheiksiramakankeita@gmail.com","crownclown91");
+            transport.connect("smtp.gmail.com", "btssioppechesirkei@gmail.com","Jh6@hV^4AW5y34aZ");
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
         } catch (NoSuchProviderException ex) {
