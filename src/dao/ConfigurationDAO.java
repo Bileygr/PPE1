@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
@@ -18,7 +19,28 @@ public class ConfigurationDAO {
         return conn;
     }
 	
-	public static String hostname(){
+	public static boolean modifier(String hostname, int port, String bdd, String utilisateur, String mdp, int email) throws SQLException{
+        String sql = "UPDATE configuration SET hostname = ?, port = ?, bdd = ?, utilisateur = ?, mdp = ?, email = ? WHERE id = 1";
+        boolean result = false;
+        
+        try (Connection conn = connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            	pstmt.setString(1, hostname);
+            	pstmt.setInt(2, port);
+            	pstmt.setString(3, bdd);
+            	pstmt.setString(4, utilisateur);
+            	pstmt.setString(5, mdp);
+            	pstmt.setInt(6, email);
+            	pstmt.executeUpdate();
+            	result = true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return result;
+    }
+	
+	public static String getHostname(){
         String sql = "SELECT hostname FROM configuration";
         String hostname = "";
         
@@ -36,7 +58,7 @@ public class ConfigurationDAO {
         return hostname;
     }
 	
-	public static int port(){
+	public static int getPort(){
         String sql = "SELECT port FROM configuration";
         int port = 0;
         
@@ -54,7 +76,7 @@ public class ConfigurationDAO {
         return port;
     }
 	
-	public static String bdd(){
+	public static String getBDD(){
         String sql = "SELECT bdd FROM configuration";
         String bdd = "";
         
@@ -72,7 +94,7 @@ public class ConfigurationDAO {
         return bdd;
     }
 	
-	public static String utilisateur(){
+	public static String getUtilisateur(){
         String sql = "SELECT utilisateur FROM configuration";
         String utilisateur = "";
         
@@ -90,7 +112,7 @@ public class ConfigurationDAO {
         return utilisateur;
     }
 	
-	public static String mdp(){
+	public static String getMDP(){
         String sql = "SELECT mdp FROM configuration";
         String mdp = "";
         
@@ -106,5 +128,23 @@ public class ConfigurationDAO {
             System.out.println(e.getMessage());
         }
         return mdp;
+    }
+	
+	public static int getEmail(){
+        String sql = "SELECT email FROM configuration";
+        int email = 0;
+        
+        try (Connection conn = connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+            
+             while (rs.next()){
+            	 email = rs.getInt("email");
+            	 System.out.println(rs.getInt("email"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return email;
     }
 }

@@ -5,28 +5,19 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="329.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.JeuneController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="329.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConfigurationController">
    <children>
-      <TextField fx:id="recherche_champ_de_texte2" alignment="CENTER" layoutX="77.0" layoutY="153.0" prefHeight="25.0" prefWidth="173.0" promptText="Base de données" />
-      <Button fx:id="deconnexion_bouton" layoutX="825.0" layoutY="6.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;" />
+      <TextField fx:id="bdd" alignment="CENTER" layoutX="77.0" layoutY="153.0" prefHeight="25.0" prefWidth="173.0" promptText="Base de données" />
       <Separator layoutX="14.0" layoutY="51.0" prefHeight="2.0" prefWidth="297.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="18.0" prefHeight="26.0" prefWidth="136.0" text="CONFIGURATION" textFill="WHITE" />
-      <Button fx:id="recherche_filtre_bouton" layoutX="104.0" layoutY="450.0" mnemonicParsing="false" onAction="#recherche_filtre" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Enregistrer" />
-      <TextField fx:id="recherche_champ_de_texte" alignment="CENTER" layoutX="78.0" layoutY="192.0" prefHeight="25.0" prefWidth="173.0" promptText="Hostname" />
-      <Button fx:id="retour_bouton" layoutY="7.0" mnemonicParsing="false" onAction="#retour" prefHeight="25.0" prefWidth="32.0" style="-fx-background-color: transparent" />
-		<ImageView fitHeight="54.0" fitWidth="34.0" layoutX="282.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-   		<image>
-      		<Image url="@images/croix_deconnexion.png" />
-   		</image>
-		</ImageView>
-      <TextField fx:id="recherche_champ_de_texte1" alignment="CENTER" layoutX="78.0" layoutY="231.0" prefHeight="25.0" prefWidth="173.0" promptText="Port" />
-      <TextField fx:id="recherche_champ_de_texte11" alignment="CENTER" layoutX="78.0" layoutY="268.0" prefHeight="25.0" prefWidth="173.0" promptText="Utilisateur" />
-      <TextField fx:id="recherche_champ_de_texte12" alignment="CENTER" layoutX="78.0" layoutY="305.0" prefHeight="25.0" prefWidth="173.0" promptText="Mot de passe" />
-      <CheckBox layoutX="114.0" layoutY="376.0" mnemonicParsing="false" text="Envoi d'emails" textFill="WHITE" />
+      <Button fx:id="enregistrer" layoutX="104.0" layoutY="450.0" mnemonicParsing="false" onAction="#enregistrer" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Enregistrer" textFill="WHITE" />
+      <TextField fx:id="hostname" alignment="CENTER" layoutX="78.0" layoutY="192.0" prefHeight="25.0" prefWidth="173.0" promptText="Hostname" />
+      <TextField fx:id="port" alignment="CENTER" layoutX="78.0" layoutY="231.0" prefHeight="25.0" prefWidth="173.0" promptText="Port" />
+      <TextField fx:id="utilisateur" alignment="CENTER" layoutX="78.0" layoutY="268.0" prefHeight="25.0" prefWidth="173.0" promptText="Utilisateur" />
+      <TextField fx:id="mdp" alignment="CENTER" layoutX="78.0" layoutY="305.0" prefHeight="25.0" prefWidth="173.0" promptText="Mot de passe" />
+      <CheckBox fx:id="email" layoutX="114.0" layoutY="376.0" mnemonicParsing="false" text="Envoi d'emails" textFill="WHITE" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="68.0" layoutY="99.0" prefHeight="26.0" prefWidth="189.0" text="Base de données et envoi d'emails" textFill="WHITE" />
    </children>
 </AnchorPane>

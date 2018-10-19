@@ -19,45 +19,46 @@ import javafx.scene.layout.AnchorPane;
 
 public class AdministrateurController {
 	@FXML
-	private Button 						deconnexion_bouton;
+	private Button deconnexion_bouton;
 	@FXML
-	private Button						retour_bouton;
+	private Button retour_bouton;
 	@FXML
-	private Button 						jeune_bouton;
+	private Button jeune_bouton;
 	@FXML
-	private Button 						partenaire_bouton;
+	private Button partenaire_bouton;
 	@FXML
-	private Button 						offre_bouton;
+	private Button offre_bouton;
 	@FXML
-	private Button 						statistique_bouton; 
+	private Button statistique_bouton; 
 	@FXML
-	private Button 						recherche_bouton;
+	private Button recherche_bouton;
 	@FXML
-	private Button 						recherche_filtre_bouton;
+	private Button recherche_filtre_bouton;
 	@FXML
-	private Button						inscrire_bouton;
+	private Button inscrire_bouton;
 	@FXML
-	private Button 						modifier_bouton;
+	private Button modifier_bouton;
 	@FXML
-	private Button 						supprimer_bouton;
+	private Button supprimer_bouton;
 	@FXML
-	private TextField 					recherche_champ_de_texte;
+	private TextField recherche_champ_de_texte;
 	@FXML
-	private TableView<Administrateur> 			table;
+	private TableView<Administrateur> table;
 	@FXML
-	private TableColumn<Administrateur, String>  	nom_colonne;
+	private TableColumn<Administrateur, String> nom_colonne;
 	@FXML
-	private TableColumn<Administrateur, String> 	prenom_colonne;
+	private TableColumn<Administrateur, String> prenom_colonne;
 	@FXML
-	private TableColumn<Administrateur, String> 	email_colonne;
+	private TableColumn<Administrateur, String> email_colonne;
 	@FXML
-	private TableColumn<Administrateur, String> 	telephone_colonne;
+	private TableColumn<Administrateur, String> telephone_colonne;
 	@FXML
-	private TableColumn<Administrateur, String> 	derniere_connexion_colonne;
+	private TableColumn<Administrateur, String> derniere_connexion_colonne;
 	@FXML
-	private TableColumn<Administrateur, String> 	creation_colonne;
+	private TableColumn<Administrateur, String> creation_colonne;
 	@FXML
 	private AnchorPane mainPane;
+	
 	String nom;
 	boolean super_administrateur;
 	

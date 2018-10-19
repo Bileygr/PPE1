@@ -2,9 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import application.Main;
 import dao.AdministrateurDAO;
+import dao.ConfigurationDAO;
 import encryption.BCrypt;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,33 +18,34 @@ import javafx.scene.layout.AnchorPane;
 
 public class AdministrateurInscriptionController {
 	@FXML
-	private Button 						deconnexion_bouton;
+	private Button deconnexion_bouton;
 	@FXML
-	private Button						retour_bouton;
+	private Button retour_bouton;
 	@FXML
-	private Button						inscrire_bouton;
+	private Button inscrire_bouton;
 	@FXML
-	private TextField					nom_champ_de_texte;
+	private TextField nom_champ_de_texte;
 	@FXML
-	private TextField					prenom_champ_de_texte;
+	private TextField prenom_champ_de_texte;
 	@FXML
-	private TextField					identifiant_champ_de_texte;
+	private TextField identifiant_champ_de_texte;
 	@FXML
-	private TextField					mot_de_passe_champ_de_texte;
+	private TextField mot_de_passe_champ_de_texte;
 	@FXML
-	private TextField					email_champ_de_texte;
+	private TextField email_champ_de_texte;
 	@FXML
-	private TextField					telephone_champ_de_texte;
+	private TextField telephone_champ_de_texte;
 	@FXML
-	private TextField					adresse_champ_de_texte;
+	private TextField adresse_champ_de_texte;
 	@FXML
-	private TextField					ville_champ_de_texte;
+	private TextField ville_champ_de_texte;
 	@FXML
-	private TextField					code_postal_champ_de_texte;
+	private TextField  code_postal_champ_de_texte;
 	@FXML
-	private CheckBox					super_administrateur_checkbox;
+	private CheckBox super_administrateur_checkbox;
 	@FXML
 	private AnchorPane mainPane;
+	
 	String nom;
 	boolean super_administrateur;
 	
@@ -118,7 +119,19 @@ public class AdministrateurInscriptionController {
 											ville_champ_de_texte.getText(), code_postal_champ_de_texte.getText());
 		
 									if(empdata == true) {
-										AdministrateurDAO.email_inscription(email_champ_de_texte.getText());
+										int emailStatus = ConfigurationDAO.getEmail();
+										
+										if(emailStatus == 1) {
+											boolean emailSent = AdministrateurDAO.email_inscription(email_champ_de_texte.getText());
+											
+											if(emailSent == false) {
+												Alert a1 = new Alert(Alert.AlertType.ERROR);
+												a1.setTitle("Erreur: n°9");
+												a1.setContentText("L'envoi d'email ne fonctionne pas vous pouvez désactiver la fonctionnalité dans le menu de configuration.");
+												a1.setHeaderText(null);
+												a1.showAndWait();
+											}
+										}
 										
 										try {
 											mainPane.getChildren().clear();

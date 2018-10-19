@@ -2,14 +2,15 @@ package controller;
 
 import application.Main;
 import dao.AdministrateurDAO;
+import dao.ConfigurationDAO;
 import encryption.BCrypt;
-import java.net.InetAddress;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -25,14 +26,13 @@ public class ConnexionController {
 	private PasswordField 	mot_de_passe_champ_de_texte;
 	@FXML
 	private Button 			connexion_bouton;
+	@FXML
+	private Button 			configuration_bouton;
 	@FXML 
 	private AnchorPane  	mainPane;
 	
 	@FXML
 	private void connexion(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException, NoSuchAlgorithmException {
-		InetAddress address = InetAddress.getByName("smtp.gmail.com");
-		boolean reachable = address.isReachable(10000);
-		
 		if(!email_champ_de_texte.getText().isEmpty() && !mot_de_passe_champ_de_texte.getText().isEmpty()) {
 			boolean email_validation = AdministrateurDAO.validate(email_champ_de_texte.getText());
 			
@@ -46,10 +46,20 @@ public class ConnexionController {
 					if(BCrypt.checkpw(mot_de_passe, hash)) {
 						boolean super_administrateur = AdministrateurDAO.connexion_super_administrateur(email_champ_de_texte.getText(), hash);
 						AdministrateurDAO.connexion_update(email_champ_de_texte.getText(), hash);
+						int emailStatus = ConfigurationDAO.getEmail();
 						
-						//if(reachable == true) {
-							AdministrateurDAO.email(email_champ_de_texte.getText());
-					//	}
+						if(emailStatus == 1) {
+							boolean emailSent = AdministrateurDAO.email(email_champ_de_texte.getText());
+							
+							if(emailSent == false) {
+								Alert a1 = new Alert(Alert.AlertType.ERROR);
+								a1.setTitle("Erreur: n°5");
+								a1.setContentText("L'envoi d'email ne fonctionne pas veuillez désactiver la fonctionnalité dans le menu de configuration.\n"+
+													"Pour accéder au menu veuillez cliquer sur l'icône dans le coin en bas à droite.");
+								a1.setHeaderText(null);
+								a1.showAndWait();
+							}
+						}
 						
 						if(super_administrateur == true) {
 							try {
@@ -104,11 +114,27 @@ public class ConnexionController {
 				a1.showAndWait();
 			}
 		}else {
+			mainPane.getChildren().clear();
 			Alert a1 = new Alert(Alert.AlertType.ERROR);
 			a1.setTitle("Erreur: n°1");
 			a1.setContentText("L'un ou les deux champs sont vide.");
 			a1.setHeaderText(null);
 			a1.showAndWait();
 		 }
+	}
+
+	@FXML
+	private void configuration(ActionEvent actionEvent){
+		Parent root;
+        try {
+        	root = FXMLLoader.load(getClass().getClassLoader().getResource("view/Configuration.fxml"));
+            Stage stage = new Stage();
+            stage.setTitle("Configuration");
+            stage.setScene(new Scene(root, 329, 549));
+            stage.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 }

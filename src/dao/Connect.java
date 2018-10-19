@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Connect {
-		public static String hostname = ConfigurationDAO.hostname();
-		public static int port = ConfigurationDAO.port();
-		public static String bdd = ConfigurationDAO.bdd();
-		public static String utilisateur = ConfigurationDAO.utilisateur();
-		public static String mdp = ConfigurationDAO.mdp();
+		public static String hostname = ConfigurationDAO.getHostname();
+		public static int port = ConfigurationDAO.getPort();
+		public static String bdd = ConfigurationDAO.getBDD();
+		public static String utilisateur = ConfigurationDAO.getUtilisateur();
+		public static String mdp = ConfigurationDAO.getMDP();
 	
 	  	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	  	private static final String HOSTNAME = hostname;

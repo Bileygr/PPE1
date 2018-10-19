@@ -36,7 +36,8 @@ public class AdministrateurDAO {
 		return matcher.find();
 	}
 	
-	public static void email(String destinataire) {
+	public static boolean email(String destinataire) {
+		boolean result = false;
 		try {
 			DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			Date date = new Date();
@@ -57,6 +58,7 @@ public class AdministrateurDAO {
             transport.connect("smtp.gmail.com", "btssioppechesirkei@gmail.com","Jh6@hV^4AW5y34aZ");
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
+            result = true;
         } catch (NoSuchProviderException ex) {
             Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (AddressException ex) {
@@ -64,9 +66,13 @@ public class AdministrateurDAO {
         } catch (MessagingException ex) {
             Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+		
+		return result;
 	} 
 	
-	public static void email_inscription(String destinataire) {
+	public static boolean email_inscription(String destinataire) {
+		boolean result = false;
+		
 		try {
 			DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date date = new Date();
@@ -87,6 +93,7 @@ public class AdministrateurDAO {
             transport.connect("smtp.gmail.com", "btssioppechesirkei@gmail.com","Jh6@hV^4AW5y34aZ");
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
+            result = true;
         } catch (NoSuchProviderException ex) {
             Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (AddressException ex) {
@@ -94,9 +101,12 @@ public class AdministrateurDAO {
         } catch (MessagingException ex) {
             Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+		
+		return result;
 	} 
 	
-	public static void email_modification(String destinataire) {
+	public static boolean email_modification(String destinataire) {
+		boolean resultat = false;
 		try {
 			DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date date = new Date();
@@ -117,6 +127,7 @@ public class AdministrateurDAO {
             transport.connect("smtp.gmail.com", "btssioppechesirkei@gmail.com","Jh6@hV^4AW5y34aZ");
             transport.sendMessage(msg, msg.getAllRecipients());
             transport.close();
+            resultat = true;
         } catch (NoSuchProviderException ex) {
             Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (AddressException ex) {
@@ -124,6 +135,8 @@ public class AdministrateurDAO {
         } catch (MessagingException ex) {
             Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+		
+		return resultat;
 	} 
 		
 	public static String hash(String email) throws ClassNotFoundException, SQLException {

@@ -2,8 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import application.Main;
+import dao.ConfigurationDAO;
 import dao.PartenaireDAO;
 import encryption.BCrypt;
 import javafx.event.ActionEvent;
@@ -107,8 +107,19 @@ public class PartenaireInscriptionController {
 												email_champ_de_texte.getText(), telephone_champ_de_texte.getText(), adresse_champ_de_texte.getText(), ville_champ_de_texte.getText(), code_postal_champ_de_texte.getText());
 		
 										if(empdata == true) {
-											PartenaireDAO.email_inscription(email_champ_de_texte.getText());
+											int emailStatus = ConfigurationDAO.getEmail();
 											
+											if(emailStatus == 1) {
+												boolean emailSent = PartenaireDAO.email_inscription(email_champ_de_texte.getText());
+												
+												if(emailSent == false) {
+													Alert a1 = new Alert(Alert.AlertType.ERROR);
+													a1.setTitle("Erreur: n°10");
+													a1.setContentText("L'envoi d'email ne fonctionne pas vous pouvez désactiver la fonctionnalité dans le menu de configuration.");
+													a1.setHeaderText(null);
+													a1.showAndWait();
+												}
+											}
 											try {
 												mainPane.getChildren().clear();
 												FXMLLoader loader = new FXMLLoader();

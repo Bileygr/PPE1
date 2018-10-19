@@ -3,10 +3,9 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import encryption.BCrypt;
-
 import application.Main;
+import dao.ConfigurationDAO;
 import dao.JeuneDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -110,7 +109,19 @@ public class JeuneInscriptionController {
 											ville_champ_de_texte.getText(), code_postal_champ_de_texte.getText());
 		
 									if(empdata == true) {
-										JeuneDAO.email_inscription(email_champ_de_texte.getText());
+										int emailStatus = ConfigurationDAO.getEmail();
+										
+										if(emailStatus == 1) {
+											boolean emailSent = JeuneDAO.email_inscription(email_champ_de_texte.getText());
+											
+											if(emailSent == false) {
+												Alert a1 = new Alert(Alert.AlertType.ERROR);
+												a1.setTitle("Erreur: n°9");
+												a1.setContentText("L'envoi d'email ne fonctionne pas vous pouvez désactiver la fonctionnalité dans le menu de configuration.");
+												a1.setHeaderText(null);
+												a1.showAndWait();
+											}
+										}
 
 										try {
 											mainPane.getChildren().clear();
@@ -127,56 +138,56 @@ public class JeuneInscriptionController {
 										}
 									}else {
 										Alert a1 = new Alert(Alert.AlertType.ERROR);
-										a1.setTitle("Erreur: nï¿½8");
+										a1.setTitle("Erreur: n°8");
 										a1.setContentText("L'inscription a ï¿½chouï¿½ dï¿½ a une erreur de connexion.");
 										a1.setHeaderText(null);
 										a1.showAndWait();
 									}
 								}else {
 									Alert a1 = new Alert(Alert.AlertType.ERROR);
-									a1.setTitle("Erreur: nï¿½7");
+									a1.setTitle("Erreur: n°7");
 									a1.setContentText("Le code postal devrait avoir un maximum de 5 caractï¿½res.");
 									a1.setHeaderText(null);
 									a1.showAndWait();
 								}
 							}else {
 								Alert a1 = new Alert(Alert.AlertType.ERROR);
-								a1.setTitle("Erreur: nï¿½6");
+								a1.setTitle("Erreur: n°6");
 								a1.setContentText("La ville devrait avoir un maximum de 32 caractï¿½res.");
 								a1.setHeaderText(null);
 								a1.showAndWait();
 							}
 						}else {
 							Alert a1 = new Alert(Alert.AlertType.ERROR);
-							a1.setTitle("Erreur: nï¿½5");
+							a1.setTitle("Erreur: n°5");
 							a1.setContentText("L'addresse devrait avoir un maximum de 38 caractï¿½res.");
 							a1.setHeaderText(null);
 							a1.showAndWait();
 						}
 					}else {
 						Alert a1 = new Alert(Alert.AlertType.ERROR);
-						a1.setTitle("Erreur: nï¿½4");
+						a1.setTitle("Erreur: n°4");
 						a1.setContentText("Le nï¿½ de tï¿½lï¿½phone devrait avoir 10 chiffre.");
 						a1.setHeaderText(null);
 						a1.showAndWait();
 					}
 				}else {
 					Alert a1 = new Alert(Alert.AlertType.ERROR);
-					a1.setTitle("Erreur: nï¿½3");
+					a1.setTitle("Erreur: n°3");
 					a1.setContentText("Le format de l'email est incorrect.");
 					a1.setHeaderText(null);
 					a1.showAndWait();
 				}
 			}else {
 				Alert a1 = new Alert(Alert.AlertType.ERROR);
-				a1.setTitle("Erreur: nï¿½2");
+				a1.setTitle("Erreur: n°2");
 				a1.setContentText("Le mot de passe devrait avoir au moins 12 caractï¿½res.");
 				a1.setHeaderText(null);
 				a1.showAndWait();
 			}
 		}else {
 			Alert a1 = new Alert(Alert.AlertType.ERROR);
-			a1.setTitle("Erreur: nï¿½1");
+			a1.setTitle("Erreur: n°1");
 			a1.setContentText("L'un des champs est vide.");
 			a1.setHeaderText(null);
 			a1.showAndWait();

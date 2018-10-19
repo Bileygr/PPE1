@@ -1,9 +1,10 @@
-package controller;
+ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 import application.Main;
+import dao.ConfigurationDAO;
 import dao.PartenaireDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -113,7 +114,19 @@ public class PartenaireModificationController {
 										code_postal_champ_de_texte.getText());
 							
 								if(empdata == true) {
-									PartenaireDAO.email_modification(email_champ_de_texte.getText());
+									int emailStatus = ConfigurationDAO.getEmail();
+									
+									if(emailStatus == 1) {
+										boolean emailSent = PartenaireDAO.email_modification(email_champ_de_texte.getText());
+										
+										if(emailSent == false) {
+											Alert a1 = new Alert(Alert.AlertType.ERROR);
+											a1.setTitle("Erreur: n°8");
+											a1.setContentText("L'envoi d'email ne fonctionne pas vous pouvez désactiver la fonctionnalité dans le menu de configuration.");
+											a1.setHeaderText(null);
+											a1.showAndWait();
+										}
+									}
 									
 									try {
 										mainPane.getChildren().clear();
