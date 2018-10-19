@@ -1,5 +1,6 @@
 ﻿package dao;
 
+import dao.ConfigurationDAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,11 +8,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Connect {
-	  private static final String DRIVER = "com.mysql.jdbc.Driver";
-	    private static final String DBNAME = "ppe";
-	    private static final String URL = "jdbc:mysql://82.123.7.148/"+DBNAME;
-	    private static final String USER = "ppe";
-	    private static final String PASSWORD = "S7xvZEuCDq&2tWCa";
+		public static String hostname = ConfigurationDAO.hostname();
+		public static int port = ConfigurationDAO.port();
+		public static String bdd = ConfigurationDAO.bdd();
+		public static String utilisateur = ConfigurationDAO.utilisateur();
+		public static String mdp = ConfigurationDAO.mdp();
+	
+	  	private static final String DRIVER = "com.mysql.jdbc.Driver";
+	  	private static final String HOSTNAME = hostname;
+	  	private static final String PORT = Integer.toString(port);
+	    private static final String DBNAME = bdd;
+	    private static final String URL = "jdbc:mysql://"+HOSTNAME+":"+PORT+"/"+DBNAME;
+	    private static final String USER = utilisateur;
+	    private static final String PASSWORD = mdp;
 	    private static Connect instance;
 
 	    private Connect() 

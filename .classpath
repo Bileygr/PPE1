@@ -8,6 +8,6 @@
 	<classpathentry kind="lib" path="src/librairie/jfoenix-9.0.1.jar"/>
 	<classpathentry kind="lib" path="src/librairie/mail.jar"/>
 	<classpathentry kind="lib" path="src/librairie/mysql-connector-java-5.1.46.jar"/>
-	<classpathentry kind="lib" path="src/librairie/sqlite-jdbc-3.21.0.jar"/>
+	<classpathentry kind="lib" path="src/librairie/sqlite-jdbc-3.23.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

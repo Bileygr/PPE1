@@ -3,7 +3,7 @@ package controller;
 import application.Main;
 import dao.AdministrateurDAO;
 import encryption.BCrypt;
-
+import java.net.InetAddress;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -30,6 +30,8 @@ public class ConnexionController {
 	
 	@FXML
 	private void connexion(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException, NoSuchAlgorithmException {
+		InetAddress address = InetAddress.getByName("smtp.gmail.com");
+		boolean reachable = address.isReachable(10000);
 		
 		if(!email_champ_de_texte.getText().isEmpty() && !mot_de_passe_champ_de_texte.getText().isEmpty()) {
 			boolean email_validation = AdministrateurDAO.validate(email_champ_de_texte.getText());
@@ -44,7 +46,10 @@ public class ConnexionController {
 					if(BCrypt.checkpw(mot_de_passe, hash)) {
 						boolean super_administrateur = AdministrateurDAO.connexion_super_administrateur(email_champ_de_texte.getText(), hash);
 						AdministrateurDAO.connexion_update(email_champ_de_texte.getText(), hash);
-						AdministrateurDAO.email(email_champ_de_texte.getText());
+						
+						//if(reachable == true) {
+							AdministrateurDAO.email(email_champ_de_texte.getText());
+					//	}
 						
 						if(super_administrateur == true) {
 							try {
