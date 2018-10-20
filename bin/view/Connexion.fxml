@@ -27,9 +27,9 @@
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="359.0" layoutY="80.0" prefHeight="62.0" prefWidth="166.0" text="Gestion d'utilisateurs" textFill="WHITE" />
       <Button fx:id="configuration_bouton" layoutX="812.0" layoutY="482.0" mnemonicParsing="false" onAction="#configuration" prefHeight="25.0" prefWidth="32.0" style="-fx-background-color: transparent;">
          <graphic>
-            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/cog.png" />
+                  <Image url="@images/configuration.png" />
                </image>
             </ImageView>
          </graphic>
