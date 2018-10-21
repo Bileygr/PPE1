@@ -9,15 +9,20 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="329.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConfigurationController">
    <children>
-      <TextField fx:id="bdd" alignment="CENTER" layoutX="77.0" layoutY="153.0" prefHeight="25.0" prefWidth="173.0" promptText="Base de données" />
+      <TextField fx:id="bdd" alignment="CENTER" layoutX="114.0" layoutY="153.0" prefHeight="25.0" prefWidth="173.0" promptText="Base de données" />
       <Separator layoutX="14.0" layoutY="51.0" prefHeight="2.0" prefWidth="297.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="95.0" layoutY="18.0" prefHeight="26.0" prefWidth="136.0" text="CONFIGURATION" textFill="WHITE" />
       <Button fx:id="enregistrer" layoutX="104.0" layoutY="450.0" mnemonicParsing="false" onAction="#enregistrer" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Enregistrer" textFill="WHITE" />
-      <TextField fx:id="hostname" alignment="CENTER" layoutX="78.0" layoutY="192.0" prefHeight="25.0" prefWidth="173.0" promptText="Hostname" />
-      <TextField fx:id="port" alignment="CENTER" layoutX="78.0" layoutY="231.0" prefHeight="25.0" prefWidth="173.0" promptText="Port" />
-      <TextField fx:id="utilisateur" alignment="CENTER" layoutX="78.0" layoutY="268.0" prefHeight="25.0" prefWidth="173.0" promptText="Utilisateur" />
-      <TextField fx:id="mdp" alignment="CENTER" layoutX="78.0" layoutY="305.0" prefHeight="25.0" prefWidth="173.0" promptText="Mot de passe" />
+      <TextField fx:id="hostname" alignment="CENTER" layoutX="114.0" layoutY="192.0" prefHeight="25.0" prefWidth="173.0" promptText="Hostname" />
+      <TextField fx:id="port" alignment="CENTER" layoutX="114.0" layoutY="231.0" prefHeight="25.0" prefWidth="173.0" promptText="Port" />
+      <TextField fx:id="utilisateur" alignment="CENTER" layoutX="114.0" layoutY="268.0" prefHeight="25.0" prefWidth="173.0" promptText="Utilisateur" />
+      <TextField fx:id="mdp" alignment="CENTER" layoutX="114.0" layoutY="305.0" prefHeight="25.0" prefWidth="173.0" promptText="Mot de passe" />
       <CheckBox fx:id="email" layoutX="114.0" layoutY="376.0" mnemonicParsing="false" text="Envoi d'emails" textFill="WHITE" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="68.0" layoutY="99.0" prefHeight="26.0" prefWidth="189.0" text="Base de données et envoi d'emails" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="10.0" layoutY="157.0" prefHeight="17.0" prefWidth="97.0" text="Base de données" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="10.0" layoutY="196.0" prefHeight="17.0" prefWidth="97.0" text="Adresse IP" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="11.0" layoutY="235.0" prefHeight="17.0" prefWidth="97.0" text="Port" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="10.0" layoutY="272.0" prefHeight="17.0" prefWidth="97.0" text="Utilisateur" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="10.0" layoutY="309.0" prefHeight="17.0" prefWidth="97.0" text="Mot de passe" textFill="WHITE" />
    </children>
 </AnchorPane>

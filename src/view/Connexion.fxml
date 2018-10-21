@@ -14,12 +14,12 @@
       <PasswordField fx:id="mot_de_passe_champ_de_texte" alignment="CENTER" layoutX="368.0" layoutY="249.0" promptText="Mot de passe" style="-fx-background-color: #223447; -fx-border-color: FFFFFF;  -fx-text-fill: FFFFFF;" />
       <ImageView fitHeight="36.0" fitWidth="42.0" layoutX="317.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/contact.png" />
+            <Image url="@view/images/contact.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="42.0" fitWidth="48.0" layoutX="314.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/lock.png" />
+            <Image url="@view/images/lock.png" />
          </image>
       </ImageView>
       <Button fx:id="connexion_bouton" layoutX="398.0" layoutY="330.0" mnemonicParsing="false" onAction="#connexion" prefHeight="27.0" prefWidth="87.0" style="-fx-background-color: #0F87FF;" text="Connexion" textFill="WHITE" />
@@ -29,10 +29,11 @@
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/cog.png" />
+                  <Image url="@view/images/cog.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="506.0" prefHeight="17.0" prefWidth="33.0" text="v2.0" textFill="WHITE" />
    </children>
 </AnchorPane>

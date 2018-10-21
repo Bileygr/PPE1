@@ -17,7 +17,7 @@
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/croix_deconnexion.png" />
+                  <Image url="@view/images/croix_deconnexion.png" />
                </image>
             </ImageView>
          </graphic>
@@ -45,7 +45,7 @@
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                <image>
-                  <Image url="@images/Expand%20Arrow_64px.png" />
+                  <Image url="@view/images/Expand%20Arrow_64px.png" />
                </image>
             </ImageView>
          </graphic>
