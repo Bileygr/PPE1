@@ -1,5 +1,8 @@
-/dao/
-/controller/
-/view/
 /application/
+/classe/
+/controller/
+/dao/
+/doc/
+/encryption/
 /librairie/
+/view/
