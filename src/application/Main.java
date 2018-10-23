@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application
 {
@@ -22,6 +23,7 @@ public class Main extends Application
 		{
 			FXMLLoader acc = new FXMLLoader() ;
 			acc.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			rootL = (AnchorPane)acc.load();
 			Scene scene = new Scene(rootL);
 			this.primaryStage.setScene(scene);

@@ -10,5 +10,5 @@
 
 .chart-legend {
    -fx-background-color:  #fafad2;
-   -fx-stroke: #daa520;
+   /*-fx-stroke: #daa520;*/
 }

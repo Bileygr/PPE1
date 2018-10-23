@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -29,8 +31,12 @@ public class ConnexionController {
 	private Button 			connexion_bouton;
 	@FXML
 	private Button 			configuration_bouton;
+	@FXML
+	private Button fermeture;
 	@FXML 
 	private AnchorPane  	mainPane;
+	@FXML
+	private Stage Main;
 	
 	@FXML
 	private void connexion(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException, NoSuchAlgorithmException {
@@ -159,5 +165,20 @@ public class ConnexionController {
 		    } catch ( Exception e ) {
 		      System.out.println("Exception:" + e.getMessage());
 		   }
+		 
+		mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				//xOffset = event.getSceneX();
+				//yOffset = event.getSceneY();
+			}
+		});
+		
+		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+			
+			}
+		});
     }
 }
