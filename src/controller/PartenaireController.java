@@ -5,52 +5,60 @@ import java.sql.SQLException;
 import application.Main;
 import classe.Partenaire;
 import dao.PartenaireDAO;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 public class PartenaireController 
 {
 	@FXML
-	private Button 								deconnexion_bouton;
+	private Button deconnexion_bouton;
 	@FXML
-	private Button 								retour_bouton;
+	private Button fermeture_bouton;
 	@FXML
-	private Button 								inscrire_bouton;
+	private Button retour_bouton;
 	@FXML
-	private Button								modifier_bouton;
+	private Button inscrire_bouton;
 	@FXML
-	private Button 								recherche_bouton;
+	private Button modifier_bouton;
 	@FXML
-	private Button 								recherche_filtre_bouton;
+	private Button recherche_bouton;
 	@FXML
-	private Button 								supprimer_bouton;
+	private Button recherche_filtre_bouton;
 	@FXML
-	private TextField 							recherche_champ_de_texte;
+	private Button supprimer_bouton;
 	@FXML
-	private TableView<Partenaire> 				table;
+	private TextField recherche_champ_de_texte;
 	@FXML
-	private TableColumn<Partenaire, Integer> 	siret_colonne;
+	private TableView<Partenaire> table;
 	@FXML
-	private TableColumn<Partenaire, String>  	nom_colonne;
+	private TableColumn<Partenaire, Integer> siret_colonne;
 	@FXML
-	private TableColumn<Partenaire, String> 	email_colonne;
+	private TableColumn<Partenaire, String> nom_colonne;
 	@FXML
-	private TableColumn<Partenaire, String> 	telephone_colonne;
+	private TableColumn<Partenaire, String> email_colonne;
 	@FXML
-	private TableColumn<Partenaire, String>		derniere_connexion_colonne;
+	private TableColumn<Partenaire, String> telephone_colonne;
 	@FXML
-	private TableColumn<Partenaire,	String>		creation_colonne;
+	private TableColumn<Partenaire, String> derniere_connexion_colonne;
+	@FXML
+	private TableColumn<Partenaire,	String>	creation_colonne;
 	@FXML
 	private AnchorPane mainPane;
 	String nom;
 	boolean super_administrateur;
+	
+	private double xOffset;
+	private double yOffset;
 	
 	public void nom(String nom) {
 		this.nom = nom;
@@ -61,7 +69,7 @@ public class PartenaireController
 	}
 	
 	@FXML
-	private void deconnexion(ActionEvent actionEvent) {	
+	private void deconnecter(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -72,6 +80,12 @@ public class PartenaireController
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
+	}
+	
+	@FXML
+	private void fermer(ActionEvent actionEvent) {
+		Platform.exit();
+        System.exit(0);
 	}
 	
 	@FXML
@@ -185,5 +199,24 @@ public class PartenaireController
 	    telephone_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_telephone_Prop());
 	    derniere_connexion_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_derniere_connexion_Prop());
 	    creation_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_creation_Prop());
+	    
+	    mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				 xOffset = event.getSceneX();
+				 yOffset = event.getSceneY();
+				 
+				 System.out.println(xOffset);
+				 System.out.println(yOffset);
+			}
+		});
+		
+		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
+				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+			}
+		});
 	}
 }
