@@ -17,7 +17,7 @@
       	<graphic>
       		<ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          		<image>
-            		<Image url="@images/croix_deconnexion.png" />
+            		<Image url="@view/images/croix_deconnexion.png" />
          		</image>
       		</ImageView>
       	</graphic>
@@ -28,7 +28,7 @@
       <ImageView fitHeight="26.0" fitWidth="49.0" layoutX="700.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="31.0" fitWidth="26.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
       	<image>
-        	<Image url="@images/contact.png" />
+        	<Image url="@view/images/contact.png" />
         </image>
       </ImageView>
       <Label fx:id="salutation_label" layoutX="56.0" layoutY="15.0" prefHeight="25.0" prefWidth="49.0" textFill="WHITE" />
@@ -36,7 +36,7 @@
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/logout_1185685.png" />
+                  <Image url="@view/images/logout_1185685.png" />
                </image>
             </ImageView>
          </graphic>

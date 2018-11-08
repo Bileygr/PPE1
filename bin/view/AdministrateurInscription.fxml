@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="882.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdministrateurInscriptionController">
    <children>
-      <Button fx:id="deconnexion_bouton" layoutX="825.0" layoutY="6.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+      <Button fx:id="fermeture_bouton" layoutX="825.0" layoutY="6.0" mnemonicParsing="false" onAction="#fermer" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -46,5 +46,14 @@
          </graphic>
       </Button>
       <CheckBox fx:id="super_administrateur_checkbox" layoutX="380.0" layoutY="443.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="138.0" text="Super Administrateur" textFill="WHITE" />
+      <Button fx:id="deconnexion_bouton" layoutX="781.0" layoutY="9.0" mnemonicParsing="false" onAction="#deconnecter" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@view/images/logout_1185685.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

@@ -77,6 +77,20 @@ public class AdministrateurController {
 	}
 	
 	@FXML
+	private void deconnecter(ActionEvent actionEvent) {	
+		try {
+	    	mainPane.getChildren().clear();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			AnchorPane userFrame = (AnchorPane) loader.load();
+			Scene sc = mainPane.getScene();
+			sc.setRoot(userFrame);
+		}catch(IOException e) {
+	        e.printStackTrace();
+	     }
+	}
+	
+	@FXML
 	private void fermer(ActionEvent actionEvent) {
 		Platform.exit();
         System.exit(0);

@@ -5,8 +5,10 @@ import java.sql.SQLException;
 import application.Main;
 import classe.Offre;
 import dao.OffreDAO;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,40 +16,46 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class OffreController 
 {
 	@FXML
-	private Button 							deconnexion_bouton;
+	private Button deconnexion_bouton;
 	@FXML
-	private Button 							retour_bouton;
+	private Button fermeture_bouton;
 	@FXML
-	private Button 							recherche_bouton;
+	private Button retour_bouton;
 	@FXML
-	private Button							recherche_filtre_bouton;
+	private Button recherche_bouton;
 	@FXML
-	private Button							description_bouton;
+	private Button recherche_filtre_bouton;
 	@FXML
-	private Button 							supprimer_bouton;
+	private Button description_bouton;
 	@FXML
-	private TextField						recherche_champ_de_texte;
+	private Button supprimer_bouton;
 	@FXML
-	private TableView<Offre> 				table;
+	private TextField recherche_champ_de_texte;
 	@FXML
-	private TableColumn<Offre, String>  	formation_colonne;
+	private TableView<Offre> table;
 	@FXML
-	private TableColumn<Offre, String> 		partenaire_colonne;
+	private TableColumn<Offre, String> formation_colonne;
 	@FXML
-	private TableColumn<Offre, String> 		nom_colonne;
+	private TableColumn<Offre, String> partenaire_colonne;
 	@FXML
-	private TableColumn<Offre, String>	 	debut_colonne;
+	private TableColumn<Offre, String> nom_colonne;
 	@FXML
-	private TableColumn<Offre, String> 		fin_colonne;
+	private TableColumn<Offre, String> debut_colonne;
+	@FXML
+	private TableColumn<Offre, String> fin_colonne;
 	@FXML
 	private AnchorPane mainPane;
 	String nom;
 	boolean super_administrateur;
+	
+	private double xOffset;
+	private double yOffset;
 	
 	public void nom(String nom) {
 		this.nom = nom;
@@ -58,7 +66,7 @@ public class OffreController
 	}
 	
 	@FXML
-	private void deconnexion(ActionEvent actionEvent) {	
+	private void deconnecter(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -69,6 +77,12 @@ public class OffreController
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
+	}
+	
+	@FXML
+	private void fermer(ActionEvent actionEvent) {
+		Platform.exit();
+        System.exit(0);
 	}
 	
 	@FXML
@@ -165,5 +179,24 @@ public class OffreController
 		nom_colonne.setCellValueFactory(cellData -> cellData.getValue().getOffre_nom_Prop());
 		debut_colonne.setCellValueFactory(cellData -> cellData.getValue().getOffre_debut_Prop());
 		fin_colonne.setCellValueFactory(cellData -> cellData.getValue().getOffre_fin_Prop());
+		
+		mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				 xOffset = event.getSceneX();
+				 yOffset = event.getSceneY();
+				 
+				 System.out.println(xOffset);
+				 System.out.println(yOffset);
+			}
+		});
+		
+		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
+				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+			}
+		});
 	}
 }
