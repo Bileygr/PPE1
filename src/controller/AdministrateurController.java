@@ -6,8 +6,10 @@ import java.sql.SQLException;
 import application.Main;
 import classe.Administrateur;
 import dao.AdministrateurDAO;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,11 +17,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class AdministrateurController {
 	@FXML
-	private Button deconnexion_bouton;
+	private Button fermeture_bouton;
 	@FXML
 	private Button retour_bouton;
 	@FXML
@@ -62,6 +65,9 @@ public class AdministrateurController {
 	String nom;
 	boolean super_administrateur;
 	
+	private double xOffset;
+	private double yOffset;
+	
 	public void nom(String nom) {
 		this.nom = nom;
 	}
@@ -71,17 +77,9 @@ public class AdministrateurController {
 	}
 	
 	@FXML
-	private void deconnexion(ActionEvent actionEvent) {	
-		try {
-	    	mainPane.getChildren().clear();
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
-			AnchorPane userFrame = (AnchorPane) loader.load();
-			Scene sc = mainPane.getScene();
-			sc.setRoot(userFrame);
-		}catch(IOException e) {
-	        e.printStackTrace();
-	     }
+	private void fermer(ActionEvent actionEvent) {
+		Platform.exit();
+        System.exit(0);
 	}
 	
 	@FXML
@@ -180,5 +178,24 @@ public class AdministrateurController {
         telephone_colonne.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_telephone_Prop());
         derniere_connexion_colonne.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_derniere_connexion_Prop());
         creation_colonne.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_derniere_connexion_Prop());
+        
+        mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				 xOffset = event.getSceneX();
+				 yOffset = event.getSceneY();
+				 
+				 System.out.println(xOffset);
+				 System.out.println(yOffset);
+			}
+		});
+		
+		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
+				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+			}
+		});
     }
 }

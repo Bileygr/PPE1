@@ -10,14 +10,18 @@ import javafx.stage.StageStyle;
 
 public class Main extends Application
 {
-	private Stage primaryStage;
+	private static Stage primaryStage;
 	private AnchorPane rootL;
+	
+	public static Stage getPrimaryStage() {
+		return primaryStage;
+	}
 
 	@Override
 	public void start(Stage primaryStage) 
 	{
 		primaryStage.setTitle("Administrateur");
-		this.primaryStage  = primaryStage;
+		Main.primaryStage  = primaryStage;
 		 
 		try 
 		{
@@ -26,8 +30,8 @@ public class Main extends Application
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			rootL = (AnchorPane)acc.load();
 			Scene scene = new Scene(rootL);
-			this.primaryStage.setScene(scene);
-			this.primaryStage.show();
+			Main.primaryStage.setScene(scene);
+			Main.primaryStage.show();
 			
 		} catch (IOException e) 
 		  {

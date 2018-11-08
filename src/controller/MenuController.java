@@ -1,38 +1,47 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Calendar;
 
 import application.Main;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class MenuController{
 	@FXML
-	private Button 						deconnexion_bouton;
+	private Button fermeture;
 	@FXML
-	private Button 						menu_bouton;
+	private Button deconnexion;
 	@FXML
-	private Button 						jeune_bouton;
+	private Button menu_bouton;
 	@FXML
-	private Button 						partenaire_bouton;
+	private Button jeune_bouton;
 	@FXML
-	private Button 						offre_bouton;
+	private Button partenaire_bouton;
 	@FXML
-	private Button 						statistique_bouton; 
+	private Button offre_bouton;
 	@FXML
-	private Label 						nom_champ_de_texte; 
+	private Button statistique_bouton; 
 	@FXML
-	private Label						salutation_label;
+	private Label nom_champ_de_texte; 
+	@FXML
+	private Label salutation_label;
 	@FXML
 	private AnchorPane mainPane;
 	String nom;
 	boolean super_administrateur;
+	
+	private double xOffset;
+	private double yOffset;
 	
 	public void nom(String nom) {
 		this.nom = nom;
@@ -52,8 +61,8 @@ public class MenuController{
 	}
 	
 	@FXML
-	private void deconnexion(ActionEvent actionEvent){	
-		try{
+	private void deconnecter(ActionEvent actionEvent) {	
+		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
@@ -63,6 +72,12 @@ public class MenuController{
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
+	}
+	
+	@FXML
+	private void fermer(ActionEvent actionEvent) {
+		Platform.exit();
+        System.exit(0);
 	}
 	
 	@FXML
@@ -132,5 +147,27 @@ public class MenuController{
 			e.printStackTrace();
 			}
 	}
+	
+	@FXML
+    private void initialize() throws ClassNotFoundException, SQLException {
+		mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				 xOffset = event.getSceneX();
+				 yOffset = event.getSceneY();
+				 
+				 System.out.println(xOffset);
+				 System.out.println(yOffset);
+			}
+		});
+		
+		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
+				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+			}
+		});
+    }
 	
 }

@@ -1,50 +1,57 @@
 package controller;
 
-
 import java.io.IOException;
 import java.sql.SQLException;
 import encryption.BCrypt;
 import application.Main;
 import dao.ConfigurationDAO;
 import dao.JeuneDAO;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class JeuneInscriptionController {
 	@FXML
-	private Button 						deconnexion_bouton;
+	private Button deconnexion_bouton;
 	@FXML
-	private Button						retour_bouton;
+	private Button fermeture_bouton;
 	@FXML
-	private Button						inscrire_bouton;
+	private Button retour_bouton;
 	@FXML
-	private TextField					nom_champ_de_texte;
+	private Button inscrire_bouton;
 	@FXML
-	private TextField					prenom_champ_de_texte;
+	private TextField nom_champ_de_texte;
 	@FXML
-	private TextField					identifiant_champ_de_texte;
+	private TextField prenom_champ_de_texte;
 	@FXML
-	private TextField					mot_de_passe_champ_de_texte;
+	private TextField identifiant_champ_de_texte;
 	@FXML
-	private TextField					email_champ_de_texte;
+	private TextField mot_de_passe_champ_de_texte;
 	@FXML
-	private TextField					telephone_champ_de_texte;
+	private TextField email_champ_de_texte;
 	@FXML
-	private TextField					adresse_champ_de_texte;
+	private TextField telephone_champ_de_texte;
 	@FXML
-	private TextField					ville_champ_de_texte;
+	private TextField adresse_champ_de_texte;
 	@FXML
-	private TextField					code_postal_champ_de_texte;
+	private TextField ville_champ_de_texte;
+	@FXML
+	private TextField code_postal_champ_de_texte;
 	@FXML
 	private AnchorPane mainPane;
 	String nom;
 	boolean super_administrateur;
+	
+	private double xOffset;
+	private double yOffset;
 	
 	public void nom(String nom) {
 		this.nom = nom;
@@ -55,7 +62,7 @@ public class JeuneInscriptionController {
 	}
 	
 	@FXML
-	private void deconnexion(ActionEvent actionEvent) {	
+	private void deconnecter(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -66,6 +73,12 @@ public class JeuneInscriptionController {
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
+	}
+	
+	@FXML
+	private void fermer(ActionEvent actionEvent) {
+		Platform.exit();
+        System.exit(0);
 	}
 	
 	@FXML
@@ -193,4 +206,26 @@ public class JeuneInscriptionController {
 			a1.showAndWait();
 		}
 	}
+	
+	@FXML
+    private void initialize() throws ClassNotFoundException, SQLException {
+		mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				 xOffset = event.getSceneX();
+				 yOffset = event.getSceneY();
+				 
+				 System.out.println(xOffset);
+				 System.out.println(yOffset);
+			}
+		});
+		
+		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
+				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+			}
+		});
+    }
 }

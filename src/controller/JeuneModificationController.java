@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import application.Main;
 import dao.ConfigurationDAO;
 import dao.JeuneDAO;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,11 +16,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class JeuneModificationController {
 	@FXML
 	private Button			deconnexion_bouton;
+	@FXML
+	private Button			fermeture_bouton;
 	@FXML
 	private Button			retour_bouton;
 	@FXML
@@ -47,6 +52,9 @@ public class JeuneModificationController {
 	int id;
 	boolean super_administrateur;
 	
+	private double xOffset;
+	private double yOffset;
+	
 	public void nom(String nom) {
 		this.nom = nom;
 	}
@@ -69,7 +77,7 @@ public class JeuneModificationController {
 	}
 	
 	@FXML
-	private void deconnexion(ActionEvent actionEvent) {	
+	private void deconnecter(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -80,6 +88,12 @@ public class JeuneModificationController {
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
+	}
+	
+	@FXML
+	private void fermer(ActionEvent actionEvent) {
+		Platform.exit();
+        System.exit(0);
 	}
 	
 	@FXML
@@ -188,4 +202,26 @@ public class JeuneModificationController {
 			a1.showAndWait();
 		}
 	}
+	
+	@FXML
+    private void initialize() throws ClassNotFoundException, SQLException {
+		mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				 xOffset = event.getSceneX();
+				 yOffset = event.getSceneY();
+				 
+				 System.out.println(xOffset);
+				 System.out.println(yOffset);
+			}
+		});
+		
+		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
+				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+			}
+		});
+    }
 }

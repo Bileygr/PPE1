@@ -5,43 +5,48 @@ import java.sql.SQLException;
 import application.Main;
 import classe.Jeune;
 import dao.JeuneDAO;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 public class JeuneController {
 	@FXML
-	private Button 						deconnexion_bouton;
+	private Button deconnexion_bouton;
 	@FXML
-	private Button						retour_bouton;
+	private Button fermeture_bouton;
 	@FXML
-	private Button 						jeune_bouton;
+	private Button retour_bouton;
 	@FXML
-	private Button 						partenaire_bouton;
+	private Button jeune_bouton;
 	@FXML
-	private Button 						offre_bouton;
+	private Button partenaire_bouton;
 	@FXML
-	private Button 						statistique_bouton; 
+	private Button offre_bouton;
 	@FXML
-	private Button 						recherche_bouton;
+	private Button statistique_bouton; 
 	@FXML
-	private Button 						recherche_filtre_bouton;
+	private Button recherche_bouton;
 	@FXML
-	private Button						inscrire_bouton;
+	private Button recherche_filtre_bouton;
 	@FXML
-	private Button 						modifier_bouton;
+	private Button inscrire_bouton;
 	@FXML
-	private Button 						supprimer_bouton;
+	private Button modifier_bouton;
 	@FXML
-	private TextField 					recherche_champ_de_texte;
+	private Button supprimer_bouton;
 	@FXML
-	private TableView<Jeune> 			table;
+	private TextField recherche_champ_de_texte;
+	@FXML
+	private TableView<Jeune> table;
 	@FXML
 	private TableColumn<Jeune, Integer> id_colonne;
 	@FXML
@@ -58,8 +63,12 @@ public class JeuneController {
 	private TableColumn<Jeune, String> 	creation_colonne;
 	@FXML
 	private AnchorPane mainPane;
+	
 	String nom;
 	boolean super_administrateur;
+	
+	private double xOffset;
+	private double yOffset;
 	
 	public void nom(String nom) {
 		this.nom = nom;
@@ -70,7 +79,7 @@ public class JeuneController {
 	}
 	
 	@FXML
-	private void deconnexion(ActionEvent actionEvent) {	
+	private void deconnecter(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -81,6 +90,12 @@ public class JeuneController {
 		}catch(IOException e) {
 	        e.printStackTrace();
 	     }
+	}
+	
+	@FXML
+	private void fermer(ActionEvent actionEvent) {
+		Platform.exit();
+        System.exit(0);
 	}
 	
 	@FXML
@@ -150,14 +165,14 @@ public class JeuneController {
 	private void modifier(ActionEvent actionEvent) {
 		if(table.getSelectionModel().getSelectedItem() != null) {
 			Jeune jeune = table.getSelectionModel().getSelectedItem();
-	        int id 				= jeune.getJeune_id();
-	        String nom 			= jeune.getJeune_nom();
-	        String prenom 		= jeune.getJeune_prenom();
-	        String email 		= jeune.getJeune_email();
-	        String telephone 	= jeune.getJeune_telephone();
-	        String adresse	 	= jeune.getJeune_adresse();
-	        String ville		= jeune.getJeune_ville();
-	        String code_postal 	= jeune.getJeune_code_postal();
+	        int id = jeune.getJeune_id();
+	        String nom = jeune.getJeune_nom();
+	        String prenom = jeune.getJeune_prenom();
+	        String email = jeune.getJeune_email();
+	        String telephone = jeune.getJeune_telephone();
+	        String adresse = jeune.getJeune_adresse();
+	        String ville = jeune.getJeune_ville();
+	        String code_postal = jeune.getJeune_code_postal();
 	        
 	        try {
 				mainPane.getChildren().clear();
@@ -195,5 +210,24 @@ public class JeuneController {
         telephone_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_telephone_Prop());
         derniere_connexion_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_derniere_connexion_Prop());
         creation_colonne.setCellValueFactory(cellData -> cellData.getValue().getJeune_creation_Prop());
+        
+        mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				 xOffset = event.getSceneX();
+				 yOffset = event.getSceneY();
+				 
+				 System.out.println(xOffset);
+				 System.out.println(yOffset);
+			}
+		});
+		
+		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
+				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+			}
+		});
     }
 }

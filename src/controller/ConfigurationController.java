@@ -1,33 +1,70 @@
 package controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import application.Main;
 import dao.ConfigurationDAO;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class ConfigurationController {
 	@FXML
-	private TextField 		bdd;
+	private TextField bdd;
 	@FXML
-	private TextField 		hostname;
+	private TextField hostname;
 	@FXML
-	private TextField 		port;
+	private TextField port;
 	@FXML
-	private TextField 		utilisateur;
+	private TextField utilisateur;
 	@FXML
-	private TextField 		mdp;
+	private TextField mdp;
 	@FXML
-	private CheckBox		email;
+	private CheckBox email;
 	@FXML
-	private Button 			enregistrer;
+	private Button enregistrer;
+	@FXML
+	private Button fermer;
+	@FXML
+	private Button retour;
 	@FXML 
-	private AnchorPane  	mainPane;
+	private AnchorPane mainpane;
+	@FXML
+	private Scene main;
+	
+	private double xOffset;
+	private double yOffset;
+	
+	@FXML
+	private void retour(ActionEvent actionEvent) {
+		try {
+			mainpane.getChildren().clear();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			AnchorPane userFrame = (AnchorPane) loader.load();
+			Scene sc = mainpane.getScene();
+			sc.setRoot(userFrame);
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void fermeture(ActionEvent actionEvent) {
+		Platform.exit();
+        System.exit(0);
+	}
 	
 	@FXML
 	private void enregistrer(ActionEvent actionEvent) throws NumberFormatException, SQLException {	
@@ -43,8 +80,11 @@ public class ConfigurationController {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Alerte!");
 		alert.setHeaderText("Configuration");
-		alert.setContentText("Veuillez redémarrer l'application pour que les changements prennent effet.");
+		alert.setContentText("L'application va redémarrer afin de prendre en compte les changements.");
 		alert.showAndWait();
+		
+		Main.getPrimaryStage().close();
+		Platform.runLater( () -> new Main().start( new Stage() ) );
 	}
 	
 	@FXML
@@ -62,5 +102,24 @@ public class ConfigurationController {
 		}else {
 			this.email.setSelected(false);
 		}
+		
+		mainpane.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				 xOffset = event.getSceneX();
+				 yOffset = event.getSceneY();
+				 
+				 System.out.println(xOffset);
+				 System.out.println(yOffset);
+			}
+		});
+		
+		mainpane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
+				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+			}
+		});
     }
 }

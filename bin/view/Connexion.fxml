@@ -8,10 +8,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="882.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConnexionController">
+<AnchorPane fx:id="mainpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="882.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConnexionController">
    <children>
-      <TextField fx:id="email_champ_de_texte" alignment="CENTER" layoutX="369.0" layoutY="211.0" promptText="Email" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
-      <PasswordField fx:id="mot_de_passe_champ_de_texte" alignment="CENTER" layoutX="370.0" layoutY="261.0" promptText="Mot de passe" style="-fx-background-color: #223447; -fx-border-color: FFFFFF;  -fx-text-fill: FFFFFF;" />
+      <TextField fx:id="email" alignment="CENTER" layoutX="369.0" layoutY="211.0" promptText="Email" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
+      <PasswordField fx:id="motdepasse" alignment="CENTER" layoutX="370.0" layoutY="261.0" promptText="Mot de passe" style="-fx-background-color: #223447; -fx-border-color: FFFFFF;  -fx-text-fill: FFFFFF;" />
       <ImageView fitHeight="36.0" fitWidth="42.0" layoutX="317.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/contact.png" />
@@ -22,10 +22,10 @@
             <Image url="@images/lock.png" />
          </image>
       </ImageView>
-      <Button fx:id="connexion_bouton" layoutX="401.0" layoutY="332.0" mnemonicParsing="false" onAction="#connexion" prefHeight="27.0" prefWidth="87.0" style="-fx-background-color: #0F87FF;" text="Connexion" textFill="WHITE" />
+      <Button fx:id="connexion" layoutX="401.0" layoutY="332.0" mnemonicParsing="false" onAction="#connecter" prefHeight="27.0" prefWidth="87.0" style="-fx-background-color: #0F87FF;" text="Connexion" textFill="WHITE" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="362.0" layoutY="80.0" prefHeight="62.0" prefWidth="166.0" text="PPE 1 " textFill="WHITE" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="358.0" layoutY="111.0" prefHeight="62.0" prefWidth="166.0" text="Gestion d'utilisateurs" textFill="WHITE" />
-      <Button fx:id="configuration_bouton" layoutX="819.0" layoutY="493.0" mnemonicParsing="false" onAction="#configuration" prefHeight="42.0" prefWidth="49.0" style="-fx-background-color: transparent;">
+      <Button fx:id="configuration" layoutX="819.0" layoutY="493.0" mnemonicParsing="false" onAction="#configurer" prefHeight="42.0" prefWidth="49.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -35,7 +35,7 @@
          </graphic>
       </Button>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="506.0" prefHeight="17.0" prefWidth="33.0" text="v2.0" textFill="WHITE" />
-      <Button fx:id="fermeture" layoutX="819.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+      <Button fx:id="fermeture" layoutX="819.0" layoutY="14.0" mnemonicParsing="false" onAction="#fermer" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>

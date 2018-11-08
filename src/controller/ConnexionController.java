@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -24,39 +24,48 @@ import javafx.stage.Stage;
 
 public class ConnexionController {
 	@FXML
-	private TextField 		email_champ_de_texte;
+	private TextField email;
 	@FXML
-	private PasswordField 	mot_de_passe_champ_de_texte;
+	private PasswordField motdepasse;
 	@FXML
-	private Button 			connexion_bouton;
+	private Button connexion;
 	@FXML
-	private Button 			configuration_bouton;
+	private Button configuration;
 	@FXML
 	private Button fermeture;
-	@FXML 
-	private AnchorPane  	mainPane;
 	@FXML
-	private Stage Main;
+	private Stage main;
+	@FXML 
+	private AnchorPane mainpane;
+	
+	private double xOffset;
+	private double yOffset;
 	
 	@FXML
-	private void connexion(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException, NoSuchAlgorithmException {
-		if(!email_champ_de_texte.getText().isEmpty() && !mot_de_passe_champ_de_texte.getText().isEmpty()) {
-			boolean email_validation = AdministrateurDAO.validate(email_champ_de_texte.getText());
+	private void fermer(ActionEvent actionEvent) {
+		Platform.exit();
+        System.exit(0);
+	}
+	
+	@FXML
+	private void connecter(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException, NoSuchAlgorithmException {
+		if(!email.getText().isEmpty() && !motdepasse.getText().isEmpty()) {
+			boolean email_validation = AdministrateurDAO.validate(email.getText());
 			
 			if(email_validation == true) {
 				
-				if(mot_de_passe_champ_de_texte.getText().length() >= 12) {
-					String mot_de_passe = mot_de_passe_champ_de_texte.getText();
-					String hash = AdministrateurDAO.hash(email_champ_de_texte.getText());
-						String nom = AdministrateurDAO.nom(email_champ_de_texte.getText(), hash);
+				if(motdepasse.getText().length() >= 12) {
+					String mot_de_passe = motdepasse.getText();
+					String hash = AdministrateurDAO.hash(email.getText());
+						String nom = AdministrateurDAO.nom(email.getText(), hash);
 			
 							if(BCrypt.checkpw(mot_de_passe, hash)) {
-									boolean super_administrateur = AdministrateurDAO.connexion_super_administrateur(email_champ_de_texte.getText(), hash);
-									AdministrateurDAO.connexion_update(email_champ_de_texte.getText(), hash);
+									boolean super_administrateur = AdministrateurDAO.connexion_super_administrateur(email.getText(), hash);
+									AdministrateurDAO.connexion_update(email.getText(), hash);
 									int emailStatus = ConfigurationDAO.getEmail();
 						
 									if(emailStatus == 1) {
-										boolean emailSent = AdministrateurDAO.email(email_champ_de_texte.getText());
+										boolean emailSent = AdministrateurDAO.email(email.getText());
 							
 										if(emailSent == false) {
 											Alert a1 = new Alert(Alert.AlertType.ERROR);
@@ -70,12 +79,12 @@ public class ConnexionController {
 						
 									if(super_administrateur == true) {
 										try {
-											mainPane.getChildren().clear();
+											mainpane.getChildren().clear();
 											FXMLLoader loader = new FXMLLoader();
 											loader.setLocation(Main.class.getClassLoader().getResource("view/SuperAdministrateurMenu.fxml"));
 											AnchorPane userFrame = (AnchorPane) loader.load();
 											Scene sc =  new Scene(userFrame);
-											Stage  stage = (Stage) mainPane.getScene().getWindow();
+											Stage  stage = (Stage) mainpane.getScene().getWindow();
 											stage.setScene(sc);
 											SuperAdministrateurMenuController super_administrateur_menu_controller = loader.<SuperAdministrateurMenuController>getController();
 											super_administrateur_menu_controller.nom(nom);
@@ -85,12 +94,12 @@ public class ConnexionController {
 										}
 									}else {
 										try {
-											mainPane.getChildren().clear();
+											mainpane.getChildren().clear();
 											FXMLLoader loader = new FXMLLoader();
 											loader.setLocation(Main.class.getClassLoader().getResource("view/Menu.fxml"));
 											AnchorPane userFrame = (AnchorPane) loader.load();
 											Scene sc =  new Scene(userFrame);
-											Stage  stage = (Stage) mainPane.getScene().getWindow();
+											Stage  stage = (Stage) mainpane.getScene().getWindow();
 											stage.setScene(sc);
 											MenuController menu_controller = loader.<MenuController>getController();
 											menu_controller.nom(nom);
@@ -121,7 +130,7 @@ public class ConnexionController {
 				a1.showAndWait();
 			}
 		}else {
-			mainPane.getChildren().clear();
+			mainpane.getChildren().clear();
 			Alert a1 = new Alert(Alert.AlertType.ERROR);
 			a1.setTitle("Erreur: n°1");
 			a1.setContentText("L'un ou les deux champs sont vide.");
@@ -131,14 +140,15 @@ public class ConnexionController {
 	}
 
 	@FXML
-	private void configuration(ActionEvent actionEvent){
-		Parent root;
+	private void configurer(ActionEvent actionEvent){
         try {
-        	root = FXMLLoader.load(getClass().getClassLoader().getResource("view/Configuration.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Configuration");
-            stage.setScene(new Scene(root, 329, 549));
-            stage.show();
+        	mainpane.getChildren().clear();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getClassLoader().getResource("view/Configuration.fxml"));
+			AnchorPane userFrame = (AnchorPane) loader.load();
+			Scene sc =  new Scene(userFrame);
+			Stage  stage = (Stage) mainpane.getScene().getWindow();
+			stage.setScene(sc);
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -165,19 +175,23 @@ public class ConnexionController {
 		    } catch ( Exception e ) {
 		      System.out.println("Exception:" + e.getMessage());
 		   }
-		 
-		mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+		
+		mainpane.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				//xOffset = event.getSceneX();
-				//yOffset = event.getSceneY();
+				 xOffset = event.getSceneX();
+				 yOffset = event.getSceneY();
+				 
+				 System.out.println(xOffset);
+				 System.out.println(yOffset);
 			}
 		});
 		
-		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+		mainpane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-			
+				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
+				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
 			}
 		});
     }
