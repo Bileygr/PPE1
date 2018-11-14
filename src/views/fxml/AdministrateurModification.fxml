@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="882.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdministrateurModificationController">
+   <children>
+      <Button fx:id="fermeture_bouton" layoutX="825.0" layoutY="6.0" mnemonicParsing="false" onAction="#fermer" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@view/images/croix_deconnexion.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Separator layoutX="14.0" layoutY="50.0" prefHeight="2.0" prefWidth="853.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="340.0" layoutY="14.0" prefHeight="26.0" prefWidth="204.0" text="ADMINISTRATEUR MODIFICATION" textFill="WHITE" />
+      <Button fx:id="modifier_bouton" layoutX="381.0" layoutY="464.0" mnemonicParsing="false" onAction="#modifier" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Modification" />
+      <TextField fx:id="nom_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="187.0" promptText="Nom" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
+      <TextField fx:id="prenom_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="220.0" promptText="Prénom" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
+      <TextField fx:id="email_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="255.0" promptText="Email" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
+      <TextField fx:id="telephone_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="293.0" promptText="Téléphone" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
+      <TextField fx:id="adresse_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="330.0" promptText="Adresse" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
+      <TextField fx:id="ville_champ_de_texte" alignment="CENTER" layoutX="365.0" layoutY="367.0" promptText="Ville" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
+      <TextField fx:id="code_postal_champ_de_texte" alignment="CENTER" layoutX="366.0" layoutY="405.0" promptText="Code postal" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
+      <ImageView fitHeight="57.0" fitWidth="50.0" layoutX="416.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@view/images/contact.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="retour_bouton" layoutY="7.0" mnemonicParsing="false" onAction="#retour" prefHeight="25.0" prefWidth="32.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+               <image>
+                  <Image url="@view/images/Expand%20Arrow_64px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="id_label" alignment="CENTER" layoutX="481.0" layoutY="111.0" prefHeight="50.0" prefWidth="35.0" textFill="WHITE" />
+      <Label layoutX="279.0" layoutY="192.0" prefHeight="17.0" prefWidth="78.0" text="Nom" textFill="WHITE" />
+      <Label layoutX="279.0" layoutY="225.0" prefHeight="17.0" prefWidth="78.0" text="Prénom" textFill="WHITE" />
+      <Label layoutX="279.0" layoutY="260.0" prefHeight="17.0" prefWidth="78.0" text="Email" textFill="WHITE" />
+      <Label layoutX="279.0" layoutY="298.0" prefHeight="17.0" prefWidth="78.0" text="Téléphone" textFill="WHITE" />
+      <Label layoutX="279.0" layoutY="335.0" prefHeight="17.0" prefWidth="78.0" text="Adresse" textFill="WHITE" />
+      <Label layoutX="279.0" layoutY="372.0" prefHeight="17.0" prefWidth="78.0" text="Ville" textFill="WHITE" />
+      <Label layoutX="279.0" layoutY="410.0" prefHeight="17.0" prefWidth="78.0" text="Code postal" textFill="WHITE" />
+      <CheckBox fx:id="super_administrateur_checkbox" layoutX="373.0" layoutY="439.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="138.0" text="Super Administrateur" textFill="WHITE" />
+      <Button fx:id="deconnexion_bouton" layoutX="781.0" layoutY="9.0" mnemonicParsing="false" onAction="#deconnecter" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@view/images/logout_1185685.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

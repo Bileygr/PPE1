@@ -70,7 +70,7 @@ public class AdministrateurInscriptionController {
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -90,7 +90,7 @@ public class AdministrateurInscriptionController {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Administrateur.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Administrateur.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -150,7 +150,7 @@ public class AdministrateurInscriptionController {
 										try {
 											mainPane.getChildren().clear();
 											FXMLLoader loader = new FXMLLoader();
-											loader.setLocation(Main.class.getClassLoader().getResource("view/Administrateur.fxml"));
+											loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Administrateur.fxml"));
 											AnchorPane userFrame = (AnchorPane) loader.load();
 											Scene sc = mainPane.getScene();
 											sc.setRoot(userFrame);

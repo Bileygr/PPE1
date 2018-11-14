@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="882.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OffreDescriptionController">
+   <children>
+      <Button fx:id="fermeture_bouton" layoutX="825.0" layoutY="6.0" mnemonicParsing="false" onAction="#fermer" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@view/images/croix_deconnexion.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Separator layoutX="14.0" layoutY="50.0" prefHeight="2.0" prefWidth="853.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="373.0" layoutY="14.0" prefHeight="26.0" prefWidth="136.0" text="OFFRE DESCRIPTION" textFill="WHITE" />
+      <Button fx:id="retour_bouton" layoutY="7.0" mnemonicParsing="false" onAction="#retour" prefHeight="25.0" prefWidth="32.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
+               <image>
+                  <Image url="@view/images/Expand%20Arrow_64px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="id_label" layoutX="21.0" layoutY="55.0" prefHeight="26.0" prefWidth="40.0" textFill="WHITE" />
+      <Button fx:id="supprimer_bouton" layoutX="782.0" layoutY="55.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="25.0" prefWidth="87.0" style="-fx-background-color: #0F87FF;" text="Supprimer" />
+      <Label fx:id="nom_label" alignment="CENTER" contentDisplay="CENTER" layoutX="380.0" layoutY="55.0" prefHeight="25.0" prefWidth="136.0" textFill="WHITE" />
+      <TextArea fx:id="description_text_area" layoutX="8.0" layoutY="118.0" prefHeight="418.0" prefWidth="866.0" />
+      <Label fx:id="partenaire_label" alignment="CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="92.0" prefHeight="26.0" prefWidth="192.0" textFill="WHITE" />
+      <Label fx:id="formation_label" alignment="CENTER" contentDisplay="CENTER" layoutX="216.0" layoutY="92.0" prefHeight="26.0" prefWidth="232.0" textFill="WHITE" />
+      <Separator layoutX="213.0" layoutY="92.0" orientation="VERTICAL" prefHeight="26.0" prefWidth="6.0" />
+      <Separator layoutX="445.0" layoutY="92.0" orientation="VERTICAL" prefHeight="26.0" prefWidth="6.0" />
+      <Label fx:id="debut_label" alignment="CENTER" contentDisplay="CENTER" layoutX="449.0" layoutY="92.0" prefHeight="26.0" prefWidth="238.0" textFill="WHITE" />
+      <Separator layoutX="687.0" layoutY="92.0" orientation="VERTICAL" prefHeight="26.0" prefWidth="6.0" />
+      <Label fx:id="fin_label" alignment="CENTER" contentDisplay="CENTER" layoutX="690.0" layoutY="92.0" prefHeight="26.0" prefWidth="173.0" textFill="WHITE" />
+      <Button fx:id="deconnexion_bouton" layoutX="782.0" layoutY="9.0" mnemonicParsing="false" onAction="#deconnecter" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@view/images/logout_1185685.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

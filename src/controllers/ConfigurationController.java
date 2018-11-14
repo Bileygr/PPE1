@@ -51,7 +51,7 @@ public class ConfigurationController {
 		try {
 			mainpane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainpane.getScene();
 			sc.setRoot(userFrame);

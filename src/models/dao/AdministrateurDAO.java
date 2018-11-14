@@ -1,6 +1,6 @@
 package models.dao;
 
-import classe.Administrateur;
+import models.base.Administrateur;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;

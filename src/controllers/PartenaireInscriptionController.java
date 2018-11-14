@@ -64,7 +64,7 @@ public class PartenaireInscriptionController {
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -84,7 +84,7 @@ public class PartenaireInscriptionController {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Partenaire.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Partenaire.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -137,7 +137,7 @@ public class PartenaireInscriptionController {
 											try {
 												mainPane.getChildren().clear();
 												FXMLLoader loader = new FXMLLoader();
-												loader.setLocation(Main.class.getClassLoader().getResource("view/Partenaire.fxml"));
+												loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Partenaire.fxml"));
 												AnchorPane userFrame = (AnchorPane) loader.load();
 												Scene sc = mainPane.getScene();
 												sc.setRoot(userFrame);

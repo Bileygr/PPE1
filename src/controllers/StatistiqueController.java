@@ -51,7 +51,7 @@ public class StatistiqueController {
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -72,7 +72,7 @@ public class StatistiqueController {
 			try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(Main.class.getClassLoader().getResource("view/SuperAdministrateurMenu.fxml"));
+				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/SuperAdministrateurMenu.fxml"));
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
@@ -86,7 +86,7 @@ public class StatistiqueController {
 			try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(Main.class.getClassLoader().getResource("view/Menu.fxml"));
+				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Menu.fxml"));
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);

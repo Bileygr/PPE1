@@ -26,7 +26,7 @@ public class Main extends Application
 		try 
 		{
 			FXMLLoader acc = new FXMLLoader() ;
-			acc.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			acc.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			primaryStage.initStyle(StageStyle.TRANSPARENT);
 			rootL = (AnchorPane)acc.load();
 			Scene scene = new Scene(rootL);

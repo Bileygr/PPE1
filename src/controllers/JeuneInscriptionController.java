@@ -2,7 +2,6 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import application.Main;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -67,7 +66,7 @@ public class JeuneInscriptionController {
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -87,7 +86,7 @@ public class JeuneInscriptionController {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Jeune.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Jeune.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -140,7 +139,7 @@ public class JeuneInscriptionController {
 										try {
 											mainPane.getChildren().clear();
 											FXMLLoader loader = new FXMLLoader();
-											loader.setLocation(Main.class.getClassLoader().getResource("view/Jeune.fxml"));
+											loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Jeune.fxml"));
 											AnchorPane userFrame = (AnchorPane) loader.load();
 											Scene sc = mainPane.getScene();
 											sc.setRoot(userFrame);

@@ -2,7 +2,6 @@
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import application.Main;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -76,7 +75,7 @@ public class PartenaireModificationController {
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -96,7 +95,7 @@ public class PartenaireModificationController {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Partenaire.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Partenaire.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -145,7 +144,7 @@ public class PartenaireModificationController {
 									try {
 										mainPane.getChildren().clear();
 										FXMLLoader loader = new FXMLLoader();
-										loader.setLocation(Main.class.getClassLoader().getResource("view/Partenaire.fxml"));
+										loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Partenaire.fxml"));
 										AnchorPane userFrame = (AnchorPane) loader.load();
 										Scene sc = mainPane.getScene();
 										sc.setRoot(userFrame);

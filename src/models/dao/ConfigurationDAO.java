@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class ConfigurationDAO {
 	private static Connection connect() {
-        String url = "jdbc:sqlite:src/librairie/ppe-config.db";
+        String url = "jdbc:sqlite:src/library/ppe-config.db";
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);

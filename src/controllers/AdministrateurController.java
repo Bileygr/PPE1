@@ -81,7 +81,7 @@ public class AdministrateurController {
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -101,7 +101,7 @@ public class AdministrateurController {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/SuperAdministrateurMenu.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/SuperAdministrateurMenu.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -130,7 +130,7 @@ public class AdministrateurController {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/AdministrateurInscription.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/AdministrateurInscription.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -159,7 +159,7 @@ public class AdministrateurController {
 	        try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(Main.class.getClassLoader().getResource("view/AdministrateurModification.fxml"));
+				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/AdministrateurModification.fxml"));
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);

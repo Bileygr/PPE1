@@ -82,7 +82,7 @@ public class ConnexionController {
 										try {
 											mainpane.getChildren().clear();
 											FXMLLoader loader = new FXMLLoader();
-											loader.setLocation(Main.class.getClassLoader().getResource("view/SuperAdministrateurMenu.fxml"));
+											loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/SuperAdministrateurMenu.fxml"));
 											AnchorPane userFrame = (AnchorPane) loader.load();
 											Scene sc =  new Scene(userFrame);
 											Stage  stage = (Stage) mainpane.getScene().getWindow();
@@ -97,7 +97,7 @@ public class ConnexionController {
 										try {
 											mainpane.getChildren().clear();
 											FXMLLoader loader = new FXMLLoader();
-											loader.setLocation(Main.class.getClassLoader().getResource("view/Menu.fxml"));
+											loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Menu.fxml"));
 											AnchorPane userFrame = (AnchorPane) loader.load();
 											Scene sc =  new Scene(userFrame);
 											Stage  stage = (Stage) mainpane.getScene().getWindow();
@@ -145,7 +145,7 @@ public class ConnexionController {
         try {
         	mainpane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Configuration.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Configuration.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc =  new Scene(userFrame);
 			Stage  stage = (Stage) mainpane.getScene().getWindow();

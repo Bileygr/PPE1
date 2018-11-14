@@ -3,7 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.sql.SQLException;
 import application.Main;
-import classe.Partenaire;
+import models.base.Partenaire;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -73,7 +73,7 @@ public class PartenaireController
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -94,7 +94,7 @@ public class PartenaireController
 			try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(Main.class.getClassLoader().getResource("view/SuperAdministrateurMenu.fxml"));
+				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/SuperAdministrateurMenu.fxml"));
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
@@ -108,7 +108,7 @@ public class PartenaireController
 			try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(Main.class.getClassLoader().getResource("view/Menu.fxml"));
+				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Menu.fxml"));
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
@@ -138,7 +138,7 @@ public class PartenaireController
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/PartenaireInscription.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/PartenaireInscription.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -166,7 +166,7 @@ public class PartenaireController
 	        try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(Main.class.getClassLoader().getResource("view/PartenaireModification.fxml"));
+				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/PartenaireModification.fxml"));
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);

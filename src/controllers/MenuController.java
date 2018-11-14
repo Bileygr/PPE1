@@ -3,7 +3,6 @@ package controllers;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Calendar;
-
 import application.Main;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -65,7 +64,7 @@ public class MenuController{
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Connexion.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -85,7 +84,7 @@ public class MenuController{
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Jeune.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Jeune.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -102,7 +101,7 @@ public class MenuController{
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Partenaire.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Partenaire.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -119,7 +118,7 @@ public class MenuController{
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Offre.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Offre.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
@@ -136,7 +135,7 @@ public class MenuController{
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getClassLoader().getResource("view/Statistique.fxml"));
+			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Statistique.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
