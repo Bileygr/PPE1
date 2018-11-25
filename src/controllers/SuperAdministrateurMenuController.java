@@ -17,50 +17,51 @@ import javafx.scene.layout.AnchorPane;
 
 public class SuperAdministrateurMenuController {
 	@FXML
-	private Button deconnexion_bouton;
-	@FXML
-	private Button fermeture_bouton;
-	@FXML
-	private Button administrateur_bouton;
-	@FXML
-	private Button jeune_bouton;
-	@FXML
-	private Button partenaire_bouton;
-	@FXML
-	private Button offre_bouton;
-	@FXML
-	private Button statistique_bouton; 
-	@FXML
-	private Label nom_champ_de_texte; 
-	@FXML
-	private Label salutation_label;
-	@FXML
 	private AnchorPane mainPane;
-	String nom;
-	boolean super_administrateur;
+	@FXML
+	private Button deconnexionButton;
+	@FXML
+	private Button fermetureButton;
+	@FXML
+	private Button menuGestionAdministrateurButton;
+	@FXML
+	private Button menuGestionJeuneButton;
+	@FXML
+	private Button menuGestionPartenaireButton;
+	@FXML
+	private Button menuGestionOffreButton;
+	@FXML
+	private Button menuGestionStatistiqueButton; 
+	@FXML
+	private Label nomLabel; 
+	@FXML
+	private Label salutationLabel;
+
+	String nomDeLaPersonneConnecte;
+	boolean statusSuperAdministrateur;
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void nom(String nom) {
-		this.nom = nom;
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 		Calendar calendar = Calendar.getInstance();
 		int hours = calendar.get(Calendar.HOUR_OF_DAY);
-		nom_champ_de_texte.setText(nom);
+		nomLabel.setText(nomDeLaPersonneConnecte);
 		
 		if(hours >= 5 && hours < 18) {
-			salutation_label.setText("Bonjour");
+			salutationLabel.setText("Bonjour");
 		}else{
-			salutation_label.setText("Bonsoir");
+			salutationLabel.setText("Bonsoir");
 		}
 	}
 	
-	public void super_administrateur(boolean super_administrateur) {
-		this.super_administrateur = super_administrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean super_administrateur) {
+		this.statusSuperAdministrateur = super_administrateur;
 	}
 	
 	@FXML
-	private void deconnecter(ActionEvent actionEvent) {	
+	private void deconnecter_l_utilisateur(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -74,13 +75,13 @@ public class SuperAdministrateurMenuController {
 	}
 	
 	@FXML
-	private void fermer(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) {
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void administrateur(ActionEvent actionEvent){
+	private void acceder_a_la_page_de_gestion_des_administrateurs(ActionEvent actionEvent){
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -88,16 +89,16 @@ public class SuperAdministrateurMenuController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			AdministrateurController administrateur_controller = loader.<AdministrateurController>getController();
-			administrateur_controller.nom(this.nom);
-			administrateur_controller.super_administrateur(this.super_administrateur);
+			AdministrateurController administrateurController = loader.<AdministrateurController>getController();
+			administrateurController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			administrateurController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		 }catch(IOException e) {	
 			 e.printStackTrace();
 		   	}
 	}
 	
 	@FXML
-	private void jeune(ActionEvent actionEvent){
+	private void acceder_a_la_page_de_gestion_des_jeunes(ActionEvent actionEvent){
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -105,16 +106,16 @@ public class SuperAdministrateurMenuController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			JeuneController jeune_controller = loader.<JeuneController>getController();
-			jeune_controller.nom(this.nom);
-			jeune_controller.super_administrateur(this.super_administrateur);
+			JeuneController jeuneController = loader.<JeuneController>getController();
+			jeuneController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			jeuneController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		 }catch(IOException e) {	
 			 e.printStackTrace();
 		   	}
 	}	
 		
 	@FXML
-	private void partenaire(ActionEvent actionEvent){
+	private void acceder_a_la_page_de_gestion_des_partenaires(ActionEvent actionEvent){
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -122,16 +123,16 @@ public class SuperAdministrateurMenuController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			PartenaireController partenaire_controller = loader.<PartenaireController>getController();
-			partenaire_controller.nom(this.nom);
-			partenaire_controller.super_administrateur(this.super_administrateur);
+			PartenaireController partenaireController = loader.<PartenaireController>getController();
+			partenaireController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			partenaireController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		 }catch(IOException e) {	
 			 e.printStackTrace();
 		   	}
 	}	
 		
 	@FXML
-	private void offre(ActionEvent actionEvent){
+	private void acceder_a_la_page_de_gestion_des_offres(ActionEvent actionEvent){
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -139,16 +140,16 @@ public class SuperAdministrateurMenuController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			OffreController offre_controller = loader.<OffreController>getController();
-			offre_controller.nom(this.nom);
-			offre_controller.super_administrateur(this.super_administrateur);
+			OffreController offreController = loader.<OffreController>getController();
+			offreController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			offreController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		}catch(IOException e) {
 			e.printStackTrace();
 			}
 	}
 		
 	@FXML
-	private void statistique(ActionEvent actionEvent){
+	private void acceder_a_la_page_de_gestion_des_statistiques(ActionEvent actionEvent){
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -157,8 +158,8 @@ public class SuperAdministrateurMenuController {
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
 			StatistiqueController statistique_controller = loader.<StatistiqueController>getController();
-			statistique_controller.nom(this.nom);
-			statistique_controller.super_administrateur(this.super_administrateur);
+			statistique_controller.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			statistique_controller.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		}catch(IOException e){
 			e.printStackTrace();
 			}
@@ -172,17 +173,14 @@ public class SuperAdministrateurMenuController {
 			public void handle(MouseEvent event) {
 				 xOffset = event.getSceneX();
 				 yOffset = event.getSceneY();
-				 
-				 System.out.println(xOffset);
-				 System.out.println(yOffset);
 			}
 		});
 		
 		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
-				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
+				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}
 		});
     }

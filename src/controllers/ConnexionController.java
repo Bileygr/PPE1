@@ -1,7 +1,6 @@
 package controllers;
 
 import application.Main;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.security.NoSuchAlgorithmException;
@@ -20,91 +19,86 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import library.encryption.BCrypt;
+import models.base.Administrateur;
 import models.dao.AdministrateurDAO;
-import models.dao.ConfigurationDAO;
+import models.dao.ConfigurationConnexionBaseDeDonneesDAO;
 
 public class ConnexionController {
 	@FXML
-	private TextField email;
-	@FXML
-	private PasswordField motdepasse;
-	@FXML
-	private Button connexion;
-	@FXML
-	private Button configuration;
-	@FXML
-	private Button fermeture;
-	@FXML
 	private Stage main;
 	@FXML 
-	private AnchorPane mainpane;
+	private AnchorPane mainPane;
+	@FXML
+	private TextField emailInput;
+	@FXML
+	private PasswordField motDePasseInput;
+	@FXML
+	private Button connexionButton;
+	@FXML
+	private Button configurationButton;
+	@FXML
+	private Button fermetureButton;
 	
 	private double xOffset;
 	private double yOffset;
 	
 	@FXML
-	private void fermer(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) {
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void connecter(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException, NoSuchAlgorithmException {
-		if(!email.getText().isEmpty() && !motdepasse.getText().isEmpty()) {
-			boolean email_validation = AdministrateurDAO.validate(email.getText());
-			
-			if(email_validation == true) {
-				
-				if(motdepasse.getText().length() >= 12) {
-					String mot_de_passe = motdepasse.getText();
-					String hash = AdministrateurDAO.hash(email.getText());
-						String nom = AdministrateurDAO.nom(email.getText(), hash);
-			
-							if(BCrypt.checkpw(mot_de_passe, hash)) {
-									boolean super_administrateur = AdministrateurDAO.connexion_super_administrateur(email.getText(), hash);
-									AdministrateurDAO.connexion_update(email.getText(), hash);
-									int emailStatus = ConfigurationDAO.getEmail();
-						
-									if(emailStatus == 1) {
-										boolean emailSent = AdministrateurDAO.email(email.getText());
-							
-										if(emailSent == false) {
+	private void connecter_un_utilisateur(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException, NoSuchAlgorithmException {
+		if(!emailInput.getText().isEmpty() && !motDePasseInput.getText().isEmpty()) {
+			boolean statusEmailSyntaxeVerification = Administrateur.verifier_la_syntaxe_d_un_email(emailInput.getText());
+			if(statusEmailSyntaxeVerification == true) {	
+				if(motDePasseInput.getText().length() >= 12) {
+					String motDePasse = motDePasseInput.getText();
+					String hacheDuMotDePasse = AdministrateurDAO.obtenir_le_hache_correspondant_a_l_email_de_connexion(emailInput.getText());
+						String nomDeLaPersonneConnecte = AdministrateurDAO.obtenir_le_nom_de_la_personne_connecte(emailInput.getText(), hacheDuMotDePasse);
+							if(BCrypt.checkpw(motDePasse, hacheDuMotDePasse)) {
+									boolean statusSuperAdministrateur = AdministrateurDAO.obtenir_le_status_super_administrateur(emailInput.getText(), hacheDuMotDePasse);
+									AdministrateurDAO.mise_a_jour_de_la_date_de_derniere_connexion(emailInput.getText(), hacheDuMotDePasse);
+									boolean statusOptionEnvoiEmail = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_status_de_l_option_d_envoi_d_email();
+									if(statusOptionEnvoiEmail == true) {
+										boolean verificationEnvoiEmail = Administrateur.envoi_d_email(emailInput.getText());
+										if(verificationEnvoiEmail == false) {
 											Alert a1 = new Alert(Alert.AlertType.ERROR);
 											a1.setTitle("Erreur: n°5");
 											a1.setContentText("L'envoi d'email ne fonctionne pas veuillez désactiver la fonctionnalité dans le menu de configuration si vous ne voulez plus voir ce message.\n"+
-																"Pour accéder au menu veuillez cliquer sur l'icône dans le coin en bas à droite.");
+															  "Pour accéder au menu veuillez cliquer sur l'icône dans le coin en bas à droite.");
 											a1.setHeaderText(null);
 											a1.showAndWait();
 										}
 									}
-						
-									if(super_administrateur == true) {
+									if(statusSuperAdministrateur == true) {
 										try {
-											mainpane.getChildren().clear();
+											mainPane.getChildren().clear();
 											FXMLLoader loader = new FXMLLoader();
 											loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/SuperAdministrateurMenu.fxml"));
 											AnchorPane userFrame = (AnchorPane) loader.load();
 											Scene sc =  new Scene(userFrame);
-											Stage  stage = (Stage) mainpane.getScene().getWindow();
+											Stage  stage = (Stage) mainPane.getScene().getWindow();
 											stage.setScene(sc);
-											SuperAdministrateurMenuController super_administrateur_menu_controller = loader.<SuperAdministrateurMenuController>getController();
-											super_administrateur_menu_controller.nom(nom);
-											super_administrateur_menu_controller.super_administrateur(super_administrateur);
+											SuperAdministrateurMenuController superAdministrateurController = loader.<SuperAdministrateurMenuController>getController();
+											superAdministrateurController.recuperer_le_nom_de_la_personne_connecte(nomDeLaPersonneConnecte);
+											superAdministrateurController.recuperer_le_status_super_administrateur_de_la_personne_connecte(statusSuperAdministrateur);
 										}catch (IOException e){
 											e.printStackTrace();
 										}
 									}else {
 										try {
-											mainpane.getChildren().clear();
+											mainPane.getChildren().clear();
 											FXMLLoader loader = new FXMLLoader();
 											loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Menu.fxml"));
 											AnchorPane userFrame = (AnchorPane) loader.load();
 											Scene sc =  new Scene(userFrame);
-											Stage  stage = (Stage) mainpane.getScene().getWindow();
+											Stage  stage = (Stage) mainPane.getScene().getWindow();
 											stage.setScene(sc);
-											MenuController menu_controller = loader.<MenuController>getController();
-											menu_controller.nom(nom);
-											menu_controller.super_administrateur(super_administrateur);
+											MenuController menuController = loader.<MenuController>getController();
+											menuController.recuperer_le_nom_de_la_personne_connecte(nomDeLaPersonneConnecte);
+											menuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(statusSuperAdministrateur);
 										}catch (IOException e){
 											e.printStackTrace();
 										}
@@ -131,7 +125,7 @@ public class ConnexionController {
 				a1.showAndWait();
 			}
 		}else {
-			mainpane.getChildren().clear();
+			mainPane.getChildren().clear();
 			Alert a1 = new Alert(Alert.AlertType.ERROR);
 			a1.setTitle("Erreur: n°1");
 			a1.setContentText("L'un ou les deux champs sont vide.");
@@ -141,14 +135,14 @@ public class ConnexionController {
 	}
 
 	@FXML
-	private void configurer(ActionEvent actionEvent){
+	private void configurer_la_connexion_la_base_de_donnees(ActionEvent actionEvent){
         try {
-        	mainpane.getChildren().clear();
+        	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Configuration.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc =  new Scene(userFrame);
-			Stage  stage = (Stage) mainpane.getScene().getWindow();
+			Stage  stage = (Stage) mainPane.getScene().getWindow();
 			stage.setScene(sc);
         }
         catch (IOException e) {
@@ -158,18 +152,18 @@ public class ConnexionController {
 	
 	@FXML
     private void initialize() throws ClassNotFoundException, SQLException {
-		String hostname = ConfigurationDAO.getHostname();
+		String hostname = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_nom_d_hote();
 		 try {
-		      String ipAddress = hostname;
-		      InetAddress inet = InetAddress.getByName(ipAddress);
-		      System.out.println("Sending Ping Request to " + ipAddress);
+		      String adresseIP = hostname;
+		      InetAddress inet = InetAddress.getByName(adresseIP);
+		      System.out.println("Envoi d'une requête ping à " + adresseIP);
 		      if (inet.isReachable(5000)){
-		        System.out.println(ipAddress + " is reachable.");
+		        System.out.println("L'hôte " + adresseIP + " est joignable.");
 		      } else {
 		    	  Alert a1 = new Alert(Alert.AlertType.ERROR);
 					a1.setTitle("Erreur");
-					a1.setContentText("La base de données n'est pas joignable, changez les modalités de connexion dans le menu de configuration. \n"
-										+"Pour accéder au menu de configuration cliquez sur l'icône dans le coin en bas à droite.");
+					a1.setContentText("La base de données n'est pas joignable, changez les modalités de connexion dans le menu de configuration. \n"+
+									  "Pour accéder au menu de configuration cliquez sur l'icône dans le coin en bas à droite.");
 					a1.setHeaderText(null);
 					a1.showAndWait();
 		      }
@@ -177,22 +171,19 @@ public class ConnexionController {
 		      System.out.println("Exception:" + e.getMessage());
 		   }
 		
-		mainpane.setOnMousePressed(new EventHandler<MouseEvent>() {
+		mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				 xOffset = event.getSceneX();
 				 yOffset = event.getSceneY();
-				 
-				 System.out.println(xOffset);
-				 System.out.println(yOffset);
 			}
 		});
 		
-		mainpane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
-				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
+				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}
 		});
     }

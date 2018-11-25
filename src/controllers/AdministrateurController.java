@@ -22,62 +22,58 @@ import models.dao.AdministrateurDAO;
 
 public class AdministrateurController {
 	@FXML
-	private Button fermeture_bouton;
+	private AnchorPane mainPane;
 	@FXML
-	private Button retour_bouton;
+	private Button fermetureButton;
 	@FXML
-	private Button jeune_bouton;
+	private Button deconnexionButton;
 	@FXML
-	private Button partenaire_bouton;
+	private Button retourButton;
 	@FXML
-	private Button offre_bouton;
+	private Button rechercheGeneralButton;
 	@FXML
-	private Button statistique_bouton; 
+	private Button rechercheFiltreButton;
 	@FXML
-	private Button recherche_bouton;
+	private Button inscriptionButton;
 	@FXML
-	private Button recherche_filtre_bouton;
+	private Button modificationButton;
 	@FXML
-	private Button inscrire_bouton;
+	private Button suppressionButton;
 	@FXML
-	private Button modifier_bouton;
-	@FXML
-	private Button supprimer_bouton;
-	@FXML
-	private TextField recherche_champ_de_texte;
+	private TextField rechercheInput;
 	@FXML
 	private TableView<Administrateur> table;
 	@FXML
-	private TableColumn<Administrateur, String> nom_colonne;
+	private TableColumn<Administrateur, String> nomColumn;
 	@FXML
-	private TableColumn<Administrateur, String> prenom_colonne;
+	private TableColumn<Administrateur, String> prenomColumn;
 	@FXML
-	private TableColumn<Administrateur, String> email_colonne;
+	private TableColumn<Administrateur, String> statusSuperAdministrateurColumn;
 	@FXML
-	private TableColumn<Administrateur, String> telephone_colonne;
+	private TableColumn<Administrateur, String> emailColumn;
 	@FXML
-	private TableColumn<Administrateur, String> derniere_connexion_colonne;
+	private TableColumn<Administrateur, String> telephoneColumn;
 	@FXML
-	private TableColumn<Administrateur, String> creation_colonne;
+	private TableColumn<Administrateur, String> derniereConnexionColumn;
 	@FXML
-	private AnchorPane mainPane;
+	private TableColumn<Administrateur, String> creationColumn;
 	
-	String nom;
-	boolean super_administrateur;
+	String nomDeLaPersonneConnecte;
+	boolean statusSuperAdministrateur;
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void nom(String nom) {
-		this.nom = nom;
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void super_administrateur(boolean super_administrateur) {
-		this.super_administrateur = super_administrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
+		this.statusSuperAdministrateur = statusSuperAdministrateur;
 	}
 	
 	@FXML
-	private void deconnecter(ActionEvent actionEvent) {	
+	private void deconnecter_l_utilisateur(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -91,13 +87,13 @@ public class AdministrateurController {
 	}
 	
 	@FXML
-	private void fermer(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) {
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retour(ActionEvent actionEvent) {
+	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -105,28 +101,28 @@ public class AdministrateurController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			SuperAdministrateurMenuController super_administrateur_menu_controller = loader.<SuperAdministrateurMenuController>getController();
-			super_administrateur_menu_controller.nom(this.nom);
-			super_administrateur_menu_controller.super_administrateur(this.super_administrateur);
+			SuperAdministrateurMenuController superAdministrateurMenuController = loader.<SuperAdministrateurMenuController>getController();
+			superAdministrateurMenuController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			superAdministrateurMenuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		}catch (IOException e) {
 		   e.printStackTrace();
 		  }
 	}
 	
 	@FXML
-	private void recherche(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
-		ObservableList<Administrateur> empData = AdministrateurDAO.recherche();
+	private void recherche_general(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
+		ObservableList<Administrateur> empData = AdministrateurDAO.lister_tout_les_administrateurs();
         table.setItems(empData);
 	}
 	
 	@FXML
 	private void recherche_filtre(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
-		ObservableList<Administrateur> empData = AdministrateurDAO.recherche_filtre(recherche_champ_de_texte.getText());
+		ObservableList<Administrateur> empData = AdministrateurDAO.recherche_filtre(rechercheInput.getText());
         table.setItems(empData);
 	}
 		
 	@FXML
-	private void inscrire(ActionEvent actionEvent) {
+	private void acceder_a_la_page_d_inscipriton_d_un_administrateur(ActionEvent actionEvent) {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -134,27 +130,27 @@ public class AdministrateurController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			AdministrateurInscriptionController administrateur_inscription_controller = loader.<AdministrateurInscriptionController>getController();
-			administrateur_inscription_controller.nom(this.nom);
-			administrateur_inscription_controller.super_administrateur(this.super_administrateur);
+			AdministrateurInscriptionController administrateurInscriptionController = loader.<AdministrateurInscriptionController>getController();
+			administrateurInscriptionController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			administrateurInscriptionController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		}catch(IOException e) {
 			e.printStackTrace();
 			}
 	}
 	
 	@FXML
-	private void modifier(ActionEvent actionEvent) {
+	private void modifier_les_information_d_un_administrateur(ActionEvent actionEvent) {
 		if(table.getSelectionModel().getSelectedItem() != null) {
 			Administrateur administrateur = table.getSelectionModel().getSelectedItem();
-	        int id 						= administrateur.getAdministrateur_id();
-	        int super_administrateur	= administrateur.getAdministrateur_super();
-	        String nom 					= administrateur.getAdministrateur_nom();
-	        String prenom 				= administrateur.getAdministrateur_prenom();
-	        String email 				= administrateur.getAdministrateur_email();
-	        String telephone 			= administrateur.getAdministrateur_telephone();
-	        String adresse	 			= administrateur.getAdministrateur_adresse();
-	        String ville				= administrateur.getAdministrateur_ville();
-	        String code_postal 			= administrateur.getAdministrateur_code_postal();
+	        int id = administrateur.getAdministrateur_id();
+	        String super_administrateur = administrateur.getAdministrateur_super();
+	        String nom = administrateur.getAdministrateur_nom();
+	        String prenom = administrateur.getAdministrateur_prenom();
+	        String email = administrateur.getAdministrateur_email();
+	        String telephone = administrateur.getAdministrateur_telephone();
+	        String adresse = administrateur.getAdministrateur_adresse();
+	        String ville = administrateur.getAdministrateur_ville();
+	        String code_postal = administrateur.getAdministrateur_code_postal();
 	        
 	        try {
 				mainPane.getChildren().clear();
@@ -163,10 +159,10 @@ public class AdministrateurController {
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				AdministrateurModificationController administrateur_modification_controller = loader.<AdministrateurModificationController>getController();
-				administrateur_modification_controller.administrateur(id, super_administrateur, nom, prenom, email, telephone, adresse, ville, code_postal);
-				administrateur_modification_controller.nom(this.nom);
-				administrateur_modification_controller.super_administrateur(this.super_administrateur);
+				AdministrateurModificationController administrateurModificationController = loader.<AdministrateurModificationController>getController();
+				administrateurModificationController.administrateur(id, super_administrateur, nom, prenom, email, telephone, adresse, ville, code_postal);
+				administrateurModificationController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+				administrateurModificationController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 			}catch(IOException e) {
 				e.printStackTrace();
 				}
@@ -174,41 +170,39 @@ public class AdministrateurController {
 	}
 	
 	@FXML
-	private void supprimer(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+	private void suppression_d_un_administrateur(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
 		if(table.getSelectionModel().getSelectedItem() != null) {
 	        Administrateur administrateur_selectionne = table.getSelectionModel().getSelectedItem();
 	        int id = administrateur_selectionne.getAdministrateur_id();
-	        AdministrateurDAO.supprimer(id);
+	        AdministrateurDAO.supprimer_un_administrateur(id);
 	    }
 	}
 	
 	@FXML
     private void initialize() throws ClassNotFoundException, SQLException {
-		ObservableList<Administrateur> empData = AdministrateurDAO.recherche();
+		ObservableList<Administrateur> empData = AdministrateurDAO.lister_tout_les_administrateurs();
         table.setItems(empData);
-        nom_colonne.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_nom_Prop());
-        prenom_colonne.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_prenom_Prop());
-        email_colonne.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_email_Prop());
-        telephone_colonne.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_telephone_Prop());
-        derniere_connexion_colonne.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_derniere_connexion_Prop());
-        creation_colonne.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_derniere_connexion_Prop());
+        nomColumn.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_nom_Prop());
+        prenomColumn.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_prenom_Prop());
+        statusSuperAdministrateurColumn.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_super_Prop());
+        emailColumn.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_email_Prop());
+        telephoneColumn.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_telephone_Prop());
+        derniereConnexionColumn.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_derniere_connexion_Prop());
+        creationColumn.setCellValueFactory(cellData -> cellData.getValue().getAdministrateur_derniere_connexion_Prop());
         
         mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				 xOffset = event.getSceneX();
 				 yOffset = event.getSceneY();
-				 
-				 System.out.println(xOffset);
-				 System.out.println(yOffset);
 			}
 		});
 		
 		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
-				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
+				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}
 		});
     }

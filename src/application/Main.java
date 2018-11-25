@@ -13,14 +13,13 @@ public class Main extends Application
 	private static Stage primaryStage;
 	private AnchorPane rootL;
 	
-	public static Stage getPrimaryStage() {
+	public static Stage obtenir_le_primaryStage() {
 		return primaryStage;
 	}
 
 	@Override
 	public void start(Stage primaryStage) 
 	{
-		primaryStage.setTitle("Administrateur");
 		Main.primaryStage  = primaryStage;
 		 
 		try 

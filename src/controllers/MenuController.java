@@ -17,50 +17,49 @@ import javafx.scene.layout.AnchorPane;
 
 public class MenuController{
 	@FXML
-	private Button fermeture;
-	@FXML
-	private Button deconnexion;
-	@FXML
-	private Button menu_bouton;
-	@FXML
-	private Button jeune_bouton;
-	@FXML
-	private Button partenaire_bouton;
-	@FXML
-	private Button offre_bouton;
-	@FXML
-	private Button statistique_bouton; 
-	@FXML
-	private Label nom_champ_de_texte; 
-	@FXML
-	private Label salutation_label;
-	@FXML
 	private AnchorPane mainPane;
-	String nom;
-	boolean super_administrateur;
+	@FXML
+	private Button fermetureButton;
+	@FXML
+	private Button deconnexionButton;
+	@FXML
+	private Button menuGestionJeuneButton;
+	@FXML
+	private Button menuGestionPartenaireButton;
+	@FXML
+	private Button menuGestionOffreButton;
+	@FXML
+	private Button menuGestionStatistiqueButon; 
+	@FXML
+	private Label nomLabel; 
+	@FXML
+	private Label salutationLabel;
+
+	String nomDeLaPersonneConnecte;
+	boolean statusSuperAdministrateur;
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void nom(String nom) {
-		this.nom = nom;
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 		Calendar calendar = Calendar.getInstance();
 		int hours = calendar.get(Calendar.HOUR_OF_DAY);
-		nom_champ_de_texte.setText(nom);
+		nomLabel.setText(nomDeLaPersonneConnecte);
 		
 		if(hours >= 5 && hours < 18) {
-			salutation_label.setText("Bonjour");
+			salutationLabel.setText("Bonjour");
 		}else{
-			salutation_label.setText("Bonsoir");
+			salutationLabel.setText("Bonsoir");
 		}
 	}
 	
-	public void super_administrateur(boolean super_administrateur) {
-		this.super_administrateur = super_administrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
+		this.statusSuperAdministrateur = statusSuperAdministrateur;
 	}
 	
 	@FXML
-	private void deconnecter(ActionEvent actionEvent) {	
+	private void deconnecter_l_utilisateur(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -74,13 +73,13 @@ public class MenuController{
 	}
 	
 	@FXML
-	private void fermer(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) {
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void jeune(ActionEvent actionEvent){
+	private void acceder_au_menu_de_gestion_des_jeunes(ActionEvent actionEvent){
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -88,16 +87,16 @@ public class MenuController{
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			JeuneController jeune_controller = loader.<JeuneController>getController();
-			jeune_controller.nom(this.nom);
-			jeune_controller.super_administrateur(this.super_administrateur);
+			JeuneController jeuneController = loader.<JeuneController>getController();
+			jeuneController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			jeuneController.super_administrateur(this.statusSuperAdministrateur);
 		 }catch(IOException e) {	
 			 e.printStackTrace();
 		   	}
 	}	
 		
 	@FXML
-	private void partenaire(ActionEvent actionEvent){
+	private void acceder_au_menu_de_gestion_des_partenaires(ActionEvent actionEvent){
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -105,16 +104,16 @@ public class MenuController{
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			PartenaireController partenaire_controller = loader.<PartenaireController>getController();
-			partenaire_controller.nom(this.nom);
-			partenaire_controller.super_administrateur(this.super_administrateur);
+			PartenaireController partenaireController = loader.<PartenaireController>getController();
+			partenaireController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			partenaireController.super_administrateur(this.statusSuperAdministrateur);
 		 }catch(IOException e) {	
 			 e.printStackTrace();
 		   	}
 	}	
 		
 	@FXML
-	private void offre(ActionEvent actionEvent){
+	private void acceder_au_menu_de_gestion_des_offres(ActionEvent actionEvent){
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -122,16 +121,16 @@ public class MenuController{
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			OffreController offre_controller = loader.<OffreController>getController();
-			offre_controller.nom(this.nom);
-			offre_controller.super_administrateur(this.super_administrateur);
+			OffreController offreController = loader.<OffreController>getController();
+			offreController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			offreController.super_administrateur(this.statusSuperAdministrateur);
 		}catch(IOException e) {
 			e.printStackTrace();
 			}
 	}
 		
 	@FXML
-	private void statistique(ActionEvent actionEvent){
+	private void acceder_au_menu_de_gestion_des_statistiques(ActionEvent actionEvent){
 		try{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -139,9 +138,9 @@ public class MenuController{
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			StatistiqueController statistique_controller = loader.<StatistiqueController>getController();
-			statistique_controller.nom(this.nom);
-			statistique_controller.super_administrateur(this.super_administrateur);
+			StatistiqueController statistiqueController = loader.<StatistiqueController>getController();
+			statistiqueController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			statistiqueController.super_administrateur(this.statusSuperAdministrateur);
 		}catch(IOException e){
 			e.printStackTrace();
 			}
@@ -155,18 +154,17 @@ public class MenuController{
 				 xOffset = event.getSceneX();
 				 yOffset = event.getSceneY();
 				 
-				 System.out.println(xOffset);
-				 System.out.println(yOffset);
+				 System.out.println("xOffset: " + xOffset);
+				 System.out.println("yOffset: " + yOffset);
 			}
 		});
 		
 		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
-				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
+				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}
 		});
-    }
-	
+    }	
 }

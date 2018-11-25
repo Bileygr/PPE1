@@ -51,7 +51,7 @@ public class OffreDescriptionController {
 		this.nom = nom;
 	}
 	
-	public void super_administrateur(boolean super_administrateur) {
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
 	}
 	

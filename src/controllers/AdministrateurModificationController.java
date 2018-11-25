@@ -55,15 +55,15 @@ public class AdministrateurModificationController {
 	private double xOffset;
 	private double yOffset;
 	
-	public void nom(String nom) {
+	public void recuperer_le_nom_de_la_personne_connecte(String nom) {
 		this.nom = nom;
 	}
 	
-	public void super_administrateur(boolean super_administrateur) {
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
 	}
 	
-	public void administrateur(int id, int super_administrateur, String nom, String prenom, String email,
+	public void administrateur(int id, String super_administrateur, String nom, String prenom, String email,
 			String telephone, String adresse, String ville, String code_postal) {
 		this.id = id;
 		id_label.setText("ID: " + Integer.toString(id));

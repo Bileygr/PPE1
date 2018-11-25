@@ -5,15 +5,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import models.dao.ConfigurationDAO;
+import models.dao.ConfigurationConnexionBaseDeDonneesDAO;
 
 public class Connect {
-		public static String hostname = ConfigurationDAO.getHostname();
-		public static int port = ConfigurationDAO.getPort();
-		public static String bdd = ConfigurationDAO.getBDD();
-		public static String utilisateur = ConfigurationDAO.getUtilisateur();
-		public static String mdp = ConfigurationDAO.getMDP();
+		public static String hostname = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_nom_d_hote();
+		public static int port = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_numero_de_port();
+		public static String bdd = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_nom_de_la_base_de_donnees();
+		public static String utilisateur = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_nom_de_l_utilisateur();
+		public static String mdp = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_mot_de_passe();
 	
 	  	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	  	private static final String HOSTNAME = hostname;

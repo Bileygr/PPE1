@@ -32,17 +32,18 @@ public class StatistiqueController {
 	private PieChart StatPieChart;
 	@FXML
 	private AnchorPane mainPane;
-	String nom;
+	
+	String nomDeLaPersonneConnecte;
 	boolean super_administrateur;
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void nom(String nom) {
-		this.nom = nom;
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void super_administrateur(boolean super_administrateur) {
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean super_administrateur) {
 		this.super_administrateur = super_administrateur;
 	}
 	
