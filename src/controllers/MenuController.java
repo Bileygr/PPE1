@@ -89,7 +89,7 @@ public class MenuController{
 			sc.setRoot(userFrame);
 			JeuneController jeuneController = loader.<JeuneController>getController();
 			jeuneController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-			jeuneController.super_administrateur(this.statusSuperAdministrateur);
+			jeuneController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		 }catch(IOException e) {	
 			 e.printStackTrace();
 		   	}
@@ -106,7 +106,7 @@ public class MenuController{
 			sc.setRoot(userFrame);
 			PartenaireController partenaireController = loader.<PartenaireController>getController();
 			partenaireController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-			partenaireController.super_administrateur(this.statusSuperAdministrateur);
+			partenaireController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		 }catch(IOException e) {	
 			 e.printStackTrace();
 		   	}
@@ -123,7 +123,7 @@ public class MenuController{
 			sc.setRoot(userFrame);
 			OffreController offreController = loader.<OffreController>getController();
 			offreController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-			offreController.super_administrateur(this.statusSuperAdministrateur);
+			offreController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		}catch(IOException e) {
 			e.printStackTrace();
 			}
@@ -140,7 +140,7 @@ public class MenuController{
 			sc.setRoot(userFrame);
 			StatistiqueController statistiqueController = loader.<StatistiqueController>getController();
 			statistiqueController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-			statistiqueController.super_administrateur(this.statusSuperAdministrateur);
+			statistiqueController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		}catch(IOException e){
 			e.printStackTrace();
 			}

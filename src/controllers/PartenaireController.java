@@ -21,41 +21,42 @@ import models.dao.PartenaireDAO;
 public class PartenaireController 
 {
 	@FXML
-	private Button deconnexion_bouton;
+	private AnchorPane mainPane;
 	@FXML
-	private Button fermeture_bouton;
+	private Button deconnexionButton;
 	@FXML
-	private Button retour_bouton;
+	private Button fermetureButton;
 	@FXML
-	private Button inscrire_bouton;
+	private Button retourButton;
 	@FXML
-	private Button modifier_bouton;
+	private Button inscriptionButton;
 	@FXML
-	private Button recherche_bouton;
+	private Button modificationButton;
 	@FXML
-	private Button recherche_filtre_bouton;
+	private Button rechercheGeneralButton;
 	@FXML
-	private Button supprimer_bouton;
+	private Button rechercheFiltreButton;
 	@FXML
-	private TextField recherche_champ_de_texte;
+	private Button suppressionButton;
+	@FXML
+	private TextField rechercheInput;
 	@FXML
 	private TableView<Partenaire> table;
 	@FXML
-	private TableColumn<Partenaire, Integer> siret_colonne;
+	private TableColumn<Partenaire, Integer> siretColumn;
 	@FXML
-	private TableColumn<Partenaire, String> nom_colonne;
+	private TableColumn<Partenaire, String> nomColumn;
 	@FXML
-	private TableColumn<Partenaire, String> email_colonne;
+	private TableColumn<Partenaire, String> emailColumn;
 	@FXML
-	private TableColumn<Partenaire, String> telephone_colonne;
+	private TableColumn<Partenaire, String> telephoneColumn;
 	@FXML
-	private TableColumn<Partenaire, String> derniere_connexion_colonne;
+	private TableColumn<Partenaire, String> derniereConnexionColumn;
 	@FXML
-	private TableColumn<Partenaire,	String>	creation_colonne;
-	@FXML
-	private AnchorPane mainPane;
+	private TableColumn<Partenaire,	String>	creationColumn;
+	
 	String nomDeLaPersonneConnecte;
-	boolean super_administrateur;
+	boolean statusSuperAdministrateur;
 	
 	private double xOffset;
 	private double yOffset;
@@ -64,12 +65,12 @@ public class PartenaireController
 		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean super_administrateur) {
-		this.super_administrateur = super_administrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
+		this.statusSuperAdministrateur = statusSuperAdministrateur;
 	}
 	
 	@FXML
-	private void deconnecter(ActionEvent actionEvent) {	
+	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -83,14 +84,14 @@ public class PartenaireController
 	}
 	
 	@FXML
-	private void fermer(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) {
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retour(ActionEvent actionEvent) {
-		if(super_administrateur == true) {
+	private void retourrner_dans_la_page_precedente(ActionEvent actionEvent) {
+		if(statusSuperAdministrateur == true) {
 			try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
@@ -98,9 +99,9 @@ public class PartenaireController
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				SuperAdministrateurMenuController super_administrateur_menu_controller = loader.<SuperAdministrateurMenuController>getController();
-				super_administrateur_menu_controller.nom(this.nom);
-				super_administrateur_menu_controller.super_administrateur(this.super_administrateur);
+				SuperAdministrateurMenuController superAdministrateurMenuController = loader.<SuperAdministrateurMenuController>getController();
+				superAdministrateurMenuController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+				superAdministrateurMenuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 			}catch (IOException e) {
 			   e.printStackTrace();
 			  }
@@ -112,9 +113,9 @@ public class PartenaireController
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				MenuController menu_controller = loader.<MenuController>getController();
-				menu_controller.nom(this.nom);
-				menu_controller.super_administrateur(this.super_administrateur);
+				MenuController menuController = loader.<MenuController>getController();
+				menuController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+				menuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 			}catch (IOException e) {
 			   e.printStackTrace();
 			  }
@@ -122,19 +123,19 @@ public class PartenaireController
 	}
 	
 	@FXML
-	private void recherche(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
-		ObservableList<Partenaire> empData = PartenaireDAO.recherche();
-        table.setItems(empData);
+	private void recherche_general(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
+		ObservableList<Partenaire> listeDesPartenaires = PartenaireDAO.obtenir_la_liste_de_tout_les_partenaires();
+        table.setItems(listeDesPartenaires);
 	}
 	
 	@FXML
 	private void recherche_filtre(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
-		ObservableList<Partenaire> empData = PartenaireDAO.recherche_filtre(recherche_champ_de_texte.getText());
-        table.setItems(empData);
+		ObservableList<Partenaire> listeDesPartenaires = PartenaireDAO.obtenir_la_liste_filtre_de_tout_les_partenaires(rechercheInput.getText());
+        table.setItems(listeDesPartenaires);
 	}
 		
 	@FXML
-	private void inscrire(ActionEvent actionEvent) {
+	private void accerder_a_la_page_d_inscription_des_partenaires(ActionEvent actionEvent) {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -142,26 +143,26 @@ public class PartenaireController
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			PartenaireInscriptionController partenaire_inscription_controller = loader.<PartenaireInscriptionController>getController();
-			partenaire_inscription_controller.nom(this.nom);
-			partenaire_inscription_controller.super_administrateur(this.super_administrateur);
+			PartenaireInscriptionController partenaireInscriptionController = loader.<PartenaireInscriptionController>getController();
+			partenaireInscriptionController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			partenaireInscriptionController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		}catch(IOException e) {
 			e.printStackTrace();
 			}
 	}
 	
 	@FXML
-	private void modifier(ActionEvent actionEvent) {
+	private void acceder_a_la_page_de_modification_du_partenaire_selectionne(ActionEvent actionEvent) {
 		if(table.getSelectionModel().getSelectedItem() != null) {
 			Partenaire partenaire = table.getSelectionModel().getSelectedItem();
-	        int id 				= partenaire.getPartenaire_id();
-	        int siret 			= partenaire.getPartenaire_siret();
-	        String nom 			= partenaire.getPartenaire_nom();
-	        String email 		= partenaire.getPartenaire_email();
-	        String telephone 	= partenaire.getPartenaire_telephone();
-	        String adresse	 	= partenaire.getPartenaire_adresse();
-	        String ville		= partenaire.getPartenaire_ville();
-	        String code_postal 	= partenaire.getPartenaire_code_postal();
+	        int id = partenaire.getPartenaire_id();
+	        int siret = partenaire.getPartenaire_siret();
+	        String nom = partenaire.getPartenaire_nom();
+	        String email = partenaire.getPartenaire_email();
+	        String telephone = partenaire.getPartenaire_telephone();
+	        String adresse = partenaire.getPartenaire_adresse();
+	        String ville = partenaire.getPartenaire_ville();
+	        String code_postal = partenaire.getPartenaire_code_postal();
 	        
 	        try {
 				mainPane.getChildren().clear();
@@ -170,10 +171,10 @@ public class PartenaireController
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				PartenaireModificationController partenaire_modification_controller = loader.<PartenaireModificationController>getController();
-				partenaire_modification_controller.partenaire(id, siret, nom, email, telephone, adresse, ville, code_postal);
-				partenaire_modification_controller.nom(this.nom);
-				partenaire_modification_controller.super_administrateur(this.super_administrateur);
+				PartenaireModificationController partenaireModificationController = loader.<PartenaireModificationController>getController();
+				partenaireModificationController.recuperer_les_information_d_partenaire_selectionne(id, siret, nom, email, telephone, adresse, ville, code_postal);
+				partenaireModificationController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+				partenaireModificationController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 			}catch(IOException e) {
 				e.printStackTrace();
 				}
@@ -181,24 +182,24 @@ public class PartenaireController
 	}
 	
 	@FXML
-	private void supprimer(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+	private void supprimer_le_partenaire_selectionne(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
 		if(table.getSelectionModel().getSelectedItem() != null) {
-	        Partenaire partenaire = table.getSelectionModel().getSelectedItem();
-	        int id = partenaire.getPartenaire_id();
-	        PartenaireDAO.supprimer(id);
+	        Partenaire partenaireSelectionne = table.getSelectionModel().getSelectedItem();
+	        //int id = partenaireSelectionne.getPartenaire_id();
+	        PartenaireDAO.supprimer_un_partenaire(partenaireSelectionne.getPartenaire_id());
 	    }
 	}
 		
 	@FXML
 	private void initialize () throws ClassNotFoundException, SQLException  {
-		ObservableList<Partenaire> empData = PartenaireDAO.recherche();
+		ObservableList<Partenaire> empData = PartenaireDAO.obtenir_la_liste_de_tout_les_partenaires();
 		table.setItems(empData);
-	    siret_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_siret_Prop().asObject());
-	    nom_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_nom_Prop());
-	    email_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_email_Prop());
-	    telephone_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_telephone_Prop());
-	    derniere_connexion_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_derniere_connexion_Prop());
-	    creation_colonne.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_creation_Prop());
+	    siretColumn.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_siret_Prop().asObject());
+	    nomColumn.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_nom_Prop());
+	    emailColumn.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_email_Prop());
+	    telephoneColumn.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_telephone_Prop());
+	    derniereConnexionColumn.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_derniere_connexion_Prop());
+	    creationColumn.setCellValueFactory(cellData -> cellData.getValue().getPartenaire_creation_Prop());
 	    
 	    mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
@@ -214,8 +215,8 @@ public class PartenaireController
 		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
-				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
+				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}
 		});
 	}

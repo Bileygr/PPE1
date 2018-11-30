@@ -160,7 +160,7 @@ public class AdministrateurController {
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
 				AdministrateurModificationController administrateurModificationController = loader.<AdministrateurModificationController>getController();
-				administrateurModificationController.administrateur(id, super_administrateur, nom, prenom, email, telephone, adresse, ville, code_postal);
+				administrateurModificationController.recuperer_les_informations_de_l_administrateur_a_modifier(id, super_administrateur, nom, prenom, email, telephone, adresse, ville, code_postal);
 				administrateurModificationController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
 				administrateurModificationController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 			}catch(IOException e) {

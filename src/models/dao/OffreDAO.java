@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 
 public class OffreDAO {
-	public static ObservableList<PieChart.Data> formation_statistique() throws SQLException {
+	public static ObservableList<PieChart.Data> recuperer_les_statistiques_des_offres_par_formation() throws SQLException {
 		Connection connexion =  Connect.getInstance().getConnection();
         String requete = "SELECT formation.formation_nom, COUNT(*) FROM offre JOIN formation ON offre.formation_id = formation.formation_id GROUP BY formation.formation_nom";
         
@@ -29,7 +29,7 @@ public class OffreDAO {
     	return retour;
 	}
 	
-	public static ObservableList<PieChart.Data> partenaire_statistique() throws SQLException {
+	public static ObservableList<PieChart.Data> recuperer_les_statistiques_des_offres_par_partenaire() throws SQLException {
 		Connection connexion =  Connect.getInstance().getConnection();
         String requete = "SELECT partenaire.partenaire_nom, COUNT(*) FROM offre JOIN partenaire ON offre.partenaire_id = partenaire.partenaire_id GROUP BY partenaire.partenaire_nom";
         
@@ -48,7 +48,7 @@ public class OffreDAO {
     	return retour;
 	}
 	
-	public static boolean sauvegarder(String description, int id) throws SQLException, ClassNotFoundException {
+	public static boolean sauvegarder_les_informations_d_une_offre(String description, int id) throws SQLException, ClassNotFoundException {
         Connection connexion =  Connect.getInstance().getConnection();
         String requete = "UPDATE offre SET offre_description = ? WHERE offre_id = ?";
         
@@ -78,7 +78,7 @@ public class OffreDAO {
         return retour;
      }
 	
-	public static boolean supprimer(int  id) throws SQLException, ClassNotFoundException {
+	public static boolean supprimer_une_offre(int  id) throws SQLException, ClassNotFoundException {
         Connection connexion = Connect.getInstance().getConnection();
         String requete = "DELETE FROM offre WHERE offre_id = ?";
         
@@ -107,7 +107,7 @@ public class OffreDAO {
         return retour;
      }
 	
-	public static ObservableList<Offre> recherche_filtre(String filtre) throws ClassNotFoundException, SQLException
+	public static ObservableList<Offre> obtenir_la_liste_filtre_de_toutes_les_offres(String filtre) throws ClassNotFoundException, SQLException
     {     
 		Connection connexion = Connect.getInstance().getConnection();
 		String req = "SELECT offre.offre_id, formation.formation_nom, partenaire.partenaire_nom, offre.offre_nom, offre.offre_description, offre.offre_debut, offre.offre_fin "
@@ -119,7 +119,7 @@ public class OffreDAO {
 						+ "OR offre.offre_debut LIKE ?"
 						+ "OR offre.offre_fin LIKE ?";
 		
-	 	ObservableList<Offre> retour = FXCollections.observableArrayList();
+	 	ObservableList<Offre> listeDesOffres = FXCollections.observableArrayList();
 	 	
 	 	PreparedStatement prepared_statement = connexion.prepareStatement(req);
 	 	prepared_statement.setString(1, "%" + filtre +  "%");
@@ -140,13 +140,13 @@ public class OffreDAO {
     
 	    while(resultat.next())
 	    {
-	    	offre_id 			= resultat.getInt("offre.offre_id");
-	   		formation_nom		= resultat.getString("formation.formation_nom");
-	   		partenaire_nom		= resultat.getString("partenaire.partenaire_nom");
-	   		offre_nom			= resultat.getString("offre.offre_nom");
-	   		offre_description 	= resultat.getString("offre.offre_description");
-	   		offre_debut			= resultat.getString("offre.offre_debut");
-	   		offre_fin			= resultat.getString("offre.offre_fin");
+	    	offre_id = resultat.getInt("offre.offre_id");
+	   		formation_nom = resultat.getString("formation.formation_nom");
+	   		partenaire_nom = resultat.getString("partenaire.partenaire_nom");
+	   		offre_nom = resultat.getString("offre.offre_nom");
+	   		offre_description = resultat.getString("offre.offre_description");
+	   		offre_debut	= resultat.getString("offre.offre_debut");
+	   		offre_fin = resultat.getString("offre.offre_fin");
 			 
 	   		Offre offre = new Offre();
 			 
@@ -158,64 +158,65 @@ public class OffreDAO {
 	   		offre.setOffre_debut(offre_debut);
 	   		offre.setOffre_fin(offre_fin);
    	 
-	    	retour.add(offre);
-	    	System.out.println(offre);
+	   		listeDesOffres.add(offre);
+	    	System.out.println("Liste filtré des offres: " + offre);
 	    }
 	    
 	    resultat.close();
 	    prepared_statement.close();
 	    connexion.close();
-    	return retour;
+    	return listeDesOffres;
     }
 	
-	public static ObservableList<Offre> recherche() throws ClassNotFoundException, SQLException 
+	public static ObservableList<Offre> obtenir_la_liste_de_toutes_les_offres() throws ClassNotFoundException, SQLException 
     {
-   	 Connection connexion = Connect.getInstance().getConnection();
-   	 String requete = "SELECT offre.offre_id, formation.formation_nom, partenaire.partenaire_nom, offre.offre_nom, offre.offre_description, offre.offre_debut, offre.offre_fin "
+		
+   	 	Connection connexion = Connect.getInstance().getConnection();
+   	 	String requete = "SELECT offre.offre_id, formation.formation_nom, partenaire.partenaire_nom, offre.offre_nom, offre.offre_description, offre.offre_debut, offre.offre_fin "
 				+ "FROM offre INNER JOIN formation ON formation.formation_id = offre.formation_id "
 				+ "INNER JOIN partenaire ON partenaire.partenaire_id = offre.partenaire_id ";
    	 
-   	ObservableList<Offre> retour = FXCollections.observableArrayList();
+   	 	ObservableList<Offre> listeDesOffres = FXCollections.observableArrayList();
 	 
-   	int    offre_id;
-   	String formation_nom;
-   	String partenaire_nom;
-   	String offre_nom;
-   	String offre_description;
-   	String offre_debut;
-   	String offre_fin;
+   	 	int offre_id;
+   	 	String formation_nom;
+   	 	String partenaire_nom;
+   	 	String offre_nom;
+   	 	String offre_description;
+   	 	String offre_debut;
+   	 	String offre_fin;
 	 
-   	 PreparedStatement prepared_statement = connexion.prepareStatement(requete);
+   	 	PreparedStatement prepared_statement = connexion.prepareStatement(requete);
 	 
-   	 ResultSet resultat = prepared_statement.executeQuery();
+   	 	ResultSet resultat = prepared_statement.executeQuery();
    	 
-   	while(resultat.next())
-    {
-    	offre_id 			= resultat.getInt("offre.offre_id");
-   		formation_nom		= resultat.getString("formation.formation_nom");
-   		partenaire_nom		= resultat.getString("partenaire.partenaire_nom");
-   		offre_nom			= resultat.getString("offre.offre_nom");
-   		offre_description 	= resultat.getString("offre.offre_description");
-   		offre_debut			= resultat.getString("offre.offre_debut");
-   		offre_fin			= resultat.getString("offre.offre_fin");
+   	 	while(resultat.next())
+   	 	{
+   	 		offre_id = resultat.getInt("offre.offre_id");
+   	 		formation_nom = resultat.getString("formation.formation_nom");
+   	 		partenaire_nom = resultat.getString("partenaire.partenaire_nom");
+   	 		offre_nom = resultat.getString("offre.offre_nom");
+   	 		offre_description = resultat.getString("offre.offre_description");
+   	 		offre_debut	= resultat.getString("offre.offre_debut");
+   	 		offre_fin = resultat.getString("offre.offre_fin");
 		 
-   		Offre offre = new Offre();
+   	 		Offre offre = new Offre();
 		 
-   		offre.setOffre_id(offre_id);
-   		offre.setFormation_nom(formation_nom);
-   		offre.setPartenaire_nom(partenaire_nom);
-   		offre.setOffre_nom(offre_nom);
-   		offre.setOffre_description(offre_description);
-   		offre.setOffre_debut(offre_debut);
-   		offre.setOffre_fin(offre_fin);
+   	 		offre.setOffre_id(offre_id);
+   	 		offre.setFormation_nom(formation_nom);
+   	 		offre.setPartenaire_nom(partenaire_nom);
+   	 		offre.setOffre_nom(offre_nom);
+   	 		offre.setOffre_description(offre_description);
+   	 		offre.setOffre_debut(offre_debut);
+   	 		offre.setOffre_fin(offre_fin);
 	 
-    	retour.add(offre);
-    	System.out.println(offre);
-    }
+   	 		listeDesOffres.add(offre);
+   	 		System.out.println("Liste des offres: " + offre);
+   	 	}
     
-    resultat.close();
-    prepared_statement.close();
-    connexion.close();
-	return retour;
+   	 	resultat.close();
+   	 	prepared_statement.close();
+   	 	connexion.close();
+   	 	return listeDesOffres;
     }
 }

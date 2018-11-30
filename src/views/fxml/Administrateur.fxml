@@ -38,11 +38,11 @@
          </effect>
       </TableView>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="373.0" layoutY="14.0" prefHeight="26.0" prefWidth="136.0" text="ADMINISTRATEUR" textFill="WHITE" />
-      <Button fx:id="inscriptionButton" layoutX="449.0" layoutY="70.0" mnemonicParsing="false" onAction="#acceder_a_la_page_d_inscipriton_d_un_administrateur" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Inscrire" />
-      <Button fx:id="rechercheGeneralButton" layoutX="321.0" layoutY="70.0" mnemonicParsing="false" onAction="#recherche_general" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Tout Rechercher" />
-      <Button fx:id="rechercheFiltreButton" layoutX="193.0" layoutY="70.0" mnemonicParsing="false" onAction="#recherche_filtre" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Rechercher" />
+      <Button fx:id="inscriptionButton" layoutX="449.0" layoutY="70.0" mnemonicParsing="false" onAction="#acceder_a_la_page_d_inscipriton_d_un_administrateur" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #626262;" text="Inscrire" />
+      <Button fx:id="rechercheGeneralButton" layoutX="321.0" layoutY="70.0" mnemonicParsing="false" onAction="#recherche_general" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #626262;" text="Tout Rechercher" />
+      <Button fx:id="rechercheFiltreButton" layoutX="193.0" layoutY="70.0" mnemonicParsing="false" onAction="#recherche_filtre" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #626262;" text="Rechercher" />
       <TextField fx:id="rechercheInput" layoutX="14.0" layoutY="70.0" prefHeight="25.0" prefWidth="173.0" promptText="Recherche..." />
-      <Button fx:id="suppressionButton" layoutX="704.0" layoutY="70.0" mnemonicParsing="false" onAction="#suppression_d_un_administrateur" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Supprimer" />
+      <Button fx:id="suppressionButton" layoutX="704.0" layoutY="70.0" mnemonicParsing="false" onAction="#suppression_d_un_administrateur" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #626262;" text="Supprimer" />
       <Button fx:id="retourButton" layoutY="7.0" mnemonicParsing="false" onAction="#retourner_dans_la_page_precedente" prefHeight="25.0" prefWidth="32.0" style="-fx-background-color: transparent">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
@@ -52,7 +52,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="modificationButton" layoutX="576.0" layoutY="70.0" mnemonicParsing="false" onAction="#modifier_les_information_d_un_administrateur" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Modifier" />
+      <Button fx:id="modificationButton" layoutX="576.0" layoutY="70.0" mnemonicParsing="false" onAction="#modifier_les_information_d_un_administrateur" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #626262;" text="Modifier" />
       <Button fx:id="deconnexionButton" layoutX="781.0" layoutY="9.0" mnemonicParsing="false" onAction="#deconnecter_l_utilisateur" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">

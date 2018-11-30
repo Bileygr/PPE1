@@ -15,68 +15,70 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import models.dao.ConfigurationDAO;
+import models.base.Jeune;
+import models.dao.ConfigurationConnexionBaseDeDonneesDAO;
 import models.dao.JeuneDAO;
 
 public class JeuneModificationController {
 	@FXML
-	private Button			deconnexion_bouton;
+	private AnchorPane mainPane;
 	@FXML
-	private Button			fermeture_bouton;
+	private Button deconnexionButton;
 	@FXML
-	private Button			retour_bouton;
+	private Button fermetureButton;
 	@FXML
-	private Button			modifier_bouton;
+	private Button retourButton;
 	@FXML
-	private Label			id_label;
+	private Button modificationButton;
 	@FXML
-	private TextField		nom_champ_de_texte;
+	private Label idLabel;
 	@FXML
-	private TextField		prenom_champ_de_texte;
+	private TextField nomInput;
 	@FXML
-	private TextField		identifiant_champ_de_texte;
+	private TextField prenomInput;
 	@FXML
-	private TextField		email_champ_de_texte;
+	private TextField identifiantInput;
 	@FXML
-	private TextField		telephone_champ_de_texte;
+	private TextField emailInput;
 	@FXML
-	private TextField		adresse_champ_de_texte;
+	private TextField telephoneInput;
 	@FXML
-	private TextField		ville_champ_de_texte;
+	private TextField adresseInput;
 	@FXML
-	private TextField		code_postal_champ_de_texte;
+	private TextField villeInput;
 	@FXML
-	private AnchorPane  	mainPane;
-	String nom;
-	int id;
-	boolean super_administrateur;
+	private TextField codePostalInput;
+	
+	String nomDeLaPersonneConnecte;
+	int idJeuneModification;
+	boolean statusSuperAdministrateur;
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void nom(String nom) {
-		this.nom = nom;
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void super_administrateur(boolean super_administrateur) {
-		this.super_administrateur = super_administrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
+		this.statusSuperAdministrateur = statusSuperAdministrateur;
 	}
 	
-	public void jeune(int id, String nom, String prenom, String email,
+	public void obtenir_les_informations_du_jeune_a_modifier(int idJeuneModification, String nom, String prenom, String email,
 			String telephone, String adresse, String ville, String code_postal) {
-		this.id = id;
-		id_label.setText("ID: " + Integer.toString(id));
-		nom_champ_de_texte.setText(nom);
-		prenom_champ_de_texte.setText(prenom);
-		email_champ_de_texte.setText(email);
-		telephone_champ_de_texte.setText(telephone);
-		adresse_champ_de_texte.setText(adresse);
-		ville_champ_de_texte.setText(ville);
-		code_postal_champ_de_texte.setText(code_postal);
+		this.idJeuneModification = idJeuneModification;
+		idLabel.setText("ID: " + Integer.toString(idJeuneModification));
+		nomInput.setText(nom);
+		prenomInput.setText(prenom);
+		emailInput.setText(email);
+		telephoneInput.setText(telephone);
+		adresseInput.setText(adresse);
+		villeInput.setText(ville);
+		codePostalInput.setText(code_postal);
 	}
 	
 	@FXML
-	private void deconnecter(ActionEvent actionEvent) {	
+	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -90,13 +92,13 @@ public class JeuneModificationController {
 	}
 	
 	@FXML
-	private void fermer(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) {
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retour(ActionEvent actionEvent) {
+	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -104,39 +106,39 @@ public class JeuneModificationController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			JeuneController jeune_controller = loader.<JeuneController>getController();
-			jeune_controller.nom(this.nom);
-			jeune_controller.super_administrateur(this.super_administrateur);
+			JeuneController jeuneController = loader.<JeuneController>getController();
+			jeuneController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			jeuneController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		}catch (IOException e) {
 		   e.printStackTrace();
 		  }
 	}
 	
 	@FXML
-	private void modifier(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException {
-		boolean email_validation = JeuneDAO.validate_email(email_champ_de_texte.getText());
+	private void modifier_les_informations_du_jeune(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException {
+		boolean verificationDeLaSyntaxeEmail = Jeune.verifier_la_syntaxe_de_l_email(emailInput.getText());
 		
-		if(email_validation == true) {
+		if(verificationDeLaSyntaxeEmail == true) {
 			
-			if(telephone_champ_de_texte.getText().length() == 10) {
+			if(telephoneInput.getText().length() == 10) {
 			
-				if(adresse_champ_de_texte.getText().length() <= 38) {
+				if(adresseInput.getText().length() <= 38) {
 				
-					if(ville_champ_de_texte.getText().length() <= 32) {
+					if(villeInput.getText().length() <= 32) {
 					
-						if(code_postal_champ_de_texte.getText().length() == 5) {
-							boolean empdata = JeuneDAO.modifier(id, nom_champ_de_texte.getText(), 
-									prenom_champ_de_texte.getText(), email_champ_de_texte.getText(), 
-									telephone_champ_de_texte.getText(), adresse_champ_de_texte.getText(), ville_champ_de_texte.getText(), 
-									code_postal_champ_de_texte.getText());
+						if(codePostalInput.getText().length() == 5) {
+							boolean statusModificationInformationsDuJeune = JeuneDAO.modifier_les_informations_d_un_jeune(idJeuneModification, nomInput.getText(), 
+									prenomInput.getText(), emailInput.getText(), 
+									telephoneInput.getText(), adresseInput.getText(), villeInput.getText(), 
+									codePostalInput.getText());
 							
-							if(empdata == true) {
-								int emailStatus = ConfigurationDAO.getEmail();
+							if(statusModificationInformationsDuJeune == true) {
+								boolean statusOptionEnvoiEmail = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_status_de_l_option_d_envoi_d_email();
 								
-								if(emailStatus == 1) {
-									boolean emailSent = JeuneDAO.email_modification(email_champ_de_texte.getText());
+								if(statusOptionEnvoiEmail == true) {
+									boolean statusEnvoiEmail = Jeune.envoyer_un_email_lors_de_la_modification(emailInput.getText());
 									
-									if(emailSent == false) {
+									if(statusEnvoiEmail == false) {
 										Alert a1 = new Alert(Alert.AlertType.ERROR);
 										a1.setTitle("Erreur: n°7");
 										a1.setContentText("L'envoi d'email ne fonctionne pas vous pouvez désactiver la fonctionnalité dans le menu de configuration.");
@@ -152,9 +154,9 @@ public class JeuneModificationController {
 									AnchorPane userFrame = (AnchorPane) loader.load();
 									Scene sc = mainPane.getScene();
 									sc.setRoot(userFrame);
-									JeuneController jeune_controller = loader.<JeuneController>getController();
-									jeune_controller.nom(this.nom);
-									jeune_controller.super_administrateur(this.super_administrateur);
+									JeuneController jeuneController = loader.<JeuneController>getController();
+									jeuneController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+									jeuneController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 								}catch (IOException e) {
 									e.printStackTrace();
 								}
@@ -218,8 +220,8 @@ public class JeuneModificationController {
 		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
-				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
+				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}
 		});
     }

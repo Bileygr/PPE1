@@ -15,52 +15,54 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import library.encryption.BCrypt;
-import models.dao.ConfigurationDAO;
+import models.base.Partenaire;
+import models.dao.ConfigurationConnexionBaseDeDonneesDAO;
 import models.dao.PartenaireDAO;
 
 public class PartenaireInscriptionController {
 	@FXML
-	private Button deconnexion_bouton;
-	@FXML
-	private Button fermeture_bouton;
-	@FXML
-	private Button retour_bouton;
-	@FXML
-	private Button inscrire_bouton;
-	@FXML
-	private TextField siret_champ_de_texte;
-	@FXML
-	private TextField nom_champ_de_texte;
-	@FXML
-	private TextField mot_de_passe_champ_de_texte;
-	@FXML
-	private TextField email_champ_de_texte;
-	@FXML
-	private TextField telephone_champ_de_texte;
-	@FXML
-	private TextField adresse_champ_de_texte;
-	@FXML
-	private TextField ville_champ_de_texte;
-	@FXML
-	private TextField code_postal_champ_de_texte;
-	@FXML
 	private AnchorPane mainPane;
-	String nom;
-	boolean super_administrateur;
+	@FXML
+	private Button deconnexionButton;
+	@FXML
+	private Button fermetureButton;
+	@FXML
+	private Button retourButton;
+	@FXML
+	private Button inscriptionButton;
+	@FXML
+	private TextField siretInput;
+	@FXML
+	private TextField nomInput;
+	@FXML
+	private TextField motDePasseInput;
+	@FXML
+	private TextField emailInput;
+	@FXML
+	private TextField telephoneInput;
+	@FXML
+	private TextField adresseInput;
+	@FXML
+	private TextField villeInput;
+	@FXML
+	private TextField codePostalInput;
+
+	String nomDeLaPersonneConnecte;
+	boolean statusSuperAdministrateur;
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void nom(String nom) {
-		this.nom = nom;
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void super_administrateur(boolean super_administrateur) {
-		this.super_administrateur = super_administrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
+		this.statusSuperAdministrateur = statusSuperAdministrateur;
 	}
 	
 	@FXML
-	private void deconnecter(ActionEvent actionEvent) {	
+	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -74,13 +76,13 @@ public class PartenaireInscriptionController {
 	}
 	
 	@FXML
-	private void fermer(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) {
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retour(ActionEvent actionEvent) {
+	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -88,45 +90,45 @@ public class PartenaireInscriptionController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			PartenaireController partenaire_controller = loader.<PartenaireController>getController();
-			partenaire_controller.nom(this.nom);
-			partenaire_controller.super_administrateur(this.super_administrateur);
+			PartenaireController partenaireController = loader.<PartenaireController>getController();
+			partenaireController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			partenaireController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		}catch (IOException e) {
 		   e.printStackTrace();
 		  }
 	}
 	
 	@FXML
-	private void inscrire(ActionEvent actionEvent) throws SQLException {
-		if(!siret_champ_de_texte.getText().isEmpty() &&  !nom_champ_de_texte.getText().isEmpty() && !mot_de_passe_champ_de_texte.getText().isEmpty() 
-				&& !email_champ_de_texte.getText().isEmpty() && !telephone_champ_de_texte.getText().isEmpty() && !adresse_champ_de_texte.getText().isEmpty() 
-				&& !ville_champ_de_texte.getText().isEmpty() && !code_postal_champ_de_texte.getText().isEmpty()) {
-			boolean email_validation = PartenaireDAO.validate(email_champ_de_texte.getText());
-			String hash = BCrypt.hashpw(mot_de_passe_champ_de_texte.getText(), BCrypt.gensalt());
+	private void inscrire_un_nouveau_partenaire(ActionEvent actionEvent) throws SQLException {
+		if(!siretInput.getText().isEmpty() &&  !nomInput.getText().isEmpty() && !motDePasseInput.getText().isEmpty() 
+				&& !emailInput.getText().isEmpty() && !telephoneInput.getText().isEmpty() && !adresseInput.getText().isEmpty() 
+				&& !villeInput.getText().isEmpty() && !codePostalInput.getText().isEmpty()) {
+			boolean email_validation = Partenaire.verifier_la_syntaxe_de_l_email(emailInput.getText());
+			String hash = BCrypt.hashpw(motDePasseInput.getText(), BCrypt.gensalt());
 			
-			if(siret_champ_de_texte.getText().length() == 9) {
+			if(siretInput.getText().length() == 9) {
 				
-				if(mot_de_passe_champ_de_texte.getText().length() >= 12) {
+				if(motDePasseInput.getText().length() >= 12) {
 				
 					if(email_validation == true) {
 					
-						if(telephone_champ_de_texte.getText().length() == 10) {
+						if(telephoneInput.getText().length() == 10) {
 						
-							if(adresse_champ_de_texte.getText().length() <= 38) {
+							if(adresseInput.getText().length() <= 38) {
 							
-								if(ville_champ_de_texte.getText().length() <= 32) {
+								if(villeInput.getText().length() <= 32) {
 								
-									if(code_postal_champ_de_texte.getText().length() == 5) {
-										boolean empdata = PartenaireDAO.inscrire(Integer.parseInt(siret_champ_de_texte.getText()), nom_champ_de_texte.getText(), hash, 
-												email_champ_de_texte.getText(), telephone_champ_de_texte.getText(), adresse_champ_de_texte.getText(), ville_champ_de_texte.getText(), code_postal_champ_de_texte.getText());
+									if(codePostalInput.getText().length() == 5) {
+										boolean verificationInscriptionDuPartenaire = PartenaireDAO.inscrire_un_nouveau_partenaire(Integer.parseInt(siretInput.getText()), nomInput.getText(), hash, 
+												emailInput.getText(), telephoneInput.getText(), adresseInput.getText(), villeInput.getText(), codePostalInput.getText());
 		
-										if(empdata == true) {
-											int emailStatus = ConfigurationDAO.getEmail();
+										if(verificationInscriptionDuPartenaire == true) {
+											boolean statusOptionEnvoiEmail = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_status_de_l_option_d_envoi_d_email();
 											
-											if(emailStatus == 1) {
-												boolean emailSent = PartenaireDAO.email_inscription(email_champ_de_texte.getText());
+											if(statusOptionEnvoiEmail == true) {
+												boolean verificationEnvoiEmail = Partenaire.email_d_inscription(emailInput.getText());
 												
-												if(emailSent == false) {
+												if(verificationEnvoiEmail == false) {
 													Alert a1 = new Alert(Alert.AlertType.ERROR);
 													a1.setTitle("Erreur: n°10");
 													a1.setContentText("L'envoi d'email ne fonctionne pas vous pouvez désactiver la fonctionnalité dans le menu de configuration.");
@@ -141,9 +143,9 @@ public class PartenaireInscriptionController {
 												AnchorPane userFrame = (AnchorPane) loader.load();
 												Scene sc = mainPane.getScene();
 												sc.setRoot(userFrame);
-												PartenaireController partenaire_controller = loader.<PartenaireController>getController();
-												partenaire_controller.nom(this.nom);
-												partenaire_controller.super_administrateur(this.super_administrateur);
+												PartenaireController partenaireController = loader.<PartenaireController>getController();
+												partenaireController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+												partenaireController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 											}catch (IOException e) {
 												e.printStackTrace();
 											}
@@ -228,8 +230,8 @@ public class PartenaireInscriptionController {
 		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
-				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
+				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}
 		});
 	}

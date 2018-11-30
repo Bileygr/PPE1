@@ -18,55 +18,56 @@ import models.dao.OffreDAO;
 
 public class OffreDescriptionController {
 	@FXML
-	private Button deconnexion_bouton; 	
-	@FXML
-	private Button fermeture_bouton; 	
-	@FXML
-	private Button retour_bouton;
-	@FXML
-	private Button supprimer_bouton;
-	@FXML
-	private Label id_label;
-	@FXML
-	private Label nom_label;
-	@FXML
-	private Label partenaire_label;
-	@FXML
-	private Label formation_label;
-	@FXML
-	private Label debut_label;
-	@FXML
-	private Label fin_label;
-	@FXML
-	private TextArea description_text_area;
-	@FXML
 	private AnchorPane mainPane;
-	String nom;
-	boolean super_administrateur;
+	@FXML
+	private Button deconnexionButton; 	
+	@FXML
+	private Button fermetureButton; 	
+	@FXML
+	private Button retourButton;
+	@FXML
+	private Button suppressionButton;
+	@FXML
+	private Label idLabel;
+	@FXML
+	private Label nomLabel;
+	@FXML
+	private Label partenaireLabel;
+	@FXML
+	private Label formationLabel;
+	@FXML
+	private Label debutLabel;
+	@FXML
+	private Label finLabel;
+	@FXML
+	private TextArea descriptionInput;
+
+	String nomDeLaPersonneConnecte;
+	boolean statusSuperAdministrateur;
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void nom(String nom) {
-		this.nom = nom;
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean super_administrateur) {
-		this.super_administrateur = super_administrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
+		this.statusSuperAdministrateur = statusSuperAdministrateur;
 	}
 	
-	public void offre(int id, String nom, String formation, String partenaire, String description, String debut, String fin) {
-		id_label.setText("ID: " + Integer.toString(id));
-		nom_label.setText(nom);
-		partenaire_label.setText("Offert par : " + formation);
-		formation_label.setText("Type de formation : " + partenaire);
-		description_text_area.setText(description);
-		debut_label.setText("Début : " + debut);
-		fin_label.setText("Fin : " + fin);
+	public void recuperer_les_informations_de_l_offre_selectionne(int id, String nom, String formation, String partenaire, String description, String debut, String fin) {
+		idLabel.setText("ID: " + Integer.toString(id));
+		nomLabel.setText(nom);
+		partenaireLabel.setText("Offert par : " + formation);
+		formationLabel.setText("Type de formation : " + partenaire);
+		descriptionInput.setText(description);
+		debutLabel.setText("Début : " + debut);
+		finLabel.setText("Fin : " + fin);
 	}
 	
 	@FXML
-	private void deconnecter(ActionEvent actionEvent) {	
+	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -80,13 +81,13 @@ public class OffreDescriptionController {
 	}
 	
 	@FXML
-	private void fermer(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) {
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retour(ActionEvent actionEvent) {
+	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -94,19 +95,19 @@ public class OffreDescriptionController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			OffreController offre_controller = loader.<OffreController>getController();
-			offre_controller.nom(this.nom);
-			offre_controller.super_administrateur(this.super_administrateur);
+			OffreController offreController = loader.<OffreController>getController();
+			offreController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			offreController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		}catch (IOException e) {
 		   e.printStackTrace();
 		  }
 	}
 	
 	@FXML
-	private void supprimer(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException {
-		boolean empdata = OffreDAO.supprimer(Integer.parseInt(id_label.getText()));
+	private void supprimer_l_offre(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException {
+		boolean verificationSuppressionOffre = OffreDAO.supprimer_une_offre(Integer.parseInt(idLabel.getText()));
 		
-		if(empdata == true) {
+		if(verificationSuppressionOffre == true) {
 			try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
@@ -136,8 +137,8 @@ public class OffreDescriptionController {
 		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
-				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
+				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}
 		});
 	}

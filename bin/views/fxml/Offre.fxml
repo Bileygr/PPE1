@@ -13,11 +13,11 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="882.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OffreController">
    <children>
-      <Button fx:id="fermeture_bouton" layoutX="825.0" layoutY="6.0" mnemonicParsing="false" onAction="#fermer" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+      <Button fx:id="fermetureButton" layoutX="825.0" layoutY="6.0" mnemonicParsing="false" onAction="#fermer_l_application" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@view/images/croix_deconnexion.png" />
+                  <Image url="@../images/icone_de_fermeture.png" />
                </image>
             </ImageView>
          </graphic>
@@ -25,36 +25,36 @@
       <Separator layoutX="14.0" layoutY="50.0" prefHeight="2.0" prefWidth="853.0" />
       <TableView fx:id="table" layoutX="15.0" layoutY="110.0" prefHeight="428.0" prefWidth="853.0">
          <columns>
-            <TableColumn fx:id="formation_colonne" prefWidth="134.0" text="Formation" />
-            <TableColumn fx:id="partenaire_colonne" prefWidth="162.0" text="Partenaire" />
-            <TableColumn fx:id="nom_colonne" prefWidth="185.0" text="Nom" />
-            <TableColumn fx:id="debut_colonne" prefWidth="171.0" text="Début" />
-            <TableColumn fx:id="fin_colonne" prefWidth="200.0" text="Fin" />
+            <TableColumn fx:id="formationColumn" prefWidth="134.0" text="Formation" />
+            <TableColumn fx:id="partenaireColumn" prefWidth="162.0" text="Partenaire" />
+            <TableColumn fx:id="nomColumn" prefWidth="185.0" text="Nom" />
+            <TableColumn fx:id="debutColumn" prefWidth="171.0" text="Début" />
+            <TableColumn fx:id="finColumn" prefWidth="200.0" text="Fin" />
          </columns>
          <effect>
             <Blend />
          </effect>
       </TableView>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="373.0" layoutY="14.0" prefHeight="26.0" prefWidth="136.0" text="OFFRE" textFill="WHITE" />
-      <Button fx:id="description_bouton" layoutX="449.0" layoutY="70.0" mnemonicParsing="false" onAction="#description" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Lire la description" />
-      <Button fx:id="recherche_bouton" layoutX="321.0" layoutY="70.0" mnemonicParsing="false" onAction="#recherche" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Tout Rechercher" />
-      <Button fx:id="recherche_filtre_bouton" layoutX="193.0" layoutY="70.0" mnemonicParsing="false" onAction="#recherche_filtre" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Rechercher" />
-      <TextField fx:id="recherche_champ_de_texte" layoutX="14.0" layoutY="70.0" prefHeight="25.0" prefWidth="173.0" promptText="Recherche..." />
-      <Button fx:id="supprimer_bouton" layoutX="576.0" layoutY="70.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #0F87FF;" text="Supprimer" />
-      <Button fx:id="retour_bouton" layoutY="7.0" mnemonicParsing="false" onAction="#retour" prefHeight="25.0" prefWidth="32.0" style="-fx-background-color: transparent">
+      <Button fx:id="descriptionButton" layoutX="449.0" layoutY="70.0" mnemonicParsing="false" onAction="#acceder_a_la_page_de_description_de_l_offre_selectionne" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #626262;" text="Lire la description" />
+      <Button fx:id="rechercheGeneralButton" layoutX="321.0" layoutY="70.0" mnemonicParsing="false" onAction="#recherche_general" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #626262;" text="Tout Rechercher" />
+      <Button fx:id="rechercheFiltreButton" layoutX="193.0" layoutY="70.0" mnemonicParsing="false" onAction="#recherche_filtre" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #626262;" text="Rechercher" />
+      <TextField fx:id="rechercheInput" layoutX="14.0" layoutY="70.0" prefHeight="25.0" prefWidth="173.0" promptText="Recherche..." />
+      <Button fx:id="suppressionButton" layoutX="576.0" layoutY="70.0" mnemonicParsing="false" onAction="#supprimer_l_offre_selectionne" prefHeight="25.0" prefWidth="121.0" style="-fx-background-color: #626262;" text="Supprimer" />
+      <Button fx:id="retourButton" layoutY="7.0" mnemonicParsing="false" onAction="#retourner_dans_la_page_precedente" prefHeight="25.0" prefWidth="32.0" style="-fx-background-color: transparent">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                <image>
-                  <Image url="@view/images/Expand%20Arrow_64px.png" />
+                  <Image url="@../images/icone_fleche_de_retour.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="deconnexion_bouton" layoutX="781.0" layoutY="9.0" mnemonicParsing="false" onAction="#deconnecter" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+      <Button fx:id="deconnexionButton" layoutX="781.0" layoutY="9.0" mnemonicParsing="false" onAction="#deconnecter_l_utilisateur_connecte" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@view/images/logout_1185685.png" />
+                  <Image url="@../images/icone_de_deconnexion.png" />
                </image>
             </ImageView>
          </graphic>

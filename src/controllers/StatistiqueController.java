@@ -19,22 +19,22 @@ import models.dao.OffreDAO;
 
 public class StatistiqueController {
 	@FXML
-	private Button deconnexion_bouton;
+	private AnchorPane mainPane;
 	@FXML
-	private Button fermeture_bouton;
+	private Button deconnexionButton;
 	@FXML
-	private Button retour_bouton;
+	private Button fermetureButton;
 	@FXML
-	private Button partenaire_bouton;
+	private Button retourButton;
 	@FXML
-	private Button formation_bouton;
+	private Button partenaireButton;
+	@FXML
+	private Button formationButton;
 	@FXML
 	private PieChart StatPieChart;
-	@FXML
-	private AnchorPane mainPane;
 	
 	String nomDeLaPersonneConnecte;
-	boolean super_administrateur;
+	boolean statusSuperAdministrateur;
 	
 	private double xOffset;
 	private double yOffset;
@@ -43,12 +43,12 @@ public class StatistiqueController {
 		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean super_administrateur) {
-		this.super_administrateur = super_administrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
+		this.statusSuperAdministrateur = statusSuperAdministrateur;
 	}
 	
 	@FXML
-	private void deconnecter(ActionEvent actionEvent) {	
+	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -62,14 +62,14 @@ public class StatistiqueController {
 	}
 	
 	@FXML
-	private void fermer(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) {
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retour(ActionEvent actionEvent) {
-		if(super_administrateur == true) {
+	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) {
+		if(statusSuperAdministrateur == true) {
 			try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
@@ -77,9 +77,9 @@ public class StatistiqueController {
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				SuperAdministrateurMenuController super_administrateur_menu_controller = loader.<SuperAdministrateurMenuController>getController();
-				super_administrateur_menu_controller.nom(this.nom);
-				super_administrateur_menu_controller.super_administrateur(this.super_administrateur);
+				SuperAdministrateurMenuController superAdministrateurMenuController = loader.<SuperAdministrateurMenuController>getController();
+				superAdministrateurMenuController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+				superAdministrateurMenuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 			}catch (IOException e) {
 			   e.printStackTrace();
 			  }
@@ -91,9 +91,9 @@ public class StatistiqueController {
 				AnchorPane userFrame = (AnchorPane) loader.load();
 				Scene sc = mainPane.getScene();
 				sc.setRoot(userFrame);
-				MenuController menu_controller = loader.<MenuController>getController();
-				menu_controller.nom(this.nom);
-				menu_controller.super_administrateur(this.super_administrateur);
+				MenuController menuController = loader.<MenuController>getController();
+				menuController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+				menuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 			}catch (IOException e) {
 			   e.printStackTrace();
 			  }
@@ -101,22 +101,22 @@ public class StatistiqueController {
 	}
 	
 	@FXML
-	private void formation(ActionEvent actionEvent) throws SQLException {
-		ObservableList<PieChart.Data> pieChartData = OffreDAO.formation_statistique();
-		StatPieChart.setData(pieChartData) ;
+	private void afficher_le_camembert_des_offres_par_formation(ActionEvent actionEvent) throws SQLException {
+		ObservableList<PieChart.Data> donneesDuCamembert = OffreDAO.recuperer_les_statistiques_des_offres_par_formation();
+		StatPieChart.setData(donneesDuCamembert) ;
 	}
 	
 	@FXML
-	private void partenaire(ActionEvent actionEvent) throws SQLException {
-		ObservableList<PieChart.Data> pieChartData = OffreDAO.partenaire_statistique();
-		StatPieChart.setData(pieChartData) ;
+	private void afficher_le_camembert_des_offres_par_partenaire(ActionEvent actionEvent) throws SQLException {
+		ObservableList<PieChart.Data> donneesDuCamembert = OffreDAO.recuperer_les_statistiques_des_offres_par_partenaire();
+		StatPieChart.setData(donneesDuCamembert) ;
 	}
 		
 	@FXML
     private void initialize () throws SQLException  
     {        
 		ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-				OffreDAO.formation_statistique()); 
+				OffreDAO.recuperer_les_statistiques_des_offres_par_formation()); 
 		StatPieChart.setData(pieChartData) ;
 		
 		mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -133,8 +133,8 @@ public class StatistiqueController {
 		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
-				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
+				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}
 		});
     }

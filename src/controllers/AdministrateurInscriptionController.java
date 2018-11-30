@@ -104,7 +104,7 @@ public class AdministrateurInscriptionController {
 	}
 	
 	@FXML
-	private void inscrire(ActionEvent actionEvent) throws SQLException {
+	private void inscrire_un_nouvel_administrateur(ActionEvent actionEvent) throws SQLException {
 		if(!nomInput.getText().isEmpty() && !prenomInput.getText().isEmpty() && !motDePasseInput.getText().isEmpty() 
 				&& !emailInput.getText().isEmpty() && !telephoneInput.getText().isEmpty() && !adresseInput.getText().isEmpty() 
 				&& !villeInput.getText().isEmpty() && !codePostalInput.getText().isEmpty()) {

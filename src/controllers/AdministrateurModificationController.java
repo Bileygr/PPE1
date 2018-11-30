@@ -16,74 +16,78 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import models.base.Administrateur;
 import models.dao.AdministrateurDAO;
-import models.dao.ConfigurationDAO;
+import models.dao.ConfigurationConnexionBaseDeDonneesDAO;
 
 public class AdministrateurModificationController {
 	@FXML
-	private Button			deconnexion_bouton;
+	private AnchorPane mainPane;
 	@FXML
-	private Button			fermeture_bouton;
+	private Button deconnexionButton;
 	@FXML
-	private Button			retour_bouton;
+	private Button fermetureButton;
 	@FXML
-	private Button			modifier_bouton;
+	private Button retourButton;
 	@FXML
-	private Label			id_label;
+	private Button modificationButton;
 	@FXML
-	private TextField		nom_champ_de_texte;
+	private Label idLabel;
 	@FXML
-	private TextField		prenom_champ_de_texte;
+	private TextField nomInput;
 	@FXML
-	private TextField		email_champ_de_texte;
+	private TextField prenomInput;
 	@FXML
-	private TextField		telephone_champ_de_texte;
+	private TextField emailInput;
 	@FXML
-	private TextField		adresse_champ_de_texte;
+	private TextField telephoneInput;
 	@FXML
-	private TextField		ville_champ_de_texte;
+	private TextField adresseInput;
 	@FXML
-	private TextField		code_postal_champ_de_texte;
+	private TextField villeInput;
 	@FXML
-	private CheckBox		super_administrateur_checkbox;
+	private TextField codePostalInput;
 	@FXML
-	private AnchorPane  	mainPane;
-	String nom;
-	int id;
-	boolean super_administrateur;
+	private CheckBox statusSuperAdministrateurCheckbox;
+	
+	String nomDeLaPersonneConnecte;
+	int idAdministrateurModification;
+	boolean statusSuperAdministrateur;
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void recuperer_le_nom_de_la_personne_connecte(String nom) {
-		this.nom = nom;
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean super_administrateur) {
-		this.super_administrateur = super_administrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
+		this.statusSuperAdministrateur = statusSuperAdministrateur;
 	}
 	
-	public void administrateur(int id, String super_administrateur, String nom, String prenom, String email,
+	public void recuperer_les_informations_de_l_administrateur_a_modifier(int idAdministrateurModification, String super_administrateur, String nom, String prenom, String email,
 			String telephone, String adresse, String ville, String code_postal) {
-		this.id = id;
-		id_label.setText("ID: " + Integer.toString(id));
-		nom_champ_de_texte.setText(nom);
-		prenom_champ_de_texte.setText(prenom);
-		email_champ_de_texte.setText(email);
-		telephone_champ_de_texte.setText(telephone);
-		adresse_champ_de_texte.setText(adresse);
-		ville_champ_de_texte.setText(ville);
-		code_postal_champ_de_texte.setText(code_postal);
+		this.idAdministrateurModification = idAdministrateurModification;
+		idLabel.setText("ID: " + Integer.toString(idAdministrateurModification));
+		nomInput.setText(nom);
+		prenomInput.setText(prenom);
+		emailInput.setText(email);
+		telephoneInput.setText(telephone);
+		adresseInput.setText(adresse);
+		villeInput.setText(ville);
+		codePostalInput.setText(code_postal);
 		
-		if(super_administrateur == 1) {
-			super_administrateur_checkbox.setSelected(true);
+		int statusSuperAdministrateur = Integer.parseInt(super_administrateur);
+		
+		if(statusSuperAdministrateur == 1) {
+			statusSuperAdministrateurCheckbox.setSelected(true);
 		}else {
-			super_administrateur_checkbox.setSelected(false);
+			statusSuperAdministrateurCheckbox.setSelected(false);
 		}
 	}
 	
 	@FXML
-	private void deconnecter(ActionEvent actionEvent) {	
+	private void deconnecter_de_l_application(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -97,13 +101,13 @@ public class AdministrateurModificationController {
 	}
 	
 	@FXML
-	private void fermer(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) {
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retour(ActionEvent actionEvent) {
+	private void retourner_sur_la_page_precedente(ActionEvent actionEvent) {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -111,20 +115,20 @@ public class AdministrateurModificationController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			AdministrateurController administrateur_controller = loader.<AdministrateurController>getController();
-			administrateur_controller.nom(this.nom);
-			administrateur_controller.super_administrateur(this.super_administrateur);
+			AdministrateurController administrateurController = loader.<AdministrateurController>getController();
+			administrateurController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			administrateurController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		}catch (IOException e) {
 		   e.printStackTrace();
 		  }
 	}
 	
 	@FXML
-	private void modifier(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException {
-		boolean email_validation = AdministrateurDAO.validate(email_champ_de_texte.getText());
+	private void modifier_les_informations_de_l_administrateur_selectionne(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException {
+		boolean email_validation = Administrateur.verifier_la_syntaxe_de_l_email(emailInput.getText());
 		int super_administrateur;
 		
-		if(super_administrateur_checkbox.isSelected()) {
+		if(statusSuperAdministrateurCheckbox.isSelected()) {
 			super_administrateur = 1;
 		}else{
 			super_administrateur = 0;
@@ -132,23 +136,23 @@ public class AdministrateurModificationController {
 		
 		if(email_validation == true) {
 			
-			if(telephone_champ_de_texte.getText().length() == 10) {
+			if(telephoneInput.getText().length() == 10) {
 			
-				if(adresse_champ_de_texte.getText().length() <= 38) {
+				if(adresseInput.getText().length() <= 38) {
 				
-					if(ville_champ_de_texte.getText().length() <= 32) {
+					if(villeInput.getText().length() <= 32) {
 					
-						if(code_postal_champ_de_texte.getText().length() == 5) {
-							boolean empdata = AdministrateurDAO.modifier(id, super_administrateur, nom_champ_de_texte.getText(), 
-									prenom_champ_de_texte.getText(), email_champ_de_texte.getText(), 
-									telephone_champ_de_texte.getText(), adresse_champ_de_texte.getText(), ville_champ_de_texte.getText(), 
-									code_postal_champ_de_texte.getText());
+						if(codePostalInput.getText().length() == 5) {
+							boolean statusOptionEnvoiEmail = AdministrateurDAO.modifier_les_informations_d_un_administrateur(idAdministrateurModification, super_administrateur, nomInput.getText(), 
+									prenomInput.getText(), emailInput.getText(), 
+									telephoneInput.getText(), adresseInput.getText(), villeInput.getText(), 
+									codePostalInput.getText());
 							
-							if(empdata == true) {
-								int emailStatus = ConfigurationDAO.getEmail();
+							if(statusOptionEnvoiEmail == true) {
+								boolean emailStatus = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_status_de_l_option_d_envoi_d_email();
 								
-								if(emailStatus == 1) {
-									boolean emailSent = AdministrateurDAO.email_modification(email_champ_de_texte.getText());
+								if(emailStatus == true) {
+									boolean emailSent = Administrateur.email_de_modification(emailInput.getText());
 									
 									if(emailSent == false) {
 										Alert a1 = new Alert(Alert.AlertType.ERROR);
@@ -167,9 +171,9 @@ public class AdministrateurModificationController {
 									Scene sc = mainPane.getScene();
 									sc.setRoot(userFrame);
 									System.out.println();
-									AdministrateurController administrateur_controller = loader.<AdministrateurController>getController();
-									administrateur_controller.nom(this.nom);
-									administrateur_controller.super_administrateur(this.super_administrateur);
+									AdministrateurController administrateurController = loader.<AdministrateurController>getController();
+									administrateurController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+									administrateurController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 								}catch (IOException e) {
 									e.printStackTrace();
 								}
@@ -233,8 +237,8 @@ public class AdministrateurModificationController {
 		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
-				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
+				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}
 		});
     }

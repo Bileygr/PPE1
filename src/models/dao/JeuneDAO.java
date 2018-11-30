@@ -4,112 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import models.base.Jeune;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class JeuneDAO {
-	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
-	public static boolean validate_email(String email) {
-		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
-		return matcher.find();
-	}
-	
-	public static boolean email_inscription(String destinataire) {
-		boolean resultat = false;
-		try {
-			DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			Date date = new Date();
-			 
-            Properties props = new Properties();
-            props.put("mail.transport.protocol", "smtp" );
-            props.put("mail.smtp.starttls.enable","true" );
-            props.put("mail.smtp.host","smtp.gmail.com");
-            props.put("mail.smtp.auth", "true" );
-            props.put("mail.smtp.port", "587" );
-            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-            Session session = Session.getDefaultInstance(props, null);
-            
-            
-            Transport transport = session.getTransport("smtp");
-            MimeMessage msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("btssioppechesirkei@gmail.com"));
-            msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinataire));
-            msg.setSubject("Offres (site web)");
-            
-            msg.setText("Vous êtes maintenant inscrit. \n" + format.format(date));
-            transport.connect("smtp.gmail.com", "btssioppechesirkei@gmail.com","Jh6@hV^4AW5y34aZ");
-            transport.sendMessage(msg, msg.getAllRecipients());
-            transport.close();
-            resultat = true;
-            System.out.println("Email envoyé.");
-        } catch (NoSuchProviderException ex) {
-            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (AddressException ex) {
-            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MessagingException ex) {
-            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-		return resultat;
-	} 
-	
-	public static boolean email_modification(String destinataire) {
-		boolean resultat = false;
-		try {
-			DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			Date date = new Date();
-			 
-            Properties props = new Properties();
-            props.put("mail.transport.protocol", "smtp" );
-            props.put("mail.smtp.starttls.enable","true" );
-            props.put("mail.smtp.host","smtp.gmail.com");
-            props.put("mail.smtp.auth", "true" );
-            props.put("mail.smtp.port", "587" );
-            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-            Session session = Session.getDefaultInstance(props, null);
-            
-            
-            Transport transport = session.getTransport("smtp");
-            MimeMessage msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("btssioppechesirkei@gmail.com"));
-            msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinataire));
-            msg.setSubject("Offres (site web)");
-            
-            msg.setText("Vos informations ont été modifié. \n" + format.format(date));
-            transport.connect("smtp.gmail.com", "btssioppechesirkei@gmail.com","Jh6@hV^4AW5y34aZ");
-            transport.sendMessage(msg, msg.getAllRecipients());
-            transport.close();
-            resultat = true;
-            System.out.println("Email envoyé.");
-        } catch (NoSuchProviderException ex) {
-            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (AddressException ex) {
-            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MessagingException ex) {
-            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-		
-		return resultat;
-	} 
-	
-	public static boolean inscrire(String nom, String prenom, String hash, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException {
+	public static boolean inscrire_un_nouveau_jeune(String nom, String prenom, String hash, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException {
 		Connection connexion = Connect.getInstance().getConnection();
 		String requete = "INSERT INTO jeune(jeune_nom, jeune_prenom, jeune_mot_de_passe_hash, jeune_email, jeune_telephone, jeune_adresse, jeune_ville, jeune_code_postal, "
 							+ "jeune_derniere_connexion, jeune_creation) VALUES(?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
@@ -146,7 +46,7 @@ public class JeuneDAO {
 		return retour;
 	}
 	
-	public static boolean modifier(int id, String nom, String prenom, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException, ClassNotFoundException {
+	public static boolean modifier_les_informations_d_un_jeune(int id, String nom, String prenom, String email, String telephone, String adresse, String ville, String code_postal) throws SQLException, ClassNotFoundException {
         Connection connexion =  Connect.getInstance().getConnection();
         String requete = "UPDATE jeune SET jeune_nom = ?, jeune_prenom = ?, jeune_email = ?, jeune_telephone = ?, jeune_adresse = ?, jeune_ville = ?, jeune_code_postal = ? WHERE jeune_id = ?";
         
@@ -182,7 +82,7 @@ public class JeuneDAO {
         return retour;
      }
      
-	public static boolean supprimer(int  id) throws SQLException, ClassNotFoundException {
+	public static boolean supprimer_un_jeune(int  id) throws SQLException, ClassNotFoundException {
         Connection connexion = Connect.getInstance().getConnection();
         String requeteSQL = "DELETE FROM jeune WHERE jeune_id = ?";
         
@@ -212,7 +112,7 @@ public class JeuneDAO {
         return reponse;
      }
  
-     public static ObservableList<Jeune> recherche_filtre(String filtre) throws ClassNotFoundException, SQLException {     
+     public static ObservableList<Jeune> obtenir_la_liste_filtre_des_jeunes(String filtre) throws ClassNotFoundException, SQLException {     
     	Connection connexion = Connect.getInstance().getConnection();
     	String requete = "SELECT jeune_id, jeune_nom, jeune_prenom, jeune_email, jeune_telephone, jeune_adresse,"
     			+ "jeune_ville, jeune_code_postal, jeune_derniere_connexion, jeune_creation FROM jeune "
@@ -229,30 +129,30 @@ public class JeuneDAO {
 	 	prepared_statement.setString(3, "%" + filtre +  "%");
 	 	prepared_statement.setString(4, "%" + filtre +  "%");
 	 	
-	 	int 	id;
-	 	String 	nom;
-	 	String 	prenom;
-	 	String 	email;
-	 	String 	telephone;
-	 	String	adresse;
-	 	String 	ville;
-	 	String 	code_postal;
-	 	String 	derniere_connexion;
-	 	String 	creation;
+	 	int id;
+	 	String nom;
+	 	String prenom;
+	 	String email;
+	 	String telephone;
+	 	String adresse;
+	 	String ville;
+	 	String code_postal;
+	 	String derniere_connexion;
+	 	String creation;
 	     
 	    ResultSet resultat = prepared_statement.executeQuery();
      
 	    while(resultat.next()) {
-	    	id					= resultat.getInt("jeune_id");
-   		 	nom 		 		= resultat.getString("jeune_nom");
-   		 	prenom 	 			= resultat.getString("jeune_prenom");
-   		 	email 		 		= resultat.getString("jeune_email");
-   		 	telephone 		 	= resultat.getString("jeune_telephone");
-   		 	adresse				= resultat.getString("jeune_adresse");
-   		 	ville				= resultat.getString("jeune_ville");
-   		 	code_postal			= resultat.getString("jeune_code_postal");
-   		 	derniere_connexion	= resultat.getString("jeune_derniere_connexion");
-   		 	creation	 		= resultat.getString("jeune_creation");
+	    	id = resultat.getInt("jeune_id");
+   		 	nom = resultat.getString("jeune_nom");
+   		 	prenom = resultat.getString("jeune_prenom");
+   		 	email = resultat.getString("jeune_email");
+   		 	telephone = resultat.getString("jeune_telephone");
+   		 	adresse = resultat.getString("jeune_adresse");
+   		 	ville = resultat.getString("jeune_ville");
+   		 	code_postal	= resultat.getString("jeune_code_postal");
+   		 	derniere_connexion = resultat.getString("jeune_derniere_connexion");
+   		 	creation = resultat.getString("jeune_creation");
 		 
    		 	Jeune jeune = new Jeune();
    		 	
@@ -277,14 +177,14 @@ public class JeuneDAO {
      	return retour;
      }
  
-     public static ObservableList<Jeune> recherche() throws ClassNotFoundException, SQLException {
+     public static ObservableList<Jeune> obtenir_la_liste_de_tout_les_jeunes() throws ClassNotFoundException, SQLException {
     	 Connection connexion = Connect.getInstance().getConnection();
     	 String requete = "SELECT jeune_id, jeune_nom, jeune_prenom, jeune_email, jeune_telephone, jeune_adresse,"
     	 		+ "jeune_ville, jeune_code_postal, jeune_derniere_connexion, jeune_creation FROM jeune";
     	 
-    	 ObservableList<Jeune> retour = FXCollections.observableArrayList();
+    	 ObservableList<Jeune> resultatDeLaRequete = FXCollections.observableArrayList();
     	 
-    	 int 	id;
+    	 int id;
     	 String nom;
     	 String prenom;
     	 String email;
@@ -300,16 +200,16 @@ public class JeuneDAO {
     	 ResultSet resultat = prepared_statement.executeQuery();
     	 
     	 while(resultat.next()) {
-    		 id					= resultat.getInt("jeune_id");
-    		 nom 					= resultat.getString("jeune_nom");
-    		 prenom 				= resultat.getString("jeune_prenom");
-    		 email 					= resultat.getString("jeune_email");
-    		 telephone 				= resultat.getString("jeune_telephone");
-    		 adresse				= resultat.getString("jeune_adresse");
-    		 ville					= resultat.getString("jeune_ville");
-    		 code_postal			= resultat.getString("jeune_code_postal");
-    		 derniere_connexion 	= resultat.getString("jeune_derniere_connexion");
-    		 creation 				= resultat.getString("jeune_creation");
+    		 id = resultat.getInt("jeune_id");
+    		 nom = resultat.getString("jeune_nom");
+    		 prenom = resultat.getString("jeune_prenom");
+    		 email = resultat.getString("jeune_email");
+    		 telephone = resultat.getString("jeune_telephone");
+    		 adresse = resultat.getString("jeune_adresse");
+    		 ville = resultat.getString("jeune_ville");
+    		 code_postal = resultat.getString("jeune_code_postal");
+    		 derniere_connexion = resultat.getString("jeune_derniere_connexion");
+    		 creation = resultat.getString("jeune_creation");
 		 
     		 Jeune jeune = new Jeune();
     		 
@@ -324,13 +224,13 @@ public class JeuneDAO {
     		 jeune.setJeune_derniere_connexion(derniere_connexion);
     		 jeune.setJeune_creation(creation);
 		 
-    		 retour.add(jeune);
+    		 resultatDeLaRequete.add(jeune);
     		 System.out.println(jeune);
     	 }
     	 
     	 resultat.close();
     	 prepared_statement.close();
 	 	 connexion.close();
-	 	 return retour;
+	 	 return resultatDeLaRequete;
      }
 }

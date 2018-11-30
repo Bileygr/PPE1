@@ -51,7 +51,7 @@ public class ConnexionController {
 	@FXML
 	private void connecter_un_utilisateur(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException, NoSuchAlgorithmException {
 		if(!emailInput.getText().isEmpty() && !motDePasseInput.getText().isEmpty()) {
-			boolean statusEmailSyntaxeVerification = Administrateur.verifier_la_syntaxe_d_un_email(emailInput.getText());
+			boolean statusEmailSyntaxeVerification = Administrateur.verifier_la_syntaxe_de_l_email(emailInput.getText());
 			if(statusEmailSyntaxeVerification == true) {	
 				if(motDePasseInput.getText().length() >= 12) {
 					String motDePasse = motDePasseInput.getText();

@@ -15,54 +15,56 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import library.encryption.BCrypt;
-import models.dao.ConfigurationDAO;
+import models.base.Jeune;
+import models.dao.ConfigurationConnexionBaseDeDonneesDAO;
 import models.dao.JeuneDAO;
 
 public class JeuneInscriptionController {
 	@FXML
-	private Button deconnexion_bouton;
-	@FXML
-	private Button fermeture_bouton;
-	@FXML
-	private Button retour_bouton;
-	@FXML
-	private Button inscrire_bouton;
-	@FXML
-	private TextField nom_champ_de_texte;
-	@FXML
-	private TextField prenom_champ_de_texte;
-	@FXML
-	private TextField identifiant_champ_de_texte;
-	@FXML
-	private TextField mot_de_passe_champ_de_texte;
-	@FXML
-	private TextField email_champ_de_texte;
-	@FXML
-	private TextField telephone_champ_de_texte;
-	@FXML
-	private TextField adresse_champ_de_texte;
-	@FXML
-	private TextField ville_champ_de_texte;
-	@FXML
-	private TextField code_postal_champ_de_texte;
-	@FXML
 	private AnchorPane mainPane;
-	String nom;
-	boolean super_administrateur;
+	@FXML
+	private Button deconnexionButton;
+	@FXML
+	private Button fermetureButton;
+	@FXML
+	private Button retourButton;
+	@FXML
+	private Button inscriptionButton;
+	@FXML
+	private TextField nomInput;
+	@FXML
+	private TextField prenomInput;
+	@FXML
+	private TextField identifiantInput;
+	@FXML
+	private TextField motDePasseInput;
+	@FXML
+	private TextField emailInput;
+	@FXML
+	private TextField telephoneInput;
+	@FXML
+	private TextField adresseInput;
+	@FXML
+	private TextField villeInput;
+	@FXML
+	private TextField codePostalInput;
+	
+	String nomDeLaPersonneConnecte;
+	boolean statusSuperAdministrateur;
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void nom(String nom) {
-		this.nom = nom;
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void super_administrateur(boolean super_administrateur) {
-		this.super_administrateur = super_administrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
+		this.statusSuperAdministrateur = statusSuperAdministrateur;
 	}
 	
 	@FXML
-	private void deconnecter(ActionEvent actionEvent) {	
+	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) {	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -76,13 +78,13 @@ public class JeuneInscriptionController {
 	}
 	
 	@FXML
-	private void fermer(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) {
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retour(ActionEvent actionEvent) {
+	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) {
 		try {
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -90,42 +92,42 @@ public class JeuneInscriptionController {
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-			JeuneController jeune_controller = loader.<JeuneController>getController();
-			jeune_controller.nom(this.nom);
-			jeune_controller.super_administrateur(this.super_administrateur);
+			JeuneController JeuneController = loader.<JeuneController>getController();
+			JeuneController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+			JeuneController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 		}catch (IOException e) {
 		   e.printStackTrace();
 		  }
 	}
 	
 	@FXML
-	private void inscrire(ActionEvent actionEvent) throws SQLException {
-		if(!nom_champ_de_texte.getText().isEmpty() && !prenom_champ_de_texte.getText().isEmpty() && !mot_de_passe_champ_de_texte.getText().isEmpty() 
-				&& !email_champ_de_texte.getText().isEmpty() && !telephone_champ_de_texte.getText().isEmpty() && !adresse_champ_de_texte.getText().isEmpty() 
-				&& !ville_champ_de_texte.getText().isEmpty() && !code_postal_champ_de_texte.getText().isEmpty()) {
+	private void inscrire_un_nouveau_jeune(ActionEvent actionEvent) throws SQLException {
+		if(!nomInput.getText().isEmpty() && !prenomInput.getText().isEmpty() && !motDePasseInput.getText().isEmpty() 
+				&& !emailInput.getText().isEmpty() && !telephoneInput.getText().isEmpty() && !adresseInput.getText().isEmpty() 
+				&& !villeInput.getText().isEmpty() && !codePostalInput.getText().isEmpty()) {
 			
-			if(mot_de_passe_champ_de_texte.getText().length() >= 12) {
-				boolean email_validation = JeuneDAO.validate_email(email_champ_de_texte.getText());
-				String hash = BCrypt.hashpw(mot_de_passe_champ_de_texte.getText(), BCrypt.gensalt());
+			if(motDePasseInput.getText().length() >= 12) {
+				boolean email_validation = Jeune.verifier_la_syntaxe_de_l_email(emailInput.getText());
+				String hash = BCrypt.hashpw(motDePasseInput.getText(), BCrypt.gensalt());
 				
 				if(email_validation == true) {
 				
-					if(telephone_champ_de_texte.getText().length() == 10) {
+					if(telephoneInput.getText().length() == 10) {
 					
-						if(adresse_champ_de_texte.getText().length() <= 38) {
+						if(adresseInput.getText().length() <= 38) {
 						
-							if(ville_champ_de_texte.getText().length() <= 32) {
+							if(villeInput.getText().length() <= 32) {
 							
-								if(code_postal_champ_de_texte.getText().length() == 5) {
-									boolean empdata = JeuneDAO.inscrire(nom_champ_de_texte.getText(), prenom_champ_de_texte.getText(),hash, 
-											email_champ_de_texte.getText(), telephone_champ_de_texte.getText(), adresse_champ_de_texte.getText(), 
-											ville_champ_de_texte.getText(), code_postal_champ_de_texte.getText());
+								if(codePostalInput.getText().length() == 5) {
+									boolean empdata = JeuneDAO.inscrire_un_nouveau_jeune(nomInput.getText(), prenomInput.getText(),hash, 
+											emailInput.getText(), telephoneInput.getText(), adresseInput.getText(), 
+											villeInput.getText(), codePostalInput.getText());
 		
 									if(empdata == true) {
-										int emailStatus = ConfigurationDAO.getEmail();
+										boolean emailStatus = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_status_de_l_option_d_envoi_d_email();
 										
-										if(emailStatus == 1) {
-											boolean emailSent = JeuneDAO.email_inscription(email_champ_de_texte.getText());
+										if(emailStatus == true) {
+											boolean emailSent = Jeune.envoyer_un_email_lors_de_l_inscription(emailInput.getText());
 											
 											if(emailSent == false) {
 												Alert a1 = new Alert(Alert.AlertType.ERROR);
@@ -144,8 +146,8 @@ public class JeuneInscriptionController {
 											Scene sc = mainPane.getScene();
 											sc.setRoot(userFrame);
 											JeuneController jeune_controller = loader.<JeuneController>getController();
-											jeune_controller.nom(this.nom);
-											jeune_controller.super_administrateur(this.super_administrateur);
+											jeune_controller.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+											jeune_controller.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
 										}catch (IOException e) {
 											e.printStackTrace();
 										}
@@ -223,8 +225,8 @@ public class JeuneInscriptionController {
 		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				Main.getPrimaryStage().setX(event.getScreenX()- xOffset);
-				Main.getPrimaryStage().setY(event.getScreenY()- yOffset);
+				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
+				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}
 		});
     }

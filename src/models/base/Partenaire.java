@@ -1,37 +1,57 @@
 package models.base;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import models.dao.AdministrateurDAO;
 
 public class Partenaire 
 {
 	private IntegerProperty partenaire_id;
 	private IntegerProperty partenaire_siret;
-	private StringProperty	partenaire_nom;
-	private StringProperty	partenaire_mot_de_passe_hash;
-	private StringProperty	partenaire_email;
-	private StringProperty	partenaire_telephone;
-	private StringProperty	partenaire_adresse;
-	private StringProperty	partenaire_ville;
-	private StringProperty	partenaire_code_postal;
-	private StringProperty	partenaire_derniere_connexion;
-	private StringProperty	partenaire_creation;
+	private StringProperty partenaire_nom;
+	private StringProperty partenaire_mot_de_passe_hash;
+	private StringProperty partenaire_email;
+	private StringProperty partenaire_telephone;
+	private StringProperty partenaire_adresse;
+	private StringProperty partenaire_ville;
+	private StringProperty partenaire_code_postal;
+	private StringProperty partenaire_derniere_connexion;
+	private StringProperty partenaire_creation;
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 	
 	public Partenaire()
 	{
-		this.partenaire_id 						= new SimpleIntegerProperty();
-		this.partenaire_siret 					= new SimpleIntegerProperty();
-		this.partenaire_nom 					= new SimpleStringProperty();
-		this.partenaire_mot_de_passe_hash 		= new SimpleStringProperty();
-		this.partenaire_email 					= new SimpleStringProperty();
-		this.partenaire_telephone 				= new SimpleStringProperty();
-		this.partenaire_adresse 				= new SimpleStringProperty();
-		this.partenaire_ville					= new SimpleStringProperty();
-		this.partenaire_code_postal				= new SimpleStringProperty();
-		this.partenaire_derniere_connexion		= new SimpleStringProperty();
-		this.partenaire_creation				= new SimpleStringProperty();
+		this.partenaire_id = new SimpleIntegerProperty();
+		this.partenaire_siret = new SimpleIntegerProperty();
+		this.partenaire_nom = new SimpleStringProperty();
+		this.partenaire_mot_de_passe_hash = new SimpleStringProperty();
+		this.partenaire_email = new SimpleStringProperty();
+		this.partenaire_telephone = new SimpleStringProperty();
+		this.partenaire_adresse = new SimpleStringProperty();
+		this.partenaire_ville = new SimpleStringProperty();
+		this.partenaire_code_postal = new SimpleStringProperty();
+		this.partenaire_derniere_connexion = new SimpleStringProperty();
+		this.partenaire_creation = new SimpleStringProperty();
 	}
 	
 	public void setPartenaire_id(IntegerProperty partenaire_id){this.partenaire_id = partenaire_id;}
@@ -82,6 +102,88 @@ public class Partenaire
 	public String getPartenaire_creation(){return partenaire_creation.get();}
 		public void setPartenaire_creation(String partenaire_creation){this.partenaire_creation.set(partenaire_creation);}
 
+	public static boolean verifier_la_syntaxe_de_l_email(String email) {
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
+		return matcher.find();
+	}
+		
+	public static boolean email_d_inscription(String destinataire) {
+		boolean resultat = false;
+		try {
+			DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+				 
+	        Properties props = new Properties();
+	        props.put("mail.transport.protocol", "smtp" );
+	        props.put("mail.smtp.starttls.enable","true" );
+	        props.put("mail.smtp.host","smtp.gmail.com");
+	        props.put("mail.smtp.auth", "true" );
+	        props.put("mail.smtp.port", "587" );
+	        java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+	        Session session = Session.getDefaultInstance(props, null);
+	            
+	            
+	        Transport transport = session.getTransport("smtp");
+	        MimeMessage msg = new MimeMessage(session);
+	        msg.setFrom(new InternetAddress("cheiksiramakankeita@gmail.com"));
+	        msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinataire));
+	        msg.setSubject("Offres (site web)");
+	            
+	        msg.setText("Vous êtes maintenant inscrit. \n" + format.format(date));
+	        transport.connect("smtp.gmail.com", "cheiksiramakankeita@gmail.com","crownclown91");
+	        transport.sendMessage(msg, msg.getAllRecipients());
+	        transport.close();
+	        resultat = true;
+	         System.out.println("Email envoyé.");
+	    } catch (NoSuchProviderException ex) {
+	            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+	        } catch (AddressException ex) {
+	            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+	        } catch (MessagingException ex) {
+	            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+			
+			return resultat;
+		} 
+		
+		public static boolean email_de_modification(String destinataire) {
+			boolean resultat = false;
+			try {
+				DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Date date = new Date();
+				 
+	            Properties props = new Properties();
+	            props.put("mail.transport.protocol", "smtp" );
+	            props.put("mail.smtp.starttls.enable","true" );
+	            props.put("mail.smtp.host","smtp.gmail.com");
+	            props.put("mail.smtp.auth", "true" );
+	            props.put("mail.smtp.port", "587" );
+	            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+	            Session session = Session.getDefaultInstance(props, null);
+	            
+	            
+	            Transport transport = session.getTransport("smtp");
+	            MimeMessage msg = new MimeMessage(session);
+	            msg.setFrom(new InternetAddress("cheiksiramakankeita@gmail.com"));
+	            msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(destinataire));
+	            msg.setSubject("Offres (site web)");
+	            
+	            msg.setText("Vos informations ont été modifié. \n" + format.format(date));
+	            transport.connect("smtp.gmail.com", "cheiksiramakankeita@gmail.com","crownclown91");
+	            transport.sendMessage(msg, msg.getAllRecipients());
+	            transport.close();
+	            resultat = true;
+	            System.out.println("Email envoyé.");
+	        } catch (NoSuchProviderException ex) {
+	            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+	        } catch (AddressException ex) {
+	            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+	        } catch (MessagingException ex) {
+	            Logger.getLogger(AdministrateurDAO.class.getName()).log(Level.SEVERE, null, ex);
+	        }
+			return resultat;
+		} 	
+		
 	@Override
 	public String toString() {
 		return "Partenaire [partenaire_id=" + partenaire_id + ", partenaire_siret=" + partenaire_siret
