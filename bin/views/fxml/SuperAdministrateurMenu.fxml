@@ -17,7 +17,7 @@
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/icone_de_fermeture.png" />
+                  <Image url="@views/images/icone_de_fermeture.png" />
                </image>
             </ImageView>
          </graphic>
@@ -27,7 +27,7 @@
       <ImageView fitHeight="26.0" fitWidth="49.0" layoutX="700.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="31.0" fitWidth="26.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/icone_de_contact.png" />
+            <Image url="@views/images/icone_de_contact.png" />
          </image>
       </ImageView>
       <Button fx:id="menuGestionAdministrateurButton" layoutX="350.0" layoutY="202.0" mnemonicParsing="false" onAction="#acceder_a_la_page_de_gestion_des_administrateurs" prefHeight="145.0" prefWidth="182.0" style="-fx-background-color: #C71585;" text="ADMINISTRATEUR" />
@@ -36,7 +36,7 @@
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/icone_de_deconnexion.png" />
+                  <Image url="@views/images/icone_de_deconnexion.png" />
                </image>
             </ImageView>
          </graphic>

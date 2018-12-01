@@ -17,7 +17,7 @@
       	<graphic>
       		<ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          		<image>
-            		<Image url="@../images/icone_de_fermeture.png" />
+            		<Image url="@views/images/icone_de_fermeture.png" />
          		</image>
       		</ImageView>
       	</graphic>
@@ -46,7 +46,7 @@
       	<graphic>
       		<ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
         		<image>
-            		<Image url="@../images/icone_fleche_de_retour.png" />
+            		<Image url="@views/images/icone_fleche_de_retour.png" />
          		</image>
       		</ImageView>
       	</graphic>
@@ -56,7 +56,7 @@
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/icone_de_deconnexion.png" />
+                  <Image url="@views/images/icone_de_deconnexion.png" />
                </image>
             </ImageView>
          </graphic>

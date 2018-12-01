@@ -15,7 +15,7 @@
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/icone_de_fermeture.png" />
+                  <Image url="@views/images/icone_de_fermeture.png" />
                </image>
             </ImageView>
          </graphic>
@@ -33,14 +33,14 @@
       <TextField fx:id="codePostalInput" alignment="CENTER" layoutX="366.0" layoutY="405.0" promptText="Code postal" style="-fx-background-color: #223447; -fx-border-color: FFFFFF; -fx-text-fill: FFFFFF;" />
       <ImageView fitHeight="55.0" fitWidth="48.0" layoutX="417.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/icone_de_contact.png" />
+            <Image url="@views/images/icone_de_contact.png" />
          </image>
       </ImageView>
       <Button fx:id="retourButton" layoutY="7.0" mnemonicParsing="false" onAction="#retourner_dans_la_page_precedente" prefHeight="25.0" prefWidth="32.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                <image>
-                  <Image url="@../images/icone_fleche_de_retour.png" />
+                  <Image url="@views/images/icone_fleche_de_retour.png" />
                </image>
             </ImageView>
          </graphic>
@@ -50,7 +50,7 @@
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/icone_de_deconnexion.png" />
+                  <Image url="@views/images/icone_de_deconnexion.png" />
                </image>
             </ImageView>
          </graphic>
