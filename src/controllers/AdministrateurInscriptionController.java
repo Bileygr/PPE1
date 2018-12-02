@@ -112,7 +112,7 @@ public class AdministrateurInscriptionController {
 				boolean verificationDeLaSyntaxeEmail = Administrateur.verifier_la_syntaxe_de_l_email(emailInput.getText());
 				int super_administrateur = 0;
 				
-				String hash = BCrypt.hashpw(motDePasseInput.getText(), BCrypt.gensalt());
+				String motDePasseSaleEtHashe = BCrypt.hashpw(motDePasseInput.getText(), BCrypt.gensalt());
 				
 				if(statusSuperAdministrateurCheckbox.isSelected()){
 					super_administrateur = 1;
@@ -123,8 +123,7 @@ public class AdministrateurInscriptionController {
 						if(adresseInput.getText().length() <= 38) {
 							if(villeInput.getText().length() <= 32) {
 								if(codePostalInput.getText().length() == 5) {
-									boolean empdata = AdministrateurDAO.ajouter_un_administrateur(super_administrateur, nomInput.getText(), prenomInput.getText(), hash, 
-											emailInput.getText(), telephoneInput.getText(), adresseInput.getText(), 
+									boolean empdata = AdministrateurDAO.ajouter_un_administrateur(super_administrateur, nomInput.getText(), prenomInput.getText(), motDePasseSaleEtHashe, emailInput.getText(), telephoneInput.getText(), adresseInput.getText(), 
 											villeInput.getText(), codePostalInput.getText());
 									if(empdata == true) {
 										boolean statusOptionEnvoiEmail = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_status_de_l_option_d_envoi_d_email();

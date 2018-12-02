@@ -3,7 +3,7 @@ package library.encryption;
 import java.security.SecureRandom;
 
 public class Salt {
-	public byte[] generer_le_sel() {
+	public static byte[] generer_le_sel() {
         SecureRandom random = new SecureRandom();
         byte bytes[] = new byte[20];
         random.nextBytes(bytes);
