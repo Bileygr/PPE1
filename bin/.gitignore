@@ -1,5 +1,6 @@
-/controllers/
-/library/
-/models/
-/views/
 /application/
+/doc/
+/library/
+/views/
+/controllers/
+/models/
