@@ -28,7 +28,7 @@
       <ImageView fitHeight="26.0" fitWidth="49.0" layoutX="700.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="31.0" fitWidth="26.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
       	<image>
-        	<Image url="@views/images//icone_de_contact.png" />
+        	<Image url="@views/images/icone_de_contact.png" />
         </image>
       </ImageView>
       <Label fx:id="salutationLabel" layoutX="56.0" layoutY="15.0" prefHeight="25.0" prefWidth="49.0" textFill="WHITE" />
