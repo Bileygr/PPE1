@@ -1,6 +1,4 @@
 /application/
-/doc/
-/library/
-/views/
 /controllers/
+/library/
 /models/
