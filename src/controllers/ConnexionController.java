@@ -19,8 +19,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import library.encryption.BCrypt;
-import models.base.Administrateur;
-import models.dao.AdministrateurDAO;
+import models.base.User;
+import models.dao.UserDAO;
 import models.dao.ConfigurationConnexionBaseDeDonneesDAO;
 
 public class ConnexionController {
