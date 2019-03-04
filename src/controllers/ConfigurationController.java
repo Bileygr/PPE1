@@ -1,6 +1,8 @@
 package controllers;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import application.Main;
 import javafx.application.Platform;
@@ -67,7 +69,7 @@ public class ConfigurationController {
 	}
 	
 	@FXML
-	private void enregistrer_les_informations_modifie(ActionEvent actionEvent) throws NumberFormatException, SQLException {	
+	private void enregistrer_les_informations_modifie(ActionEvent actionEvent) throws NumberFormatException, SQLException, FileNotFoundException, UnsupportedEncodingException {	
 		int statusOptionEnvoiEmail;
 		
 		if(this.emailInput.isSelected()) {
@@ -89,7 +91,7 @@ public class ConfigurationController {
 	}
 	
 	@FXML
-    private void initialize() throws ClassNotFoundException, SQLException {
+    private void initialize() throws ClassNotFoundException, SQLException, IOException {
 		baseDeDonneesInput.setText(ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_nom_de_la_base_de_donnees());
 		nomHoteInput.setText(ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_nom_d_hote());
 		numeroDePortInput.setText(Integer.toString(ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_numero_de_port()));

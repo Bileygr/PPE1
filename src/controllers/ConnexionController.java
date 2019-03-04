@@ -168,7 +168,7 @@ public class ConnexionController {
 	}
 	
 	@FXML
-    private void initialize() throws ClassNotFoundException, SQLException 
+    private void initialize() throws ClassNotFoundException, SQLException, IOException 
 	{
 		String hostname = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_nom_d_hote();
 		
