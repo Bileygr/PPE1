@@ -17,7 +17,7 @@
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@views/images/icone_de_fermeture.png" />
+                  <Image url="@/views/images/icone_de_fermeture.png" />
                </image>
             </ImageView>
          </graphic>
@@ -26,12 +26,11 @@
       <TableView fx:id="table" layoutX="15.0" layoutY="110.0" prefHeight="428.0" prefWidth="853.0">
          <columns>
             <TableColumn fx:id="nomColumn" prefWidth="83.0" text="Nom" />
-            <TableColumn fx:id="prenomColumn" prefWidth="134.0" text="Prénom" />
-            <TableColumn fx:id="statusSuperAdministrateurColumn" prefWidth="139.0" text="Super administrateur" />
-            <TableColumn fx:id="emailColumn" prefWidth="172.0" text="Email" />
-            <TableColumn fx:id="telephoneColumn" prefWidth="109.0" text="Téléphone" />
-            <TableColumn fx:id="derniereConnexionColumn" prefWidth="127.0" text="Dernière connexion" />
-            <TableColumn fx:id="creationColumn" prefWidth="88.0" text="Création" />
+            <TableColumn fx:id="prenomColumn" prefWidth="112.0" text="Prénom" />
+            <TableColumn fx:id="statusSuperAdministrateurColumn" prefWidth="228.0" text="Rôle" />
+            <TableColumn fx:id="emailColumn" prefWidth="150.0" text="Email" />
+            <TableColumn fx:id="telephoneColumn" prefWidth="146.0" text="Téléphone" />
+            <TableColumn fx:id="creationColumn" prefWidth="132.0" text="Création" />
          </columns>
          <effect>
             <Blend />
@@ -47,7 +46,7 @@
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                <image>
-                  <Image url="@views/images/icone_fleche_de_retour.png" />
+                  <Image url="@/views/images/icone_fleche_de_retour.png" />
                </image>
             </ImageView>
          </graphic>
@@ -57,7 +56,7 @@
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@views/images/icone_de_deconnexion.png" />
+                  <Image url="@/views/images/icone_de_deconnexion.png" />
                </image>
             </ImageView>
          </graphic>

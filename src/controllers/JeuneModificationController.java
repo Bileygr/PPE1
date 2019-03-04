@@ -15,9 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import models.base.Jeune;
+import models.base.User;
 import models.dao.ConfigurationConnexionBaseDeDonneesDAO;
-import models.dao.JeuneDAO;
+import models.dao.UserDAO;
 
 public class JeuneModificationController {
 	@FXML
@@ -51,21 +51,24 @@ public class JeuneModificationController {
 	
 	String nomDeLaPersonneConnecte;
 	int idJeuneModification;
-	boolean statusSuperAdministrateur;
+	String roles;
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) 
+	{
 		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
-		this.statusSuperAdministrateur = statusSuperAdministrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(String roles) 
+	{
+		this.roles = roles;
 	}
 	
 	public void obtenir_les_informations_du_jeune_a_modifier(int idJeuneModification, String nom, String prenom, String email,
-			String telephone, String adresse, String ville, String code_postal) {
+			String telephone, String adresse, String ville, String code_postal) 
+	{
 		this.idJeuneModification = idJeuneModification;
 		idLabel.setText("ID: " + Integer.toString(idJeuneModification));
 		nomInput.setText(nom);
@@ -78,28 +81,34 @@ public class JeuneModificationController {
 	}
 	
 	@FXML
-	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) {	
-		try {
+	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) 
+	{	
+		try 
+		{
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-		}catch(IOException e) {
+		}catch(IOException e) 
+		{
 	        e.printStackTrace();
-	     }
+	    }
 	}
 	
 	@FXML
-	private void fermer_l_application(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) 
+	{
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) {
-		try {
+	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) 
+	{
+		try 
+		{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Jeune.fxml"));
@@ -108,37 +117,53 @@ public class JeuneModificationController {
 			sc.setRoot(userFrame);
 			JeuneController jeuneController = loader.<JeuneController>getController();
 			jeuneController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-			jeuneController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-		}catch (IOException e) {
+			jeuneController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+		}catch (IOException e) 
+		{
 		   e.printStackTrace();
-		  }
+		}
 	}
 	
 	@FXML
-	private void modifier_les_informations_du_jeune(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException {
-		boolean verificationDeLaSyntaxeEmail = Jeune.verifier_la_syntaxe_de_l_email(emailInput.getText());
+	private void modifier_les_informations_du_jeune(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException 
+	{
+		boolean verificationDeLaSyntaxeEmail = User.verifier_la_syntaxe_de_l_email(emailInput.getText());
 		
-		if(verificationDeLaSyntaxeEmail == true) {
-			
-			if(telephoneInput.getText().length() == 10) {
-			
-				if(adresseInput.getText().length() <= 38) {
-				
-					if(villeInput.getText().length() <= 32) {
-					
-						if(codePostalInput.getText().length() == 5) {
-							boolean statusModificationInformationsDuJeune = JeuneDAO.modifier_les_informations_d_un_jeune(idJeuneModification, nomInput.getText(), 
-									prenomInput.getText(), emailInput.getText(), 
-									telephoneInput.getText(), adresseInput.getText(), villeInput.getText(), 
-									codePostalInput.getText());
+		if(verificationDeLaSyntaxeEmail == true) 
+		{
+			if(telephoneInput.getText().length() == 10) 
+			{
+				if(adresseInput.getText().length() <= 38) 
+				{
+					if(villeInput.getText().length() <= 32) 
+					{
+						if(codePostalInput.getText().length() == 5) 
+						{
+							String roles = "[\"ROLE_JEUNE\"]";
+							User user = new User();
+							user.setId(Integer.parseInt(idLabel.getText().substring(4, 6)));
+							user.setRoles(roles);
+							user.setNom(nomInput.getText());
+							user.setPrenom(prenomInput.getText());
+							user.setUsername();
+							user.setEmail(emailInput.getText());
+							user.setTelephone(telephoneInput.getText());
+							user.setAdresse(adresseInput.getText());
+							user.setVille(villeInput.getText());
+							user.setCodepostal(codePostalInput.getText());
 							
-							if(statusModificationInformationsDuJeune == true) {
+							boolean statusModificationInformationsDuJeune = UserDAO.modifier(user);
+							
+							if(statusModificationInformationsDuJeune == true) 
+							{
 								boolean statusOptionEnvoiEmail = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_status_de_l_option_d_envoi_d_email();
 								
-								if(statusOptionEnvoiEmail == true) {
-									boolean statusEnvoiEmail = Jeune.envoyer_un_email_lors_de_la_modification(emailInput.getText());
+								if(statusOptionEnvoiEmail == true) 
+								{
+									boolean statusEnvoiEmail = User.email_de_modification(emailInput.getText());
 									
-									if(statusEnvoiEmail == false) {
+									if(statusEnvoiEmail == false) 
+									{
 										Alert a1 = new Alert(Alert.AlertType.ERROR);
 										a1.setTitle("Erreur: n°7");
 										a1.setContentText("L'envoi d'email ne fonctionne pas vous pouvez désactiver la fonctionnalité dans le menu de configuration.");
@@ -147,7 +172,8 @@ public class JeuneModificationController {
 									}
 								}
 								
-								try {
+								try 
+								{
 									mainPane.getChildren().clear();
 									FXMLLoader loader = new FXMLLoader();
 									loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Jeune.fxml"));
@@ -156,13 +182,14 @@ public class JeuneModificationController {
 									sc.setRoot(userFrame);
 									JeuneController jeuneController = loader.<JeuneController>getController();
 									jeuneController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-									jeuneController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-								}catch (IOException e) {
+									jeuneController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+								}catch (IOException e) 
+								{
 									e.printStackTrace();
 								}
 							}else {
 								Alert a1 = new Alert(Alert.AlertType.ERROR);
-								a1.setTitle("Erreur: n°n°6");
+								a1.setTitle("Erreur: n°6");
 								a1.setContentText("Erreur lors de l'ajout d'un partenaire.");
 								a1.setHeaderText(null);
 								a1.showAndWait();
@@ -211,9 +238,6 @@ public class JeuneModificationController {
 			public void handle(MouseEvent event) {
 				 xOffset = event.getSceneX();
 				 yOffset = event.getSceneY();
-				 
-				 System.out.println(xOffset);
-				 System.out.println(yOffset);
 			}
 		});
 		

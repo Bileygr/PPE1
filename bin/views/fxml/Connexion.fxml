@@ -14,12 +14,12 @@
       <PasswordField fx:id="motDePasseInput" alignment="CENTER" layoutX="370.0" layoutY="261.0" promptText="Mot de passe" style="-fx-background-color: #223447; -fx-border-color: FFFFFF;  -fx-text-fill: FFFFFF;" />
       <ImageView fitHeight="36.0" fitWidth="42.0" layoutX="317.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@views/images/icone_de_contact.png" />
+            <Image url="@/views/images/icone_de_contact.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="42.0" fitWidth="48.0" layoutX="314.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@views/images/icone_du_mot_de_passe.png" />
+            <Image url="@/views/images/icone_du_mot_de_passe.png" />
          </image>
       </ImageView>
       <Button fx:id="connexionButton" layoutX="401.0" layoutY="332.0" mnemonicParsing="false" onAction="#connecter_un_utilisateur" prefHeight="27.0" prefWidth="87.0" style="-fx-background-color: #626262;" text="Connexion" textFill="WHITE" />
@@ -29,7 +29,7 @@
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@views/images/icone_de_configuration.png" />
+                  <Image url="@/views/images/icone_de_configuration.png" />
                </image>
             </ImageView>
          </graphic>
@@ -39,7 +39,7 @@
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@views/images/icone_de_fermeture.png" />
+                  <Image url="@/views/images/icone_de_fermeture.png" />
                </image>
             </ImageView>
          </graphic>

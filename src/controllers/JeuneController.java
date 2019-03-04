@@ -3,7 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.sql.SQLException;
 import application.Main;
-import models.base.Jeune;
+import models.base.User;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import models.dao.JeuneDAO;
+import models.dao.UserDAO;
 
 public class JeuneController {
 	@FXML
@@ -40,40 +40,46 @@ public class JeuneController {
 	@FXML
 	private TextField rechercheInput;
 	@FXML
-	private TableView<Jeune> table;
+	private TableView<User> table;
 	@FXML
-	private TableColumn<Jeune, Integer> idColumn;
+	private TableColumn<User, Integer> idColumn;
 	@FXML
-	private TableColumn<Jeune, String>  nomColumn;
+	private TableColumn<User, String> nomColumn;
 	@FXML
-	private TableColumn<Jeune, String> 	prenomColumn;
+	private TableColumn<User, String> prenomColumn;
 	@FXML
-	private TableColumn<Jeune, String> 	emailColumn;
+	private TableColumn<User, String> usernameColumn;
 	@FXML
-	private TableColumn<Jeune, String> 	telephoneColumn;
+	private TableColumn<User, String> emailColumn;
 	@FXML
-	private TableColumn<Jeune, String> 	derniereConnexionColumn;
+	private TableColumn<User, String> telephoneColumn;
 	@FXML
-	private TableColumn<Jeune, String> 	creationColumn;
+	private TableColumn<User, String> creationColumn;
 	@FXML
 	private AnchorPane mainPane;
 	
 	String nomDeLaPersonneConnecte;
-	boolean statusSuperAdministrateur;
+	String roles;
+	String [] roles_jeune = {"[\"ROLE_JEUNE\"]"};
+	String role_admin = "[\"ROLE_ADMINISTRATEUR\"]";
+	String role_super_admin = "[\"ROLE_SUPER_ADMINISTRATEUR\"]";
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) 
+	{
 		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
-		this.statusSuperAdministrateur = statusSuperAdministrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(String roles) 
+	{
+		this.roles = roles;
 	}
 	
 	@FXML
-	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) {	
+	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) 
+	{	
 		try {
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
@@ -87,15 +93,19 @@ public class JeuneController {
 	}
 	
 	@FXML
-	private void fermer_l_application(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) 
+	{
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) {
-		if(statusSuperAdministrateur == true) {
-			try {
+	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) 
+	{
+		if(roles.toLowerCase().indexOf(role_super_admin.toLowerCase()) != -1) 
+		{
+			try 
+			{
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/SuperAdministrateurMenu.fxml"));
@@ -104,12 +114,15 @@ public class JeuneController {
 				sc.setRoot(userFrame);
 				SuperAdministrateurMenuController superAdministrateurMenuController = loader.<SuperAdministrateurMenuController>getController();
 				superAdministrateurMenuController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-				superAdministrateurMenuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-			}catch (IOException e) {
+				superAdministrateurMenuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+			}catch (IOException e) 
+			{
 				e.printStackTrace();
 			}
-		}else {
-			try {
+		}else if(roles.toLowerCase().indexOf(role_admin.toLowerCase()) != -1) 
+		{
+			try 
+			{
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Menu.fxml"));
@@ -118,28 +131,33 @@ public class JeuneController {
 				sc.setRoot(userFrame);
 				MenuController menuController = loader.<MenuController>getController();
 				menuController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-				menuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-			}catch (IOException e) {
+				menuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+			}catch (IOException e) 
+			{
 				e.printStackTrace();
 			}
 		}
 	}
 	
 	@FXML
-	private void recherche_general(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
-		ObservableList<Jeune> listeDesJeunes = JeuneDAO.obtenir_la_liste_de_tout_les_jeunes();
+	private void recherche_general(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException 
+	{
+		ObservableList<User> listeDesJeunes = UserDAO.obtenir_la_liste_de_tout_les_utilisateur_d_un_certain_role(roles_jeune);
         table.setItems(listeDesJeunes);
 	}
 	
 	@FXML
-	private void recherche_filtre(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
-		ObservableList<Jeune> listeFiltreDesJeunes = JeuneDAO.obtenir_la_liste_filtre_des_jeunes(rechercheInput.getText());
+	private void recherche_filtre(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException 
+	{
+		ObservableList<User> listeFiltreDesJeunes = UserDAO.obtenir_la_liste_filtre(rechercheInput.getText(), this.roles_jeune);
         table.setItems(listeFiltreDesJeunes);
 	}
 		
 	@FXML
-	private void acceder_a_la_page_d_inscription_des_jeunes(ActionEvent actionEvent) {
-        try {
+	private void acceder_a_la_page_d_inscription_des_jeunes(ActionEvent actionEvent) 
+	{
+        try 
+        {
         	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/JeuneInscription.fxml"));
@@ -148,27 +166,31 @@ public class JeuneController {
 			sc.setRoot(userFrame);
 			JeuneInscriptionController jeuneInscriptionController = loader.<JeuneInscriptionController>getController();
 			jeuneInscriptionController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-			jeuneInscriptionController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-        }
-        catch (IOException e) {
+			jeuneInscriptionController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+        }catch (IOException e) 
+        {
             e.printStackTrace();
         }
 	}
 	
 	@FXML
-	private void acceder_a_la_page_de_modification_des_informations_du_jeune_selectionne(ActionEvent actionEvent) {
-		if(table.getSelectionModel().getSelectedItem() != null) {
-			Jeune jeune = table.getSelectionModel().getSelectedItem();
-	        int id = jeune.getJeune_id();
-	        String nom = jeune.getJeune_nom();
-	        String prenom = jeune.getJeune_prenom();
-	        String email = jeune.getJeune_email();
-	        String telephone = jeune.getJeune_telephone();
-	        String adresse = jeune.getJeune_adresse();
-	        String ville = jeune.getJeune_ville();
-	        String code_postal = jeune.getJeune_code_postal();
+	private void acceder_a_la_page_de_modification_des_informations_du_jeune_selectionne(ActionEvent actionEvent) 
+	{
+		if(table.getSelectionModel().getSelectedItem() != null) 
+		{
+			User jeune = table.getSelectionModel().getSelectedItem();
+			
+	        int id = jeune.getId();
+	        String nom = jeune.getNom();
+	        String prenom = jeune.getPrenom();
+	        String email = jeune.getEmail();
+	        String telephone = jeune.getTelephone();
+	        String adresse = jeune.getAdresse();
+	        String ville = jeune.getVille();
+	        String code_postal = jeune.getCodepostal();
 	        
-	        try {
+	        try 
+	        {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/JeuneModification.fxml"));
@@ -178,47 +200,52 @@ public class JeuneController {
 				JeuneModificationController jeuneModificationController = loader.<JeuneModificationController>getController();
 				jeuneModificationController.obtenir_les_informations_du_jeune_a_modifier(id, nom, prenom, email, telephone, adresse, ville, code_postal);
 				jeuneModificationController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-				jeuneModificationController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-			}catch(IOException e) {
+				jeuneModificationController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+			}catch(IOException e) 
+	        {
 				e.printStackTrace();
-				}
+			}
 		}
 	}
 	
 	@FXML
-	private void supprimmer_un_jeune(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-		if(table.getSelectionModel().getSelectedItem() != null) {
-	        Jeune jeuneSelectionne = table.getSelectionModel().getSelectedItem();
-	        int id = jeuneSelectionne.getJeune_id();
-	        JeuneDAO.supprimer_un_jeune(id);
+	private void supprimmer_un_jeune(ActionEvent actionEvent) throws SQLException, ClassNotFoundException 
+	{
+		if(table.getSelectionModel().getSelectedItem() != null) 
+		{
+	        User jeuneSelectionne = table.getSelectionModel().getSelectedItem();
+	        int id = jeuneSelectionne.getId();
+	        UserDAO.supprimer(id);
 	    }
 	}
 	
 	@FXML
-    private void initialize() throws ClassNotFoundException, SQLException {
-		ObservableList<Jeune> empData = JeuneDAO.obtenir_la_liste_de_tout_les_jeunes();
+    private void initialize() throws ClassNotFoundException, SQLException 
+	{
+		ObservableList<User> empData = UserDAO.obtenir_la_liste_de_tout_les_utilisateur_d_un_certain_role(roles_jeune);
         table.setItems(empData);
-        nomColumn.setCellValueFactory(cellData -> cellData.getValue().getJeune_nom_Prop());
-        prenomColumn.setCellValueFactory(cellData -> cellData.getValue().getJeune_prenom_Prop());
-        emailColumn.setCellValueFactory(cellData -> cellData.getValue().getJeune_email_Prop());
-        telephoneColumn.setCellValueFactory(cellData -> cellData.getValue().getJeune_telephone_Prop());
-        derniereConnexionColumn.setCellValueFactory(cellData -> cellData.getValue().getJeune_derniere_connexion_Prop());
-        creationColumn.setCellValueFactory(cellData -> cellData.getValue().getJeune_creation_Prop());
+        nomColumn.setCellValueFactory(cellData -> cellData.getValue().getNomProp());
+        prenomColumn.setCellValueFactory(cellData -> cellData.getValue().getPrenomProp());
+        usernameColumn.setCellValueFactory(cellData -> cellData.getValue().getUsernameProp());
+        emailColumn.setCellValueFactory(cellData -> cellData.getValue().getEmailProp());
+        telephoneColumn.setCellValueFactory(cellData -> cellData.getValue().getTelephoneProp());
+        creationColumn.setCellValueFactory(cellData -> cellData.getValue().getDateajoutProp());
         
-        mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+        mainPane.setOnMousePressed(new EventHandler<MouseEvent>() 
+        {
 			@Override
-			public void handle(MouseEvent event) {
+			public void handle(MouseEvent event) 
+			{
 				 xOffset = event.getSceneX();
 				 yOffset = event.getSceneY();
-				 
-				 System.out.println(xOffset);
-				 System.out.println(yOffset);
 			}
 		});
 		
-		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() 
+		{
 			@Override
-			public void handle(MouseEvent event) {
+			public void handle(MouseEvent event) 
+			{
 				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
 				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}

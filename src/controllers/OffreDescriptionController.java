@@ -43,17 +43,21 @@ public class OffreDescriptionController {
 	private TextArea descriptionInput;
 
 	String nomDeLaPersonneConnecte;
-	boolean statusSuperAdministrateur;
+	String roles;
+	String role_admin = "[\"ROLE_ADMINISTRATEUR\"]";
+	String role_super_admin = "[\"ROLE_SUPER_ADMINISTRATEUR\"]";
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) 
+	{
 		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
-		this.statusSuperAdministrateur = statusSuperAdministrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(String roles) 
+	{
+		this.roles = roles;
 	}
 	
 	public void recuperer_les_informations_de_l_offre_selectionne(int id, String nom, String formation, String partenaire, String description, String debut, String fin) {
@@ -97,7 +101,7 @@ public class OffreDescriptionController {
 			sc.setRoot(userFrame);
 			OffreController offreController = loader.<OffreController>getController();
 			offreController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-			offreController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
+			offreController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
 		}catch (IOException e) {
 		   e.printStackTrace();
 		  }
@@ -128,9 +132,6 @@ public class OffreDescriptionController {
 			public void handle(MouseEvent event) {
 				 xOffset = event.getSceneX();
 				 yOffset = event.getSceneY();
-				 
-				 System.out.println(xOffset);
-				 System.out.println(yOffset);
 			}
 		});
 		

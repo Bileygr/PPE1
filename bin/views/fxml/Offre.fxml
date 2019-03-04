@@ -11,13 +11,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="882.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OffreController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="882.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OffreController">
    <children>
       <Button fx:id="fermetureButton" layoutX="825.0" layoutY="6.0" mnemonicParsing="false" onAction="#fermer_l_application" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@views/images/icone_de_fermeture.png" />
+                  <Image url="@/views/images/icone_de_fermeture.png" />
                </image>
             </ImageView>
          </graphic>
@@ -25,11 +25,11 @@
       <Separator layoutX="14.0" layoutY="50.0" prefHeight="2.0" prefWidth="853.0" />
       <TableView fx:id="table" layoutX="15.0" layoutY="110.0" prefHeight="428.0" prefWidth="853.0">
          <columns>
-            <TableColumn fx:id="formationColumn" prefWidth="134.0" text="Formation" />
-            <TableColumn fx:id="partenaireColumn" prefWidth="162.0" text="Partenaire" />
-            <TableColumn fx:id="nomColumn" prefWidth="185.0" text="Nom" />
-            <TableColumn fx:id="debutColumn" prefWidth="171.0" text="Début" />
-            <TableColumn fx:id="finColumn" prefWidth="200.0" text="Fin" />
+            <TableColumn fx:id="formationColumn" prefWidth="158.0" text="Formation" />
+            <TableColumn fx:id="partenaireColumn" prefWidth="172.0" text="Partenaire" />
+            <TableColumn fx:id="nomColumn" prefWidth="204.0" text="Libelle" />
+            <TableColumn fx:id="debutColumn" prefWidth="162.0" text="Début" />
+            <TableColumn fx:id="finColumn" prefWidth="156.0" text="Fin" />
          </columns>
          <effect>
             <Blend />
@@ -45,7 +45,7 @@
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                <image>
-                  <Image url="@views/images/icone_fleche_de_retour.png" />
+                  <Image url="@/views/images/icone_fleche_de_retour.png" />
                </image>
             </ImageView>
          </graphic>
@@ -54,7 +54,7 @@
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@views/images/icone_de_deconnexion.png" />
+                  <Image url="@/views/images/icone_de_deconnexion.png" />
                </image>
             </ImageView>
          </graphic>

@@ -53,43 +53,54 @@ public class OffreController
 	private TableColumn<Offre, String> finColumn;
 
 	String nomDeLaPersonneConnecte;
-	boolean statusSuperAdministrateur;
+	String roles;
+	String role_admin = "[\"ROLE_ADMINISTRATEUR\"]";
+	String role_super_admin = "[\"ROLE_SUPER_ADMINISTRATEUR\"]";
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) 
+	{
 		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
-		this.statusSuperAdministrateur = statusSuperAdministrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(String roles) 
+	{
+		this.roles = roles;
 	}
 	
 	@FXML
-	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) {	
-		try {
+	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) 
+	{	
+		try 
+		{
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-		}catch(IOException e) {
+		}catch(IOException e) 
+		{
 	        e.printStackTrace();
-	     }
+	    }
 	}
 	
 	@FXML
-	private void fermer_l_application(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) 
+	{
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) {
-		if(this.statusSuperAdministrateur == true) {
-			try {
+	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) 
+	{
+		if(roles.toLowerCase().indexOf(role_super_admin.toLowerCase()) != -1) 
+		{
+			try 
+			{
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/SuperAdministrateurMenu.fxml"));
@@ -98,11 +109,13 @@ public class OffreController
 				sc.setRoot(userFrame);
 				SuperAdministrateurMenuController superAdministrateurMenuController = loader.<SuperAdministrateurMenuController>getController();
 				superAdministrateurMenuController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-				superAdministrateurMenuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-		}catch (IOException e) {
+				superAdministrateurMenuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+		}catch (IOException e) 
+		{
 		   e.printStackTrace();
-		  }
-		}else {
+		}
+		}else if(roles.toLowerCase().indexOf(role_admin.toLowerCase()) != -1) 
+		{
 			try {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
@@ -112,30 +125,35 @@ public class OffreController
 				sc.setRoot(userFrame);
 				MenuController menuController = loader.<MenuController>getController();
 				menuController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-				menuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-			}catch (IOException e) {
+				menuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+			}catch (IOException e) 
+			{
 			   e.printStackTrace();
-			  }
+			}
 		}
 		
 	}
 		
 	@FXML
-	private void recherche_filtre(ActionEvent actionEvent) throws ClassNotFoundException, SQLException {	
+	private void recherche_filtre(ActionEvent actionEvent) throws ClassNotFoundException, SQLException 
+	{	
 		ObservableList<Offre> listeDesOffres = OffreDAO.obtenir_la_liste_filtre_de_toutes_les_offres(rechercheInput.getText());
 		table.setItems(listeDesOffres);
 			
 	}
 		
 	@FXML
-	private void recherche_general(ActionEvent actionEvent) throws ClassNotFoundException, SQLException {
+	private void recherche_general(ActionEvent actionEvent) throws ClassNotFoundException, SQLException 
+	{
 		ObservableList<Offre> listeDesOffres = OffreDAO.obtenir_la_liste_de_toutes_les_offres();
 		table.setItems(listeDesOffres);
 	}
 	
 	@FXML
-	private void acceder_a_la_page_de_description_de_l_offre_selectionne(ActionEvent actionEvent) throws ClassNotFoundException, SQLException {
-		if(table.getSelectionModel().getSelectedItem() != null) {
+	private void acceder_a_la_page_de_description_de_l_offre_selectionne(ActionEvent actionEvent) throws ClassNotFoundException, SQLException 
+	{
+		if(table.getSelectionModel().getSelectedItem() != null) 
+		{
 			Offre offreSelectionne = table.getSelectionModel().getSelectedItem();
 	        int id = offreSelectionne.getOffre_id();
 	        String nom = offreSelectionne.getOffre_nom();
@@ -145,7 +163,8 @@ public class OffreController
 	        String debut = offreSelectionne.getOffre_debut();
 	        String fin = offreSelectionne.getOffre_fin();
 	        
-	        try {
+	        try 
+	        {
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/OffreDescription.fxml"));
@@ -155,24 +174,27 @@ public class OffreController
 				OffreDescriptionController offreDescriptionController = loader.<OffreDescriptionController>getController();
 				offreDescriptionController.recuperer_les_informations_de_l_offre_selectionne(id, nom, partenaire, formation, description, debut, fin);
 				offreDescriptionController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-				offreDescriptionController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-			}catch(IOException e) {
+				offreDescriptionController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+			}catch(IOException e) 
+	        {
 				e.printStackTrace();
 				}
 		}
 	}
 		
 	@FXML
-	private void supprimer_l_offre_selectionne(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException {
-		if(table.getSelectionModel().getSelectedItem() != null) {
+	private void supprimer_l_offre_selectionne(ActionEvent actionEvent) throws NumberFormatException, ClassNotFoundException, SQLException 
+	{
+		if(table.getSelectionModel().getSelectedItem() != null) 
+		{
 	        Offre offreSelectionne = table.getSelectionModel().getSelectedItem();
-	        int id = offreSelectionne.getOffre_id();
-	        OffreDAO.supprimer_une_offre(id);
+	        OffreDAO.supprimer_une_offre(offreSelectionne.getOffre_id());
 	    }
 	}
 		
 	@FXML
-	private void initialize () throws ClassNotFoundException, SQLException  {
+	private void initialize () throws ClassNotFoundException, SQLException  
+	{
 		ObservableList<Offre> listeDesOffres = OffreDAO.obtenir_la_liste_de_toutes_les_offres();
 	    table.setItems(listeDesOffres);
 	    formationColumn.setCellValueFactory(cellData -> cellData.getValue().getFormation_nom_Prop());
@@ -181,20 +203,21 @@ public class OffreController
 		debutColumn.setCellValueFactory(cellData -> cellData.getValue().getOffre_debut_Prop());
 		finColumn.setCellValueFactory(cellData -> cellData.getValue().getOffre_fin_Prop());
 		
-		mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+		mainPane.setOnMousePressed(new EventHandler<MouseEvent>() 
+		{
 			@Override
-			public void handle(MouseEvent event) {
+			public void handle(MouseEvent event) 
+			{
 				 xOffset = event.getSceneX();
 				 yOffset = event.getSceneY();
-				 
-				 System.out.println(xOffset);
-				 System.out.println(yOffset);
 			}
 		});
 		
-		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() 
+		{
 			@Override
-			public void handle(MouseEvent event) {
+			public void handle(MouseEvent event) 
+			{
 				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
 				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}

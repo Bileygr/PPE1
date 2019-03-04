@@ -16,9 +16,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import library.encryption.BCrypt;
-import models.base.Administrateur;
-import models.dao.AdministrateurDAO;
+import models.base.User;
 import models.dao.ConfigurationConnexionBaseDeDonneesDAO;
+import models.dao.UserDAO;
 
 public class AdministrateurInscriptionController {
 	@FXML
@@ -53,42 +53,50 @@ public class AdministrateurInscriptionController {
 	private CheckBox statusSuperAdministrateurCheckbox;
 	
 	String nomDeLaPersonneConnecte;
-	boolean statusSuperAdministrateur;
+	String roles;
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) 
+	{
 		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
-		this.statusSuperAdministrateur = statusSuperAdministrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(String roles) 
+	{
+		this.roles = roles;
 	}
 	
 	@FXML
-	private void deconnecter_l_utilisateur(ActionEvent actionEvent) {	
-		try {
+	private void deconnecter_l_utilisateur(ActionEvent actionEvent) 
+	{	
+		try 
+		{
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-		}catch(IOException e) {
+		}catch(IOException e) 
+		{
 	        e.printStackTrace();
-	     }
+	    }
 	}
 	
 	@FXML
-	private void fermer_l_application(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) 
+	{
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) {
-		try {
+	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) 
+	{
+		try 
+		{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Administrateur.fxml"));
@@ -97,107 +105,123 @@ public class AdministrateurInscriptionController {
 			sc.setRoot(userFrame);
 			AdministrateurController administrateurController = loader.<AdministrateurController>getController();
 			administrateurController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-			administrateurController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-		}catch (IOException e) {
+			administrateurController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+		}catch (IOException e) 
+		{
 		   e.printStackTrace();
-		  }
+		}
 	}
 	
 	@FXML
 	private void inscrire_un_nouvel_administrateur(ActionEvent actionEvent) throws SQLException {
 		if(!nomInput.getText().isEmpty() && !prenomInput.getText().isEmpty() && !motDePasseInput.getText().isEmpty() 
 				&& !emailInput.getText().isEmpty() && !telephoneInput.getText().isEmpty() && !adresseInput.getText().isEmpty() 
-				&& !villeInput.getText().isEmpty() && !codePostalInput.getText().isEmpty()) {
-			if(motDePasseInput.getText().length() >= 12) {
-				boolean verificationDeLaSyntaxeEmail = Administrateur.verifier_la_syntaxe_de_l_email(emailInput.getText());
-				int super_administrateur = 0;
+				&& !villeInput.getText().isEmpty() && !codePostalInput.getText().isEmpty()) 
+		{
+			boolean verificationDeLaSyntaxeEmail = User.verifier_la_syntaxe_de_l_email(emailInput.getText());
+			String role = "[\"ROLE_ADMINISTRATEUR\"]";
+			String motdepasse = BCrypt.hashpw(motDePasseInput.getText(), BCrypt.gensalt());
 				
-				String motDePasseSaleEtHashe = BCrypt.hashpw(motDePasseInput.getText(), BCrypt.gensalt());
+			if(statusSuperAdministrateurCheckbox.isSelected())
+			{
+				role =  "[\"ROLE_SUPER_ADMINISTRATEUR\"]";
+			}
 				
-				if(statusSuperAdministrateurCheckbox.isSelected()){
-					super_administrateur = 1;
-				}
-				
-				if(verificationDeLaSyntaxeEmail == true) {
-					if(telephoneInput.getText().length() == 10) {
-						if(adresseInput.getText().length() <= 38) {
-							if(villeInput.getText().length() <= 32) {
-								if(codePostalInput.getText().length() == 5) {
-									boolean empdata = AdministrateurDAO.ajouter_un_administrateur(super_administrateur, nomInput.getText(), prenomInput.getText(), motDePasseSaleEtHashe, emailInput.getText(), telephoneInput.getText(), adresseInput.getText(), 
-											villeInput.getText(), codePostalInput.getText());
-									if(empdata == true) {
-										boolean statusOptionEnvoiEmail = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_status_de_l_option_d_envoi_d_email();
-										if(statusOptionEnvoiEmail == true) {
-											boolean verificationEnvoiEmail = Administrateur.email_d_inscription(emailInput.getText());
+			if(verificationDeLaSyntaxeEmail == true) 
+			{
+				if(telephoneInput.getText().length() == 10) 
+				{
+					if(adresseInput.getText().length() <= 38) 
+					{
+						if(villeInput.getText().length() <= 32) 
+						{
+							if(codePostalInput.getText().length() == 5) 
+							{
+								User user = new User();
+								user.setNom(nomInput.getText());
+								user.setPrenom(prenomInput.getText());
+								user.setUsername();
+								user.setRoles(role);
+								user.setPassword(motdepasse);
+								user.setEmail(emailInput.getText());
+								user.setTelephone(telephoneInput.getText());
+								user.setAdresse(adresseInput.getText());
+								user.setVille(villeInput.getText());
+								user.setCodepostal(codePostalInput.getText());
+								
+								boolean empdata = UserDAO.inscrire(user);
+								if(empdata == true) 
+								{
+									boolean statusOptionEnvoiEmail = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_status_de_l_option_d_envoi_d_email();
+									if(statusOptionEnvoiEmail == true) 
+									{
+										boolean verificationEnvoiEmail = User.email_d_inscription(emailInput.getText());
 											
-											if(verificationEnvoiEmail == false) {
-												Alert a1 = new Alert(Alert.AlertType.ERROR);
-												a1.setTitle("Erreur: n°9");
-												a1.setContentText("L'envoi d'email ne fonctionne pas vous pouvez désactiver la fonctionnalité dans le menu de configuration.");
-												a1.setHeaderText(null);
-												a1.showAndWait();
-											}
+										if(verificationEnvoiEmail == false) 
+										{
+											Alert a1 = new Alert(Alert.AlertType.ERROR);
+											a1.setTitle("Erreur: n°9");
+											a1.setContentText("L'envoi d'email ne fonctionne pas vous pouvez désactiver la fonctionnalité dans le menu de configuration.");
+											a1.setHeaderText(null);
+											a1.showAndWait();
 										}
-										
-										try {
-											mainPane.getChildren().clear();
-											FXMLLoader loader = new FXMLLoader();
-											loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Administrateur.fxml"));
-											AnchorPane userFrame = (AnchorPane) loader.load();
-											Scene sc = mainPane.getScene();
-											sc.setRoot(userFrame);
-											AdministrateurController administrateurController = loader.<AdministrateurController>getController();
-											administrateurController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-											administrateurController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-										}catch (IOException e) {
-											e.printStackTrace();
-										}
-									}else {
-										Alert a1 = new Alert(Alert.AlertType.ERROR);
-										a1.setTitle("Erreur: n°8");
-										a1.setContentText("L'inscription a échoué dû a une erreur de connexion.");
-										a1.setHeaderText(null);
-										a1.showAndWait();
 									}
-								}else {
+										
+									try 
+									{
+										mainPane.getChildren().clear();
+										FXMLLoader loader = new FXMLLoader();
+										loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Administrateur.fxml"));
+										AnchorPane userFrame = (AnchorPane) loader.load();
+										Scene sc = mainPane.getScene();
+										sc.setRoot(userFrame);
+										AdministrateurController administrateurController = loader.<AdministrateurController>getController();
+										administrateurController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
+										administrateurController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+									}catch (IOException e) 
+									{
+										e.printStackTrace();
+									}
+								}else 
+								{
 									Alert a1 = new Alert(Alert.AlertType.ERROR);
 									a1.setTitle("Erreur: n°7");
-									a1.setContentText("Le code postal devrait avoir un maximum de 5 caractères.");
+									a1.setContentText("L'inscription a échoué dû a une erreur de connexion.");
 									a1.setHeaderText(null);
 									a1.showAndWait();
 								}
 							}else {
 								Alert a1 = new Alert(Alert.AlertType.ERROR);
 								a1.setTitle("Erreur: n°6");
-								a1.setContentText("La ville devrait avoir un maximum de 32 caractères.");
+								a1.setContentText("Le code postal devrait avoir un maximum de 5 caractères.");
 								a1.setHeaderText(null);
 								a1.showAndWait();
 							}
 						}else {
 							Alert a1 = new Alert(Alert.AlertType.ERROR);
 							a1.setTitle("Erreur: n°5");
-							a1.setContentText("L'addresse devrait avoir un maximum de 38 caractères.");
+							a1.setContentText("La ville devrait avoir un maximum de 32 caractères.");
 							a1.setHeaderText(null);
 							a1.showAndWait();
 						}
 					}else {
 						Alert a1 = new Alert(Alert.AlertType.ERROR);
 						a1.setTitle("Erreur: n°4");
-						a1.setContentText("Le n° de téléphone devrait avoir 10 chiffre.");
+						a1.setContentText("L'addresse devrait avoir un maximum de 38 caractères.");
 						a1.setHeaderText(null);
 						a1.showAndWait();
 					}
 				}else {
 					Alert a1 = new Alert(Alert.AlertType.ERROR);
 					a1.setTitle("Erreur: n°3");
-					a1.setContentText("Le format de l'email est incorrect.");
+					a1.setContentText("Le n° de téléphone devrait avoir 10 chiffre.");
 					a1.setHeaderText(null);
 					a1.showAndWait();
 				}
 			}else {
 				Alert a1 = new Alert(Alert.AlertType.ERROR);
 				a1.setTitle("Erreur: n°2");
-				a1.setContentText("Le mot de passe devrait avoir au moins 12 caractères.");
+				a1.setContentText("Le format de l'email est incorrect.");
 				a1.setHeaderText(null);
 				a1.showAndWait();
 			}
@@ -211,18 +235,23 @@ public class AdministrateurInscriptionController {
 	}
 	
 	@FXML
-    private void initialize() throws ClassNotFoundException, SQLException {
-		mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+    private void initialize() throws ClassNotFoundException, SQLException 
+	{
+		mainPane.setOnMousePressed(new EventHandler<MouseEvent>() 
+		{
 			@Override
-			public void handle(MouseEvent event) {
+			public void handle(MouseEvent event) 
+			{
 				 xOffset = event.getSceneX();
 				 yOffset = event.getSceneY();
 			}
 		});
 		
-		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+		mainPane.setOnMouseDragged(new EventHandler<MouseEvent>() 
+		{
 			@Override
-			public void handle(MouseEvent event) {
+			public void handle(MouseEvent event) 
+			{
 				Main.obtenir_le_primaryStage().setX(event.getScreenX()- xOffset);
 				Main.obtenir_le_primaryStage().setY(event.getScreenY()- yOffset);
 			}

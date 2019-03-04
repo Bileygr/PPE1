@@ -8,30 +8,30 @@ import javafx.beans.property.StringProperty;
 public class Offre 
 {
 	private IntegerProperty offre_id;
-	private StringProperty	partenaire_nom;
-	private StringProperty  formation_nom;
-	private StringProperty 	offre_nom;
-	private StringProperty	offre_description;
-	private StringProperty	offre_adresse;
-	private StringProperty	offre_ville;
-	private StringProperty	offre_code_postal;
-	private StringProperty	offre_debut;
-	private StringProperty	offre_fin;
-	private StringProperty	offre_creation;
+	private StringProperty partenaire_nom;
+	private StringProperty formation_nom;
+	private StringProperty offre_nom;
+	private StringProperty offre_description;
+	private StringProperty offre_adresse;
+	private StringProperty offre_ville;
+	private StringProperty offre_code_postal;
+	private StringProperty offre_debut;
+	private StringProperty offre_fin;
+	private StringProperty offre_creation;
 	
 	public Offre()
 	{
-		this.offre_id 				= new SimpleIntegerProperty();
-		this.partenaire_nom 		= new SimpleStringProperty();
-		this.formation_nom 			= new SimpleStringProperty();
-		this.offre_nom				= new SimpleStringProperty();
-		this.offre_description 		= new SimpleStringProperty();
-		this.offre_adresse 			= new SimpleStringProperty();
-		this.offre_ville 			= new SimpleStringProperty();
-		this.offre_code_postal		= new SimpleStringProperty();
-		this.offre_debut 			= new SimpleStringProperty();
-		this.offre_fin 				= new SimpleStringProperty();
-		this.offre_creation		= new SimpleStringProperty();
+		this.offre_id = new SimpleIntegerProperty();
+		this.partenaire_nom = new SimpleStringProperty();
+		this.formation_nom = new SimpleStringProperty();
+		this.offre_nom = new SimpleStringProperty();
+		this.offre_description = new SimpleStringProperty();
+		this.offre_adresse = new SimpleStringProperty();
+		this.offre_ville = new SimpleStringProperty();
+		this.offre_code_postal = new SimpleStringProperty();
+		this.offre_debut = new SimpleStringProperty();
+		this.offre_fin = new SimpleStringProperty();
+		this.offre_creation = new SimpleStringProperty();
 	}
 	
 	public void setOffre_id(IntegerProperty offre_id){this.offre_id = offre_id;}

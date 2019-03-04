@@ -34,43 +34,54 @@ public class StatistiqueController {
 	private PieChart StatPieChart;
 	
 	String nomDeLaPersonneConnecte;
-	boolean statusSuperAdministrateur;
+	String roles;
+	String role_admin = "[\"ROLE_ADMINISTRATEUR\"]";
+	String role_super_admin = "[\"ROLE_SUPER_ADMINISTRATEUR\"]";
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) 
+	{
 		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
-		this.statusSuperAdministrateur = statusSuperAdministrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(String roles) 
+	{
+		this.roles = roles;
 	}
 	
 	@FXML
-	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) {	
-		try {
+	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) 
+	{	
+		try 
+		{
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-		}catch(IOException e) {
+		}catch(IOException e) 
+		{
 	        e.printStackTrace();
-	     }
+	    }
 	}
 	
 	@FXML
-	private void fermer_l_application(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) 
+	{
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) {
-		if(statusSuperAdministrateur == true) {
-			try {
+	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) 
+	{
+		if(roles.toLowerCase().indexOf(role_super_admin.toLowerCase()) != -1) 
+		{
+			try 
+			{
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/SuperAdministrateurMenu.fxml"));
@@ -79,12 +90,15 @@ public class StatistiqueController {
 				sc.setRoot(userFrame);
 				SuperAdministrateurMenuController superAdministrateurMenuController = loader.<SuperAdministrateurMenuController>getController();
 				superAdministrateurMenuController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-				superAdministrateurMenuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-			}catch (IOException e) {
+				superAdministrateurMenuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+			}catch (IOException e) 
+			{
 			   e.printStackTrace();
-			  }
-		}else {
-			try {
+			}
+		}else if(roles.toLowerCase().indexOf(role_admin.toLowerCase()) != -1)
+		{
+			try 
+			{
 				mainPane.getChildren().clear();
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Menu.fxml"));
@@ -93,21 +107,24 @@ public class StatistiqueController {
 				sc.setRoot(userFrame);
 				MenuController menuController = loader.<MenuController>getController();
 				menuController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-				menuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-			}catch (IOException e) {
+				menuController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+			}catch (IOException e) 
+			{
 			   e.printStackTrace();
-			  }
+			}
 		}
 	}
 	
 	@FXML
-	private void afficher_le_camembert_des_offres_par_formation(ActionEvent actionEvent) throws SQLException {
+	private void afficher_le_camembert_des_offres_par_formation(ActionEvent actionEvent) throws SQLException 
+	{
 		ObservableList<PieChart.Data> donneesDuCamembert = OffreDAO.recuperer_les_statistiques_des_offres_par_formation();
 		StatPieChart.setData(donneesDuCamembert) ;
 	}
 	
 	@FXML
-	private void afficher_le_camembert_des_offres_par_partenaire(ActionEvent actionEvent) throws SQLException {
+	private void afficher_le_camembert_des_offres_par_partenaire(ActionEvent actionEvent) throws SQLException 
+	{
 		ObservableList<PieChart.Data> donneesDuCamembert = OffreDAO.recuperer_les_statistiques_des_offres_par_partenaire();
 		StatPieChart.setData(donneesDuCamembert) ;
 	}
@@ -124,9 +141,6 @@ public class StatistiqueController {
 			public void handle(MouseEvent event) {
 				 xOffset = event.getSceneX();
 				 yOffset = event.getSceneY();
-				 
-				 System.out.println(xOffset);
-				 System.out.println(yOffset);
 			}
 		});
 		

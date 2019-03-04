@@ -15,9 +15,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import library.encryption.BCrypt;
-import models.base.Partenaire;
+import models.base.User;
 import models.dao.ConfigurationConnexionBaseDeDonneesDAO;
-import models.dao.PartenaireDAO;
+import models.dao.UserDAO;
 
 public class PartenaireInscriptionController {
 	@FXML
@@ -48,42 +48,51 @@ public class PartenaireInscriptionController {
 	private TextField codePostalInput;
 
 	String nomDeLaPersonneConnecte;
-	boolean statusSuperAdministrateur;
+	String roles;
+	String roles_partenaire = "[\"ROLE_PARTENAIRE\"]";
 	
 	private double xOffset;
 	private double yOffset;
 	
-	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) {
+	public void recuperer_le_nom_de_la_personne_connecte(String nomDeLaPersonneConnecte) 
+	{
 		this.nomDeLaPersonneConnecte = nomDeLaPersonneConnecte;
 	}
 	
-	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(boolean statusSuperAdministrateur) {
-		this.statusSuperAdministrateur = statusSuperAdministrateur;
+	public void recuperer_le_status_super_administrateur_de_la_personne_connecte(String roles) 
+	{
+		this.roles = roles;
 	}
 	
 	@FXML
-	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) {	
-		try {
+	private void deconnecter_l_utilisateur_connecte(ActionEvent actionEvent) 
+	{	
+		try 
+		{
 	    	mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Connexion.fxml"));
 			AnchorPane userFrame = (AnchorPane) loader.load();
 			Scene sc = mainPane.getScene();
 			sc.setRoot(userFrame);
-		}catch(IOException e) {
+		}catch(IOException e) 
+		{
 	        e.printStackTrace();
-	     }
+	    }
 	}
 	
 	@FXML
-	private void fermer_l_application(ActionEvent actionEvent) {
+	private void fermer_l_application(ActionEvent actionEvent) 
+	{
 		Platform.exit();
         System.exit(0);
 	}
 	
 	@FXML
-	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) {
-		try {
+	private void retourner_dans_la_page_precedente(ActionEvent actionEvent) 
+	{
+		try 
+		{
 			mainPane.getChildren().clear();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getClassLoader().getResource("views/fxml/Partenaire.fxml"));
@@ -92,41 +101,55 @@ public class PartenaireInscriptionController {
 			sc.setRoot(userFrame);
 			PartenaireController partenaireController = loader.<PartenaireController>getController();
 			partenaireController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-			partenaireController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
-		}catch (IOException e) {
+			partenaireController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
+		}catch (IOException e) 
+		{
 		   e.printStackTrace();
-		  }
+		}
 	}
 	
 	@FXML
-	private void inscrire_un_nouveau_partenaire(ActionEvent actionEvent) throws SQLException {
+	private void inscrire_un_nouveau_partenaire(ActionEvent actionEvent) throws SQLException 
+	{
 		if(!siretInput.getText().isEmpty() &&  !nomInput.getText().isEmpty() && !motDePasseInput.getText().isEmpty() 
 				&& !emailInput.getText().isEmpty() && !telephoneInput.getText().isEmpty() && !adresseInput.getText().isEmpty() 
 				&& !villeInput.getText().isEmpty() && !codePostalInput.getText().isEmpty()) {
-			boolean email_validation = Partenaire.verifier_la_syntaxe_de_l_email(emailInput.getText());
-			String hash = BCrypt.hashpw(motDePasseInput.getText(), BCrypt.gensalt());
+			boolean email_validation = User.verifier_la_syntaxe_de_l_email(emailInput.getText());
 			
-			if(siretInput.getText().length() == 9) {
-				
-				if(motDePasseInput.getText().length() >= 12) {
-				
-					if(email_validation == true) {
-					
-						if(telephoneInput.getText().length() == 10) {
-						
-							if(adresseInput.getText().length() <= 38) {
-							
-								if(villeInput.getText().length() <= 32) {
-								
-									if(codePostalInput.getText().length() == 5) {
-										boolean verificationInscriptionDuPartenaire = PartenaireDAO.inscrire_un_nouveau_partenaire(Integer.parseInt(siretInput.getText()), nomInput.getText(), hash, 
-												emailInput.getText(), telephoneInput.getText(), adresseInput.getText(), villeInput.getText(), codePostalInput.getText());
+			if(siretInput.getText().length() == 9) 
+			{
+				if(email_validation == true) 
+				{
+					if(telephoneInput.getText().length() == 10) 
+					{	
+						if(adresseInput.getText().length() <= 38) 
+						{	
+							if(villeInput.getText().length() <= 32) 
+							{	
+								if(codePostalInput.getText().length() == 5) 
+								{
+									String hash = BCrypt.hashpw(motDePasseInput.getText(), BCrypt.gensalt());
+									User user = new User();
+									user.setSiret(Integer.parseInt(siretInput.getText()));
+									user.setNom(nomInput.getText());
+									user.setUsername();
+									user.setRoles(roles_partenaire);
+									user.setPassword(hash);
+									user.setEmail(emailInput.getText());
+									user.setTelephone(telephoneInput.getText());
+									user.setAdresse(adresseInput.getText());
+									user.setVille(villeInput.getText());
+									user.setCodepostal(codePostalInput.getText());
+									
+									boolean verificationInscriptionDuPartenaire = UserDAO.inscrire(user);
 		
-										if(verificationInscriptionDuPartenaire == true) {
+										if(verificationInscriptionDuPartenaire == true) 
+										{
 											boolean statusOptionEnvoiEmail = ConfigurationConnexionBaseDeDonneesDAO.obtenir_le_status_de_l_option_d_envoi_d_email();
 											
-											if(statusOptionEnvoiEmail == true) {
-												boolean verificationEnvoiEmail = Partenaire.email_d_inscription(emailInput.getText());
+											if(statusOptionEnvoiEmail == true) 
+											{
+												boolean verificationEnvoiEmail = User.email_d_inscription(emailInput.getText());
 												
 												if(verificationEnvoiEmail == false) {
 													Alert a1 = new Alert(Alert.AlertType.ERROR);
@@ -145,7 +168,7 @@ public class PartenaireInscriptionController {
 												sc.setRoot(userFrame);
 												PartenaireController partenaireController = loader.<PartenaireController>getController();
 												partenaireController.recuperer_le_nom_de_la_personne_connecte(this.nomDeLaPersonneConnecte);
-												partenaireController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.statusSuperAdministrateur);
+												partenaireController.recuperer_le_status_super_administrateur_de_la_personne_connecte(this.roles);
 											}catch (IOException e) {
 												e.printStackTrace();
 											}
@@ -191,13 +214,6 @@ public class PartenaireInscriptionController {
 						a1.setHeaderText(null);
 						a1.showAndWait();
 					}
-				}else {
-					Alert a1 = new Alert(Alert.AlertType.ERROR);
-					a1.setTitle("Erreur: n°3");
-					a1.setContentText("Le mot de passe devrait avoir au moins 12 caractères.");
-					a1.setHeaderText(null);
-					a1.showAndWait();
-				}
 			}else {
 				Alert a1 = new Alert(Alert.AlertType.ERROR);
 				a1.setTitle("Erreur: n°2");
@@ -215,15 +231,15 @@ public class PartenaireInscriptionController {
 	}
 	
 	@FXML
-	private void initialize () throws ClassNotFoundException, SQLException  {
-		 mainPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+	private void initialize () throws ClassNotFoundException, SQLException  
+	{
+		 mainPane.setOnMousePressed(new EventHandler<MouseEvent>() 
+		 {
 			@Override
-			public void handle(MouseEvent event) {
+			public void handle(MouseEvent event) 
+			{
 				 xOffset = event.getSceneX();
 				 yOffset = event.getSceneY();
-				 
-				 System.out.println(xOffset);
-				 System.out.println(yOffset);
 			}
 		});
 		

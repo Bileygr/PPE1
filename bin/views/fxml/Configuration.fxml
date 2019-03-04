@@ -20,8 +20,8 @@
       <TextField fx:id="nomUtilisateurInput" alignment="CENTER" layoutX="361.0" layoutY="268.0" prefHeight="25.0" prefWidth="173.0" promptText="Utilisateur" />
       <TextField fx:id="motDePasseInput" alignment="CENTER" layoutX="361.0" layoutY="305.0" prefHeight="25.0" prefWidth="173.0" promptText="Mot de passe" />
       <CheckBox fx:id="emailInput" layoutX="399.0" layoutY="379.0" mnemonicParsing="false" text="Envoi d'emails" textFill="WHITE" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="353.0" layoutY="102.0" prefHeight="26.0" prefWidth="189.0" text="Base de donnÃ©es et envoi d'emails" textFill="WHITE" />
-      <Label layoutX="266.0" layoutY="157.0" prefHeight="17.0" prefWidth="97.0" text="Base de donnÃ©es" textFill="WHITE" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="353.0" layoutY="102.0" prefHeight="26.0" prefWidth="189.0" text="Base de données et envoi d'emails" textFill="WHITE" />
+      <Label layoutX="266.0" layoutY="157.0" prefHeight="17.0" prefWidth="97.0" text="Base de données" textFill="WHITE" />
       <Label layoutX="266.0" layoutY="196.0" prefHeight="17.0" prefWidth="87.0" text="Adresse IP" textFill="WHITE" />
       <Label layoutX="266.0" layoutY="235.0" prefHeight="17.0" prefWidth="87.0" text="Port" textFill="WHITE" />
       <Label layoutX="266.0" layoutY="272.0" prefHeight="17.0" prefWidth="87.0" text="Utilisateur" textFill="WHITE" />
@@ -30,7 +30,7 @@
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="90.0">
                <image>
-                  <Image url="@views/images/icone_fleche_de_retour.png" />
+                  <Image url="@/views/images/icone_fleche_de_retour.png" />
                </image>
             </ImageView>
          </graphic>
@@ -39,7 +39,7 @@
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@views/images/icone_de_fermeture.png" />
+                  <Image url="@/views/images/icone_de_fermeture.png" />
                </image>
             </ImageView>
          </graphic>
