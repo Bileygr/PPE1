@@ -1,6 +1,0 @@
-lycee_du_parc_de_villegenis
-127.0.0.1
-3306
-root
-
-0

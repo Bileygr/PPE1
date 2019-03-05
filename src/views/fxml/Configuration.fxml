@@ -9,7 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="882.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ConfigurationController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="882.0" style="-fx-background-color: #223447;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ConfigurationController">
    <children>
       <TextField fx:id="baseDeDonneesInput" alignment="CENTER" layoutX="361.0" layoutY="153.0" prefHeight="25.0" prefWidth="173.0" promptText="Base de donnÃ©es" />
       <Separator layoutX="14.0" layoutY="54.0" prefHeight="0.0" prefWidth="851.0" />
@@ -20,8 +20,8 @@
       <TextField fx:id="nomUtilisateurInput" alignment="CENTER" layoutX="361.0" layoutY="268.0" prefHeight="25.0" prefWidth="173.0" promptText="Utilisateur" />
       <TextField fx:id="motDePasseInput" alignment="CENTER" layoutX="361.0" layoutY="305.0" prefHeight="25.0" prefWidth="173.0" promptText="Mot de passe" />
       <CheckBox fx:id="emailInput" layoutX="399.0" layoutY="379.0" mnemonicParsing="false" text="Envoi d'emails" textFill="WHITE" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="353.0" layoutY="102.0" prefHeight="26.0" prefWidth="189.0" text="Base de données et envoi d'emails" textFill="WHITE" />
-      <Label layoutX="266.0" layoutY="157.0" prefHeight="17.0" prefWidth="97.0" text="Base de données" textFill="WHITE" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="353.0" layoutY="102.0" prefHeight="26.0" prefWidth="189.0" text="Base de donnÃ©es et envoi d'emails" textFill="WHITE" />
+      <Label layoutX="266.0" layoutY="157.0" prefHeight="17.0" prefWidth="97.0" text="Base de donnÃ©es" textFill="WHITE" />
       <Label layoutX="266.0" layoutY="196.0" prefHeight="17.0" prefWidth="87.0" text="Adresse IP" textFill="WHITE" />
       <Label layoutX="266.0" layoutY="235.0" prefHeight="17.0" prefWidth="87.0" text="Port" textFill="WHITE" />
       <Label layoutX="266.0" layoutY="272.0" prefHeight="17.0" prefWidth="87.0" text="Utilisateur" textFill="WHITE" />

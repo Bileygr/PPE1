@@ -18,7 +18,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import models.dao.ConfigurationConnexionBaseDeDonneesDAO;
 
 public class ConfigurationController {
@@ -83,11 +82,16 @@ public class ConfigurationController {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Alerte!");
 		alert.setHeaderText("Configuration");
-		alert.setContentText("L'application va redémarrer afin de prendre en compte les changements.");
+		alert.setContentText("L'application va fermer, réouvrez la après pour prendre en compte les changements.");
 		alert.showAndWait();
 		
+		Platform.exit();
+        System.exit(0);
+		
+		/*
 		Main.obtenir_le_primaryStage().close();
 		Platform.runLater( () -> new Main().start( new Stage() ) );
+		*/
 	}
 	
 	@FXML

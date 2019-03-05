@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import models.dao.ConfigurationConnexionBaseDeDonneesDAO;
 
 public class Main extends Application
 {
@@ -40,6 +41,7 @@ public class Main extends Application
 
 	public static void main(String[] args) throws IOException
 	{
+		ConfigurationConnexionBaseDeDonneesDAO.creation_des_fichiers_necessaire();
 		launch(args);
 	}
 }
