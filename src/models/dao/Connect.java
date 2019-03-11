@@ -64,6 +64,7 @@ public class Connect {
 	    public Connection getConnection() throws SQLException 
 	    {
 	        Connection cx = DriverManager.getConnection(URL, USER, PASSWORD);
+	        
 	        return cx;
 	    }
 

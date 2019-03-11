@@ -7,11 +7,68 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.Key;
 import java.sql.SQLException;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
 public class ConfigurationConnexionBaseDeDonneesDAO {
+	public static String encryption(String mdp) {
+		String mdp_crypte = null;
+		
+		if(mdp != null) 
+		{
+			try 
+		    {
+		        String key = "Bar12345Bar12345";
+		        
+		        Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
+		        Cipher cipher = Cipher.getInstance("AES");
+		        
+		        cipher.init(Cipher.ENCRYPT_MODE, aesKey);
+		        byte[] encrypted = cipher.doFinal(mdp.getBytes());
+		        StringBuilder sb = new StringBuilder();
+		        
+		        for (byte b: encrypted) {
+	                sb.append((char)b);
+	            }
+
+		        mdp_crypte = sb.toString();
+		    }catch(Exception e) 
+		    {
+		    	e.printStackTrace();
+		    }
+		}else if(mdp == null) {
+			try 
+		    {
+				String password = "rk-mSx4f$+w*kVFL";
+		        String key = "Bar12345Bar12345";
+		        
+		        Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
+		        Cipher cipher = Cipher.getInstance("AES");
+		        
+		        cipher.init(Cipher.ENCRYPT_MODE, aesKey);
+		        byte[] encrypted = cipher.doFinal(password.getBytes());
+		        StringBuilder sb = new StringBuilder();
+		        
+		        for (byte b: encrypted) {
+	                sb.append((char)b);
+	            }
+
+		        mdp_crypte = sb.toString();
+		    }catch(Exception e) 
+		    {
+		    	e.printStackTrace();
+		    }
+		}
+
+		return mdp_crypte;
+	}
+	
 	public static void creation_des_fichiers_necessaire() throws FileNotFoundException, UnsupportedEncodingException {
 		File theDir = new File("C:/ppe (Cheik-Siramakan Keita)");
+		String encrypted = ConfigurationConnexionBaseDeDonneesDAO.encryption(null);
 
 		if (!theDir.exists()) {
 		    System.out.println("creating directory: " + theDir.getName());
@@ -26,11 +83,11 @@ public class ConfigurationConnexionBaseDeDonneesDAO {
 		    }        
 		    if(result) {  
 		    	PrintWriter writer = new PrintWriter("C:/ppe (Cheik-Siramakan Keita)/bdd-info.txt", "UTF-8");
-				writer.println("lycee_du_parc_de_villegenis");
-				writer.println("127.0.0.1");
-				writer.println("3306");
-				writer.println("root");
-				writer.println("");
+				writer.println("ppe");
+				writer.println("cheikkeita.ddns.net");
+				writer.println("9766");
+				writer.println("ppe");
+				writer.println(encrypted);
 				writer.println("0");
 				writer.close();
 		        System.out.println("DIR created");  
@@ -40,11 +97,13 @@ public class ConfigurationConnexionBaseDeDonneesDAO {
 	
 	public static void modifier_les_modalites_de_connexion_a_la_base_de_donnees(String hostname, int port, String bdd, String utilisateur, String mdp, int email) throws SQLException, FileNotFoundException, UnsupportedEncodingException{
 		PrintWriter writer = new PrintWriter("C:/ppe (Cheik-Siramakan Keita)/bdd-info.txt", "UTF-8");
+		String password = ConfigurationConnexionBaseDeDonneesDAO.encryption(mdp);
+		
 		writer.println(bdd);
 		writer.println(hostname);
 		writer.println(port);
 		writer.println(utilisateur);
-		writer.println(mdp);
+		writer.println(password);
 		writer.println(email);
 		writer.close();
     }
@@ -103,15 +162,36 @@ public class ConfigurationConnexionBaseDeDonneesDAO {
 	
 	public static String obtenir_le_mot_de_passe(){
 		String mdp = null;
+		String decrypted = null;
 		
 		try {
 			mdp = Files.readAllLines(Paths.get("C:/ppe (Cheik-Siramakan Keita)/bdd-info.txt")).get(4);
+			System.out.println("Obtenir le mot de passe: " + mdp);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-        return mdp;
+		try 
+		{
+            byte[] bb = new byte[mdp.length()];
+            
+            for (int i=0; i<mdp.length(); i++) {
+                bb[i] = (byte) mdp.charAt(i);
+            }
+            
+            String key = "Bar12345Bar12345";
+			Key aesKey = new SecretKeySpec(key.getBytes(), "AES");
+			Cipher cipher = Cipher.getInstance("AES");
+
+            cipher.init(Cipher.DECRYPT_MODE, aesKey);
+            decrypted = new String(cipher.doFinal(bb));
+		}catch(Exception e) 
+        {
+            e.printStackTrace();
+        }
+		
+        return decrypted;
     }
 	
 	public static boolean obtenir_le_status_de_l_option_d_envoi_d_email(){

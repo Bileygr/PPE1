@@ -34,7 +34,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="506.0" prefHeight="17.0" prefWidth="33.0" text="v2.3" textFill="WHITE" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="506.0" prefHeight="17.0" prefWidth="33.0" text="v2.3.1" textFill="WHITE" />
       <Button fx:id="fermetureButton" layoutX="819.0" layoutY="14.0" mnemonicParsing="false" onAction="#fermer_l_application" prefHeight="25.0" prefWidth="36.0" style="-fx-background-color: transparent;">
          <graphic>
             <ImageView fitHeight="54.0" fitWidth="34.0" layoutX="835.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">

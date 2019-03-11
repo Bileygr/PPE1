@@ -60,6 +60,28 @@ public class ConnexionController {
 			{	
 				String motDePasse = motDePasseInput.getText();
 				String hashDuMotDePasse = UserDAO.obtenir_le_hache_correspondant_a_l_email_de_connexion(emailInput.getText());
+				
+				if(hashDuMotDePasse == null) 
+				{
+					Alert a1 = new Alert(Alert.AlertType.ERROR);
+					a1.setTitle("Erreur");
+					a1.setContentText("La connexion à la base de données ne fonctionne pas, veuillez changer les informations de connexion à la base de données dans la page de configuration.");
+					a1.setHeaderText(null);
+					a1.showAndWait();
+				}
+				
+				/*
+					if(verificationEnvoiEmail == false) 
+					{
+						Alert a1 = new Alert(Alert.AlertType.ERROR);
+						a1.setTitle("Erreur: n°5");
+						a1.setContentText("L'envoi d'email ne fonctionne pas veuillez désactiver la fonctionnalité dans le menu de configuration si vous ne voulez plus voir ce message.\n"+
+										  "Pour accéder au menu veuillez cliquer sur l'icône dans le coin en bas à droite.");
+						a1.setHeaderText(null);
+						a1.showAndWait();
+					}
+				*/
+				
 				String nomDeLaPersonneConnecte = UserDAO.obtenir_le_nom_de_la_personne_connecte(emailInput.getText(), hashDuMotDePasse);
 				String roles = UserDAO.obtenir_le_role(emailInput.getText());
 				String role_admin = "[\"ROLE_ADMINISTRATEUR\"]";
